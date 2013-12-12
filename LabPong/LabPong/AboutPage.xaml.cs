@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace LabPong
 {
     /// <summary>
-    /// Interaction logic for About.xaml
+    /// Interaction logic for AboutPage.xaml
     /// </summary>
-    public partial class About : Page
+    public partial class AboutPage : Window
     {
-        public About()
+        public AboutPage()
         {
             InitializeComponent();
         }

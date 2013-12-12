@@ -1,0 +1,14 @@
+﻿<Window x:Class="LabPong.AboutPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AboutPage" WindowState="Maximized">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="158*"/>
+            <RowDefinition Height="347*"/>
+        </Grid.RowDefinitions>
+
+        <Image Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Source="resources/images/Leapong Logo.png" Height="137"/>
+        <TextBox Grid.Column="1" Grid.Row="1"  Name="aboutPageContent" TextAlignment="Center" />
+    </Grid>
+</Window>
