@@ -2,7 +2,7 @@
         ResizeMode="CanMinimize"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainPage" Height="350" Width="350">
+        Title="MainPage" Height="350" Width="350" WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.6*"/>
