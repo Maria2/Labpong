@@ -17,3 +17,15 @@ C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\obj
 C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\obj\Debug\MainPage.g.cs
 C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\obj\Debug\OptionsPage.g.cs
 C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\obj\Debug\PreviousGames.g.cs
+C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\obj\Debug\About.baml
+C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\obj\Debug\selectGameMode.baml
+C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\obj\Debug\About.g.cs
+C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\obj\Debug\selectGameMode.g.cs
+C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\bin\Debug\InputSimulator.dll
+C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\bin\Debug\WpfKb.dll
+C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\bin\Debug\InputSimulator.pdb
+C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\bin\Debug\InputSimulator.xml
+C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\bin\Debug\System.Windows.Interactivity.xml
+C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\bin\Debug\WpfKb.pdb
+C:\Users\Maria\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\bin\Debug\WpfKb.xml
