@@ -23,5 +23,14 @@ namespace LabPong
         {
             InitializeComponent();
         }
+
+        private void OnPongClicked(object sender, RoutedEventArgs e)
+        { }
+
+        private void OnRandomClicked(object sender, RoutedEventArgs e)
+        { }
+
+        private void OnLabyrinthClicked(object sender, RoutedEventArgs e)
+        { }
     }
 }
