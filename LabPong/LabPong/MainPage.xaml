@@ -8,16 +8,16 @@
             <ColumnDefinition Width="0.6*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
         <Image Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Source="resources/images/Leapong Logo.png"/>
         <StackPanel Grid.Column="1" Grid.Row="1">
-            <Button Height="30" Width="100" VerticalAlignment="Top" Margin="0,30,0,0" Content="Start game"/>
+            <Button Height="30" Width="100" VerticalAlignment="Top" Margin="0,30,0,0" Content="Start game" Template="{DynamicResource button_glow}"/>
             <Button Height="30" Width="100" VerticalAlignment="Top" Margin="0,20,0,0" Content="High score"/>
             <Button Height="30" Width="100" VerticalAlignment="Top" Margin="0,20,0,0" Content="Options"/>
             <Button Height="30" Width="100" VerticalAlignment="Top" Margin="0,20,0,0" Content="About"/>
             <Button Height="30" Width="100" VerticalAlignment="Top" Margin="0,20,0,0" Content="Exit" />
-        </StackPanel>        
+        </StackPanel>
+        <Canvas Grid.ColumnSpan="2">
+            <Ellipse Style="{DynamicResource pointer_template}"/>
+        </Canvas>
     </Grid>
 </Window>

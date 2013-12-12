@@ -3,6 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainPage.xaml">
     <Application.Resources>
-         
+        <Style x:Key="pointer_template" TargetType="{x:Type Ellipse}">
+            <Setter Property="Fill" Value="Red"/>
+            <Setter Property="Height" Value="10"/>
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Stroke" Value="Black"/>
+            <Setter Property="StrokeThickness" Value="2"/>
+            <Setter Property="Canvas.Top" Value="150"/>
+            <Setter Property="Canvas.Right" Value="150"/>
+        </Style>
+        <Style x:Key="button_glow" TargetType="Button">                      
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="True">
+                    <Setter Property="Opacity" Value="1.0"/>
+                    <Setter Property="Background" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>
