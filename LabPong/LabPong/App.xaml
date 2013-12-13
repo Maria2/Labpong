@@ -3,6 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainPage.xaml">
     <Application.Resources>
-         
+        <Style x:Key="window_template" TargetType="{x:Type Window}">
+            <Setter Property="WindowState" Value="Maximized"/>
+            <Setter Property="ResizeMode" Value="NoResize"/>
+            <Setter Property="WindowStyle" Value="None"/>
+        </Style>                       
+        <Style x:Key="pointer_template" TargetType="{x:Type Ellipse}">
+            <Setter Property="Fill" Value="Red"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Stroke" Value="Black"/>
+            <Setter Property="StrokeThickness" Value="8"/>
+            <Setter Property="Canvas.Top" Value="150"/>
+            <Setter Property="Canvas.Right" Value="150"/>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="button_temp">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="DarkRed"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="40"/>
+            <!--<Setter Property="BorderThickness" Value="10"/>-->
+            <!--<Setter Property="BorderBrush" Value="DarkRed"/>-->
+        </Style>      
     </Application.Resources>
 </Application>
