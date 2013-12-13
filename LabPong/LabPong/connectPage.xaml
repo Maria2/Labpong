@@ -35,7 +35,7 @@
                 <TextBox Grid.Column="3" Grid.Row="1"  Name="userIPText4" Text="000" TextAlignment="Center" />
             </Grid>
             
-            <Button  Grid.Column="2" Grid.Row="1"  Content="host" Click="OnHostClicked" x:Name="buttonHost"/>
+            <Button  Grid.Column="2" Grid.Row="1"  Content="Host Game" Click="OnHostClicked" FontSize="25" x:Name="buttonHost" Style="{DynamicResource button_temp}"/>
 
             <Grid Grid.Column="1" Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -53,7 +53,7 @@
                 <TextBox Grid.Column="3" Grid.Row="1"  Name="serverIPText4" Text="000" TextAlignment="Center" />
             </Grid>
                 
-            <Button   Grid.Column="2" Grid.Row="2" Content="join" RenderTransformOrigin="4.34,0.1" Click="OnJoinClicked" />
+            <Button   Grid.Column="2" Grid.Row="2" Content="Join Game" FontSize="25" RenderTransformOrigin="4.34,0.1" Click="OnJoinClicked" Style="{DynamicResource button_temp}" />
            
             <TextBox Grid.Column="1" Grid.Row="3" Name="notificationText" Text="" TextAlignment="Center" Visibility="Hidden" BorderThickness="0" />
         </Grid>

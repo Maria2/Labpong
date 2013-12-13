@@ -93,7 +93,7 @@ namespace LabPong
                 }
                 else OnNotification(NotificationTyp.wrongInput); 
             }
-            catch(FormatException e)
+            catch(FormatException)
             {
                 OnNotification(NotificationTyp.wrongInput);
             }
