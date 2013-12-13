@@ -35,8 +35,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
-    <Reference Include="InputSimulator">
-      <HintPath>..\..\..\..\..\..\WpfKb.0.1.0.0-bin\InputSimulator.dll</HintPath>
+    <Reference Include="LeapCSharp.NET4.0">
+      <HintPath>..\..\..\..\..\..\LeapDeveloperKit\LeapSDK\lib\LeapCSharp.NET4.0.dll</HintPath>
     </Reference>
     <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="ReachFramework" />
@@ -44,9 +44,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Printing" />
-    <Reference Include="System.Windows.Interactivity">
-      <HintPath>..\..\..\..\..\..\WpfKb.0.1.0.0-bin\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -60,22 +57,20 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WpfKb">
-      <HintPath>..\..\..\..\..\..\WpfKb.0.1.0.0-bin\WpfKb.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="About.xaml.cs">
-      <DependentUpon>About.xaml</DependentUpon>
+    <Compile Include="AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controller.cs" />
     <Compile Include="selectGameMode.xaml.cs">
       <DependentUpon>selectGameMode.xaml</DependentUpon>
     </Compile>
-    <Page Include="About.xaml">
+    <Page Include="AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
