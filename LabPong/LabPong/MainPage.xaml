@@ -3,7 +3,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainPage" Style="{DynamicResource window_template}" MouseMove="Canvas_MouseDown">
-    <Grid>  
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.6*"/>
             <ColumnDefinition Width="*"/>
@@ -14,10 +14,11 @@
             <Button Height="90" Width="350" VerticalAlignment="Top" Margin="0,20,0,0" Content="High score" Style="{DynamicResource button_temp}"/>
             <Button Height="90" Width="350" VerticalAlignment="Top" Margin="0,20,0,0" Content="Options" Style="{DynamicResource button_temp}"/>
             <Button Height="90" Width="350" VerticalAlignment="Top" Margin="0,20,0,0" Content="About" Style="{DynamicResource button_temp}"/>
-            <Button Height="90" Width="350" VerticalAlignment="Top" Margin="0,20,0,0" Content="Exit" Style="{DynamicResource button_temp}"/>
+            <Button Height="90" Width="350" VerticalAlignment="Top" Margin="0,20,0,0" Content="Exit" Style="{DynamicResource button_temp}" Click="Exit_Click"/>
         </StackPanel>
         <Canvas>
-            <Ellipse Style="{DynamicResource pointer_template}" Name="pointer"/>
+            <Ellipse Style="{DynamicResource pointer_template}"/>
+            <Label Content="Label" Name="label" Canvas.Left="131" Canvas.Top="467"/>
         </Canvas>
     </Grid>
 </Window>
