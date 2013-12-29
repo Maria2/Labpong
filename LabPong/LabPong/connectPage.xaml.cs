@@ -17,11 +17,11 @@ namespace LabPong
     /// <summary>
     /// Interaction logic for connectPage.xaml
     /// </summary>
-    public partial class connectPage : Window
+    public partial class ConnectPage : Window
     {
         string[] serverIP = new string[4];
         string[] userIP = new string[4];
-        public connectPage()
+        public ConnectPage()
         {
             InitializeComponent();
         }
