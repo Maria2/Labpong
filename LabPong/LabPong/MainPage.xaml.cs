@@ -28,7 +28,7 @@ namespace LabPong
 
         public MainPage()
         {
-            InitializeComponent();            
+            InitializeComponent();                    
             App.CustomListener.PropertyChanged += _customListener_PropertyChanged;
             PointerAnimation.Sb.Completed += Animation_Completed;
         }

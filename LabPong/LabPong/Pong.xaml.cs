@@ -19,34 +19,60 @@ namespace LabPong
     /// </summary>
     public partial class Pong : Window
     {
-        DispatcherTimer gameTimer;
-        double xSpeed = 3;
-        double ySpeed = 0;
-
+        delegate void ChangePos(Rectangle player, double pos);
+        delegate void ChangeScore(Label label, int score);
+        delegate void ChangePosition(Point pos);
 
         public Pong()
         {
             InitializeComponent();
-            gameTimer = new DispatcherTimer();
-            gameTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
-            gameTimer.Tick +=  new EventHandler(gameTimer_Elapsed);
-            gameTimer.Start();
+            new PongLogic();
+            PongLogic.listener.PropertyChanged += pl_PropertyChanged;
         }
 
-        void gameTimer_Elapsed(object sender, EventArgs e)
+        void pl_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            Canvas.SetLeft(Ball, Canvas.GetLeft(Ball) + xSpeed);
-            Canvas.SetTop(Ball, Canvas.GetTop(Ball) + ySpeed);
+            if (e.PropertyName.Equals("playerX"))
+                Player.Dispatcher.BeginInvoke(new ChangePos(ChangePlayerPos), new object[] { Player, ((PongLogic)sender).PlayerX });
+            if (e.PropertyName.Equals("playerY"))
+                Enemy.Dispatcher.BeginInvoke(new ChangePos(ChangePlayerPos), new object[] { Enemy, ((PongLogic)sender).PlayerY });
+            if (e.PropertyName.Equals("playerXScore"))
+                ScoreX.Dispatcher.BeginInvoke(new ChangeScore(UpdateScore), new object[] { ScoreX, ((PongLogic)sender).PlayerXScore });
+            if (e.PropertyName.Equals("playerYScore"))
+                ScoreY.Dispatcher.BeginInvoke(new ChangeScore(UpdateScore), new object[] { ScoreY, ((PongLogic)sender).PlayerYScore });
+            if (e.PropertyName.Equals("ballPos"))
+                this.Dispatcher. BeginInvoke(new ChangePosition(UpdateBallPos), new object[] { ((PongLogic)sender).BallPos });
         }
 
+        void UpdateScore(Label label, int currentScore)
+        {
+            label.Content = currentScore;
+        }
+
+        void UpdateBallPos(Point position)
+        {
+            Canvas.SetLeft(Ball, position.X);
+            Canvas.SetTop(Ball, position.Y);
+        }
+
+        void ChangePlayerPos(Rectangle player, double position)
+        {            
+            Canvas.SetTop(player, position);
+        }
 
         protected override Size ArrangeOverride(Size arrangeBounds)
-        {
-            Canvas.SetLeft(Ball, (ActualWidth / 2) - (Ball.ActualWidth/2));
-            Canvas.SetTop(Ball, (ActualHeight / 2) - (Ball.ActualHeight/2));
+        {            
             Canvas.SetTop(Player, (ActualHeight / 2) - (Player.ActualHeight/2));
-            Canvas.SetTop(Enemy, (ActualHeight / 2) - (Player.ActualHeight / 2));
+            Canvas.SetTop(Enemy, (ActualHeight / 2) - (Enemy.ActualHeight / 2));
             Canvas.SetRight(Enemy, 0);
+            Canvas.SetLeft(ScoreX, (ActualWidth / 2) - (ScoreX.ActualWidth / 2) - 60);
+            Canvas.SetLeft(ScoreY, (ActualWidth / 2) - (ScoreY.ActualWidth / 2) + 60);
+            if (ActualHeight > 0 && ActualWidth > 0)
+            {
+                PongLogic.WINDOW_HEIGHT = ActualHeight;
+                PongLogic.WINDOW_WIDTH = ActualWidth;
+                PongLogic.GameStarted = true;
+            }
             return base.ArrangeOverride(arrangeBounds);
         }
     }

@@ -3,6 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Pong" Height="768" Width="1024" Style="{DynamicResource window_template}" Background="Black" Cursor="No">
     <Canvas>
+        <Label Name="ScoreX" FontSize="50" Content="0" Canvas.Bottom="0" Canvas.Right="542"/>
+        <Label Name="ScoreY" FontSize="50" Content="0" Canvas.Bottom="0" Canvas.Right="482"/>
+        <Label Name="BorderUp" Content="BorderUp"/>
+        <Label Name="BorderDown" Content="BorderDown"/>
         <Rectangle
             Name="Player"
             Width="15"
