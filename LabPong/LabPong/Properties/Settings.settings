@@ -8,5 +8,8 @@
     <Setting Name="customTrack" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="serverIP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.0.10</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

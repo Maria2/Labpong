@@ -27,21 +27,21 @@ namespace LabPong
         {
             InitializeComponent();
             new PongLogic();
-            PongLogic.listener.PropertyChanged += pl_PropertyChanged;
+            PongModel.pongModel.PropertyChanged += pl_PropertyChanged;            
         }
 
         void pl_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals("playerX"))
-                Player.Dispatcher.BeginInvoke(new ChangePos(ChangePlayerPos), new object[] { Player, ((PongLogic)sender).PlayerX });
+                Player.Dispatcher.BeginInvoke(new ChangePos(ChangePlayerPos), new object[] { Player, ((PongModel)sender).PlayerX });
             if (e.PropertyName.Equals("playerY"))
-                Enemy.Dispatcher.BeginInvoke(new ChangePos(ChangePlayerPos), new object[] { Enemy, ((PongLogic)sender).PlayerY });
+                Enemy.Dispatcher.BeginInvoke(new ChangePos(ChangePlayerPos), new object[] { Enemy, ((PongModel)sender).PlayerY });
             if (e.PropertyName.Equals("playerXScore"))
-                ScoreX.Dispatcher.BeginInvoke(new ChangeScore(UpdateScore), new object[] { ScoreX, ((PongLogic)sender).PlayerXScore });
+                ScoreX.Dispatcher.BeginInvoke(new ChangeScore(UpdateScore), new object[] { ScoreX, ((PongModel)sender).PlayerXScore });
             if (e.PropertyName.Equals("playerYScore"))
-                ScoreY.Dispatcher.BeginInvoke(new ChangeScore(UpdateScore), new object[] { ScoreY, ((PongLogic)sender).PlayerYScore });
+                ScoreY.Dispatcher.BeginInvoke(new ChangeScore(UpdateScore), new object[] { ScoreY, ((PongModel)sender).PlayerYScore });
             if (e.PropertyName.Equals("ballPos"))
-                this.Dispatcher. BeginInvoke(new ChangePosition(UpdateBallPos), new object[] { ((PongLogic)sender).BallPos });
+                Ball.Dispatcher.BeginInvoke(new ChangePosition(UpdateBallPos), DispatcherPriority.DataBind, new object[] { ((PongModel)sender).BallPos });
         }
 
         void UpdateScore(Label label, int currentScore)
@@ -69,9 +69,9 @@ namespace LabPong
             Canvas.SetLeft(ScoreY, (ActualWidth / 2) - (ScoreY.ActualWidth / 2) + 60);
             if (ActualHeight > 0 && ActualWidth > 0)
             {
-                PongLogic.WINDOW_HEIGHT = ActualHeight;
-                PongLogic.WINDOW_WIDTH = ActualWidth;
                 PongLogic.GameStarted = true;
+                PongModel.WINDOW_HEIGHT = ActualHeight;
+                PongModel.WINDOW_WIDTH = ActualWidth;                
             }
             return base.ArrangeOverride(arrangeBounds);
         }

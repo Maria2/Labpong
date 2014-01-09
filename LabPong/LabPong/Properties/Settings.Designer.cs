@@ -46,5 +46,17 @@ namespace LabPong.Properties {
                 this["customTrack"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.0.10")]
+        public string serverIP {
+            get {
+                return ((string)(this["serverIP"]));
+            }
+            set {
+                this["serverIP"] = value;
+            }
+        }
     }
 }

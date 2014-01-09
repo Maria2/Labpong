@@ -1,18 +1,16 @@
 ﻿<Window x:Class="LabPong.Pong"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Pong" Height="768" Width="1024" Style="{DynamicResource window_template}" Background="Black" Cursor="No">
+        Title="Pong" Height="768" Width="1024" Style="{DynamicResource window_template}" Background="Black" Cursor="None">
     <Canvas>
         <Label Name="ScoreX" FontSize="50" Content="0" Canvas.Bottom="0" Canvas.Right="542"/>
         <Label Name="ScoreY" FontSize="50" Content="0" Canvas.Bottom="0" Canvas.Right="482"/>
-        <Label Name="BorderUp" Content="BorderUp"/>
-        <Label Name="BorderDown" Content="BorderDown"/>
         <Rectangle
             Name="Player"
             Width="15"
             Height="220"
             Stroke="White"
-            StrokeThickness="15" />
+            StrokeThickness="15"/>
         <Rectangle
             Name="Enemy"
             Width="15"
@@ -20,7 +18,7 @@
             Stroke="White"
             StrokeThickness="15"
             Canvas.Right="0"/>
-        <Ellipse Height="50" Fill="White" Width="50" Name="Ball" />
+        <Ellipse Height="50" Fill="White" Width="50" Name="Ball"/>
 
     </Canvas>
 </Window>

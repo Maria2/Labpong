@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Leapong Logo.ico</ApplicationIcon>
+    <ApplicationIcon>resources\images\Leapong Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -102,9 +102,11 @@
       <DependentUpon>Pong.xaml</DependentUpon>
     </Compile>
     <Compile Include="PongLogic.cs" />
+    <Compile Include="PongModel.cs" />
     <Compile Include="SelectGameMode.xaml.cs">
       <DependentUpon>SelectGameMode.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Server.cs" />
     <Page Include="AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -198,7 +200,7 @@
     <Content Include="LeapCSharp.NET4.0.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Leapong Logo.ico" />
+    <Resource Include="resources\images\Leapong Logo.ico" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

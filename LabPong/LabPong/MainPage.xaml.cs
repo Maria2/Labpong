@@ -44,7 +44,6 @@ namespace LabPong
                     label.Dispatcher.Invoke(new ChangeLabel(UpdateLabel), ((CustomListener)sender).Position.ToString());                    
                     pointer.Dispatcher.Invoke(new Update(UpdateUI), ((CustomListener)sender).Position);
                     break;
-                default: label.Dispatcher.Invoke(new ChangeLabel(UpdateLabel), ((CustomListener)sender).Position.ToString()+","+((CustomListener)sender).Amount); break;
             }            
         }
 

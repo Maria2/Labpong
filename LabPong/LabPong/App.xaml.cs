@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,15 +44,7 @@ namespace LabPong
         /// The position of the Finger or hand being tracked
         /// </summary>
         Point position = new Point(-1, -1);
-        int _id = -1;
-        int _amount;
-
-
-        public int Amount
-        {
-            get { return _amount; }
-            set { _amount = value; PropertyChanged(this, new PropertyChangedEventArgs("Amount")); }
-        }
+        int _id = -1;        
 
         public Point Position
         {
@@ -74,13 +67,16 @@ namespace LabPong
         public override void OnFrame(Controller arg0)
         {
             Leap.Frame frame = arg0.Frame();
-            if (frame.Hands.IsEmpty && frame.Fingers.IsEmpty) { 
-                if(PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("NothingTracked")); 
+
+            if ((arg0.Frame().Timestamp - _old) > 1000)
+                _old = arg0.Frame().Timestamp;
+
+            if (frame.Hands.IsEmpty && frame.Fingers.IsEmpty)
+            {
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("NothingTracked"));
                 return;
             }
-            if ((arg0.Frame().Timestamp - _old) > 500)
-                _old = arg0.Frame().Timestamp;
             if (_id == -1 || (!frame.Hand(_id).IsValid && !frame.Finger(_id).IsValid))
             {
                 if (!frame.Hands.IsEmpty)
@@ -99,8 +95,6 @@ namespace LabPong
                     Position = new Point(frame.Hand(_id).PalmPosition.x, frame.Hand(_id).PalmPosition.z);
                 else
                     Position = new Point(frame.Finger(_id).TipPosition.x, frame.Finger(_id).TipPosition.z);
-
-
         }
 
         public void EndListening()
@@ -114,36 +108,36 @@ namespace LabPong
 }
     #endregion
     #region EllipseAnimation
-public static class PointerAnimation
-{
-    private static Storyboard sb = new Storyboard();
-    private static Button _animationTarget;
-
-    public static Storyboard Sb
+    public static class PointerAnimation
     {
-        get { return sb; }
-    }
+        private static Storyboard sb = new Storyboard();
+        private static Button _animationTarget;
 
-    public static Button AnimationTarget
-    {
-        get { return PointerAnimation._animationTarget; }
-        set { PointerAnimation._animationTarget = value; }
-    }
+        public static Storyboard Sb
+        {
+            get { return sb; }
+        }
+
+        public static Button AnimationTarget
+        {
+            get { return PointerAnimation._animationTarget; }
+            set { PointerAnimation._animationTarget = value; }
+        }
     
-    public static void AnimateSelection(this UIElement targetControl)
-    {
-        sb.Children.Clear();
-        DoubleAnimation fadeInAnimation = new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(3)));
-        Storyboard.SetTarget(fadeInAnimation, targetControl);
-        Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath(UIElement.OpacityProperty));
-        sb.Children.Add(fadeInAnimation);
-        targetControl.MouseLeave += targetControl_MouseLeave;
-        sb.Begin();
-    }
+        public static void AnimateSelection(this UIElement targetControl)
+        {
+            sb.Children.Clear();
+            DoubleAnimation fadeInAnimation = new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(3)));
+            Storyboard.SetTarget(fadeInAnimation, targetControl);
+            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath(UIElement.OpacityProperty));
+            sb.Children.Add(fadeInAnimation);
+            targetControl.MouseLeave += targetControl_MouseLeave;
+            sb.Begin();
+        }
 
-    static void targetControl_MouseLeave(object sender, MouseEventArgs e)
-    {        
-        sb.Stop();
+        static void targetControl_MouseLeave(object sender, MouseEventArgs e)
+        {        
+            sb.Stop();
+        }
     }
-}
-#endregion
+    #endregion
