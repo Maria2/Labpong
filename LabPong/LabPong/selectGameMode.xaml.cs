@@ -24,13 +24,33 @@ namespace LabPong
             InitializeComponent();
         }
 
-        private void OnPongClicked(object sender, RoutedEventArgs e)
-        { }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            switch (((Button)sender).Name)
+            {
+                case "playPong": new Pong().Show(); this.Close(); break;
+                case "playLabyrinth": new Pong().Show(); this.Close(); break;
+                case "playRandom": RandomGame(); break;
+            }
 
-        private void OnRandomClicked(object sender, RoutedEventArgs e)
-        { }
+        }
+        //senseless code used if 2nd game would exist just calls pong all the time
+        public void RandomGame()
+        {
+            Random random = new Random();
+            int randomNumber = random.Next(0, 100);
 
-        private void OnLabyrinthClicked(object sender, RoutedEventArgs e)
-        { }
+            if (randomNumber % 2 == 0)
+            {
+                new Pong().Show();
+                this.Close();
+            }
+            else
+            {
+                new Pong().Show();
+                this.Close();
+            }
+            
+        }
     }
 }

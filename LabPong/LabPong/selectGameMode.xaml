@@ -44,15 +44,15 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10*"/>
                 </Grid.RowDefinitions>
-                <Button Grid.Column="0" Click="OnPongClicked" Style="{DynamicResource button_temp}" >
+                <Button Name="playPong" Grid.Column="0" Click="Button_Click" Style="{DynamicResource button_temp}" >
                     <Image Source="resources/images/Leapong Logo.png" VerticalAlignment="Center"></Image>
                 </Button>
-                <Button Grid.Column="1" Click="OnLabyrinthClicked" Style="{DynamicResource button_temp}" >
+                <Button  Name="playLabyrinth" Grid.Column="1" Click="Button_Click" Style="{DynamicResource button_temp}" >
                     <Image Source="resources/images/Leapong Logo.png" VerticalAlignment="Center"></Image>
                 </Button>
             </Grid>
 
-            <Button Grid.Column="1" Grid.Row="3"  Content="RANDOM" Click="OnRandomClicked" Style="{DynamicResource button_temp}"/>
+            <Button Name="playRandom" Grid.Column="1" Grid.Row="3"  Content="RANDOM" Click="Button_Click" Style="{DynamicResource button_temp}"/>
             <Ellipse Style="{DynamicResource pointer_template}" x:Name="pointer"/>
         </Grid>
     </StackPanel>
