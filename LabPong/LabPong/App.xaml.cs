@@ -31,6 +31,8 @@ namespace LabPong
             base.OnStartup(e);
             CustomListener = new CustomListener();
         }
+        delegate void ChangeLabel(String message);
+        delegate void Update(Point point);
     }    
     #region CustomListener
     /// <summary>
@@ -68,7 +70,7 @@ namespace LabPong
         {
             Leap.Frame frame = arg0.Frame();
 
-            if ((arg0.Frame().Timestamp - _old) > 1000)
+            if ((arg0.Frame().Timestamp - _old) > 1000) 
                 _old = arg0.Frame().Timestamp;
 
             if (frame.Hands.IsEmpty && frame.Fingers.IsEmpty)
