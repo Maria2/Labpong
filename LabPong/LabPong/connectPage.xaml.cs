@@ -29,6 +29,8 @@ namespace LabPong
 
         string[] serverIP = new string[4];
         string[] userIP = new string[4];
+        string numbers="";
+        Boolean serverChoosen = true;
         public ConnectPage()
         {
             InitializeComponent();
@@ -174,5 +176,47 @@ namespace LabPong
                 hostClicked.AnimateSelection();
             }
         }
+        private void Text_MouseEnter(object sender, MouseEventArgs e)
+        {
+            switch(((TextBox)sender).Name)
+            {
+                case "userIPText1": userIPText1.Focus(); userIPText1.Text=numbers; break;
+                case "userIPText2": userIPText2.Focus(); new Keyboard().Show(); break;
+                case "userIPText3": userIPText3.Focus(); new Keyboard().Show(); break;
+                case "userIPText4": userIPText4.Focus(); new Keyboard().Show(); break;
+                case "serverIPText1": serverIPText1.Focus(); new Keyboard().Show(); break;
+                case "serverIPText2": serverIPText2.Focus(); new Keyboard().Show(); break;
+                case "serverIPText3": serverIPText3.Focus(); new Keyboard().Show(); break;
+                case "serverIPText4": serverIPText4.Focus(); new Keyboard().Show(); break;
+            }
+        }
+        public void Number_Click(object sender, RoutedEventArgs e)
+        {
+                switch (((Button)sender).Name)
+                {
+                    case "one": numbers += ((Button)sender).Name; //Missing: get the focused textfield and write number in it
+                        break;
+                    case "two": numbers += ((Button)sender).Name;
+                        break;
+                    case "three": numbers += ((Button)sender).Name;
+                        break;
+                    case "four": numbers += ((Button)sender).Name;
+                        break;
+                    case "five": numbers += ((Button)sender).Name;
+                        break;
+                    case "six": numbers += ((Button)sender).Name;
+                        break;
+                    case "seven": numbers += ((Button)sender).Name;
+                        break;
+                    case "eight": numbers += ((Button)sender).Name;
+                        break;
+                    case "nine": numbers += ((Button)sender).Name;
+                        break;
+                    case "null": numbers += ((Button)sender).Name;
+                        break;
+                    case "ok": numbers += ((Button)sender).Name;
+                        break;
+                }
+            }
     }
 }

@@ -16,6 +16,7 @@
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="47*"/>
+                <RowDefinition Height="50*"/>
             </Grid.RowDefinitions>
             <Image Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Source="resources/images/Leapong Logo.png" Height="137"/>
             
@@ -30,10 +31,10 @@
                     <RowDefinition Height="10*"/>
                 </Grid.RowDefinitions>
 
-                <TextBox  MouseEnter="Button_MouseEnter" Margin="0,0,0,20" Grid.Column="0" Grid.Row="1"  Name="userIPText1" Text="000" TextAlignment="Center" />
-                <TextBox  MouseEnter="Button_MouseEnter" Margin="0,0,0,20" Grid.Column="1" Grid.Row="1"  Name="userIPText2" Text="000" TextAlignment="Center" />
-                <TextBox  MouseEnter="Button_MouseEnter" Margin="0,0,0,20"  Grid.Column="2" Grid.Row="1"  Name="userIPText3" Text="000" TextAlignment="Center" />
-                <TextBox  MouseEnter="Button_MouseEnter" Margin="0,0,0,20" Grid.Column="3" Grid.Row="1"  Name="userIPText4" Text="000" TextAlignment="Center" />
+                <TextBox  MouseEnter="Text_MouseEnter" Margin="0,0,0,20" Grid.Column="0" Grid.Row="1"  Name="userIPText1" Text="000" TextAlignment="Center" />
+                <TextBox  MouseEnter="Text_MouseEnter" Margin="0,0,0,20" Grid.Column="1" Grid.Row="1"  Name="userIPText2" Text="000" TextAlignment="Center" />
+                <TextBox  MouseEnter="Text_MouseEnter" Margin="0,0,0,20"  Grid.Column="2" Grid.Row="1"  Name="userIPText3" Text="000" TextAlignment="Center" />
+                <TextBox  MouseEnter="Text_MouseEnter" Margin="0,0,0,20" Grid.Column="3" Grid.Row="1"  Name="userIPText4" Text="000" TextAlignment="Center" />
             </Grid>
 
             <Button  MouseEnter="Button_MouseEnter" Grid.Column="2" Grid.Row="1" Margin="0,0,0,20" Content="Host Game" Click="Button_Click" FontSize="25" x:Name="hostClicked" Style="{DynamicResource button_temp}"/>
@@ -48,10 +49,10 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10*"/>
                 </Grid.RowDefinitions>
-                <TextBox Grid.Column="0" Grid.Row="1"  Name="serverIPText1" Text="000" TextAlignment="Center" />
-                <TextBox Grid.Column="1" Grid.Row="1"  Name="serverIPText2" Text="000" TextAlignment="Center" />
-                <TextBox Grid.Column="2" Grid.Row="1"  Name="serverIPText3" Text="000" TextAlignment="Center" />
-                <TextBox Grid.Column="3" Grid.Row="1"  Name="serverIPText4" Text="000" TextAlignment="Center" />
+                <TextBox MouseEnter="Text_MouseEnter" Grid.Column="0" Grid.Row="1"  Name="serverIPText1" Text="000" TextAlignment="Center" />
+                <TextBox MouseEnter="Text_MouseEnter" Grid.Column="1" Grid.Row="1"  Name="serverIPText2" Text="000" TextAlignment="Center" />
+                <TextBox MouseEnter="Text_MouseEnter" Grid.Column="2" Grid.Row="1"  Name="serverIPText3" Text="000" TextAlignment="Center" />
+                <TextBox MouseEnter="Text_MouseEnter" Grid.Column="3" Grid.Row="1"  Name="serverIPText4" Text="000" TextAlignment="Center" />
             </Grid>
 
             <Button  MouseEnter="Button_MouseEnter" x:Name="joinClicked" Grid.Column="2" Grid.Row="2" Content="Join Game" FontSize="25" RenderTransformOrigin="4.34,0.1" Click="Button_Click" Style="{DynamicResource button_temp}" />
@@ -61,6 +62,29 @@
             <Canvas Name="canvas">
                 <Ellipse Style="{DynamicResource pointer_template}" Name="pointer" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Canvas>
+            <Grid Grid.Column="1" Grid.Row="4" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="10*"/>
+                </Grid.RowDefinitions>
+
+                <Button Height="40" Width="40"  Grid.Row="0" Name="one"  Margin="-100,20,0,100" Content="1" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
+                <Button Height="40" Width="40"  Grid.Row="0" Name="two"  Margin="0,20,0,100" Content="2" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
+                <Button Height="40" Width="40"  Grid.Row="0" Name="three"  Margin="100,20,0,100" Content="3" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
+
+                <Button Height="40" Width="40"  Grid.Row="0" Name="four"  Margin="-100,20,0,0" Content="4" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
+                <Button Height="40" Width="40"  Grid.Row="0" Name="five"  Margin="0,20,0,0" Content="5" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
+                <Button Height="40" Width="40"  Grid.Row="0" Name="six"  Margin="100,20,0,0" Content="6" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
+
+                <Button Height="40" Width="40" Grid.Row="0" Name="seven"  Margin="-100,20,0,-100" Content="7" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
+                <Button Height="40" Width="40" Grid.Row="0" Name="eight"  Margin="0,20,0,-100" Content="8" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
+                <Button Height="40" Width="40" Grid.Row="0" Name="nine"  Margin="100,20,0,-100" Content="9" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
+                <Button Height="40" Width="40" Grid.Row="0" Name="null"  Margin="0,20,0,-200" Content="0" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
+
+                <Button Height="40" Grid.Column="2" Grid.Row="2" Width="50" Name="ok"  Margin="0,20,0,-150" Content="ok" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
+
+
+            </Grid>
         </Grid>
     </StackPanel>
    </Window>
