@@ -29,13 +29,14 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10*"/>
                 </Grid.RowDefinitions>
-                <TextBox Grid.Column="0" Grid.Row="1"  Name="userIPText1" Text="000" TextAlignment="Center" />
-                <TextBox Grid.Column="1" Grid.Row="1"  Name="userIPText2" Text="000" TextAlignment="Center" />
-                <TextBox Grid.Column="2" Grid.Row="1"  Name="userIPText3" Text="000" TextAlignment="Center" />
-                <TextBox Grid.Column="3" Grid.Row="1"  Name="userIPText4" Text="000" TextAlignment="Center" />
+
+                <TextBox  MouseEnter="Button_MouseEnter" Margin="0,0,0,20" Grid.Column="0" Grid.Row="1"  Name="userIPText1" Text="000" TextAlignment="Center" />
+                <TextBox  MouseEnter="Button_MouseEnter" Margin="0,0,0,20" Grid.Column="1" Grid.Row="1"  Name="userIPText2" Text="000" TextAlignment="Center" />
+                <TextBox  MouseEnter="Button_MouseEnter" Margin="0,0,0,20"  Grid.Column="2" Grid.Row="1"  Name="userIPText3" Text="000" TextAlignment="Center" />
+                <TextBox  MouseEnter="Button_MouseEnter" Margin="0,0,0,20" Grid.Column="3" Grid.Row="1"  Name="userIPText4" Text="000" TextAlignment="Center" />
             </Grid>
 
-            <Button Grid.Column="2" Grid.Row="1"  Content="Host Game" Click="Button_Click" FontSize="25" x:Name="hostClicked" Style="{DynamicResource button_temp}"/>
+            <Button  MouseEnter="Button_MouseEnter" Grid.Column="2" Grid.Row="1" Margin="0,0,0,20" Content="Host Game" Click="Button_Click" FontSize="25" x:Name="hostClicked" Style="{DynamicResource button_temp}"/>
 
             <Grid Grid.Column="1" Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -51,13 +52,12 @@
                 <TextBox Grid.Column="1" Grid.Row="1"  Name="serverIPText2" Text="000" TextAlignment="Center" />
                 <TextBox Grid.Column="2" Grid.Row="1"  Name="serverIPText3" Text="000" TextAlignment="Center" />
                 <TextBox Grid.Column="3" Grid.Row="1"  Name="serverIPText4" Text="000" TextAlignment="Center" />
-                <TextBox HorizontalAlignment="Left" Height="5" Margin="21,0,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="8"/>
             </Grid>
 
-            <Button  x:Name="joinClicked" Grid.Column="2" Grid.Row="2" Content="Join Game" FontSize="25" RenderTransformOrigin="4.34,0.1" Click="Button_Click" Style="{DynamicResource button_temp}" />
+            <Button  MouseEnter="Button_MouseEnter" x:Name="joinClicked" Grid.Column="2" Grid.Row="2" Content="Join Game" FontSize="25" RenderTransformOrigin="4.34,0.1" Click="Button_Click" Style="{DynamicResource button_temp}" />
            
-            <TextBox Grid.Column="1" Grid.Row="3" Name="notificationText" Text="" TextAlignment="Center" Visibility="Hidden" BorderThickness="0" />
-            <Label Grid.Column="1" Grid.Row="3" Foreground="Red" Content="Controller not connected or not detected" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Name="label"/>
+            <TextBox Grid.Column="1" Grid.Row="3" Name="notificationText" Text="" TextAlignment="Center" Visibility="Visible" BorderThickness="0" />
+            <Label Grid.Column="2" Grid.Row="3" Foreground="Red" Content="Controller not connected or not detected" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Name="label"/>
             <Canvas Name="canvas">
                 <Ellipse Style="{DynamicResource pointer_template}" Name="pointer" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Canvas>
