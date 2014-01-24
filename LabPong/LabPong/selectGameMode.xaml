@@ -14,6 +14,7 @@
                 <RowDefinition Height="115*"/>
                 <RowDefinition Height="182*"/>
                 <RowDefinition Height="67*"/>
+                <RowDefinition Height="30*"/>
             </Grid.RowDefinitions>
             <Image Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Source="resources/images/Leapong Logo.png" Height="137"/>
             <Canvas/>
@@ -44,16 +45,19 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10*"/>
                 </Grid.RowDefinitions>
-                <Button Grid.Column="0" Click="OnPongClicked" Style="{DynamicResource button_temp}" >
+                <Button Name="playPong" Grid.Column="0" Click="Button_Click" Style="{DynamicResource button_temp}" >
                     <Image Source="resources/images/Leapong Logo.png" VerticalAlignment="Center"></Image>
                 </Button>
-                <Button Grid.Column="1" Click="OnLabyrinthClicked" Style="{DynamicResource button_temp}" >
+                <Button  Name="playLabyrinth" Grid.Column="1" Click="Button_Click" Style="{DynamicResource button_temp}" >
                     <Image Source="resources/images/Leapong Logo.png" VerticalAlignment="Center"></Image>
                 </Button>
             </Grid>
 
-            <Button Grid.Column="1" Grid.Row="3"  Content="RANDOM" Click="OnRandomClicked" Style="{DynamicResource button_temp}"/>
-            <Ellipse Style="{DynamicResource pointer_template}" x:Name="pointer"/>
+            <Button Name="playRandom" Grid.Column="1" Grid.Row="3"  Content="RANDOM" Click="Button_Click" Style="{DynamicResource button_temp}"/>
+            <Label Grid.Column="1" Grid.Row="4" Foreground="Red" Content="Controller not connected or not detected" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Name="label"/>
+            <Canvas Name="canvas">
+                <Ellipse Style="{DynamicResource pointer_template}" Name="pointer" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Canvas>
         </Grid>
     </StackPanel>
 </Window>
