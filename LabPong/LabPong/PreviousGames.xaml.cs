@@ -19,9 +19,14 @@ namespace LabPong
     /// </summary>
     public partial class PreviousGames : Window
     {
+        List<String> file;
         public PreviousGames()
         {
             InitializeComponent();
+            file = System.IO.File.ReadLines("resources/highscore.txt").ToList();
+            highscore.ItemsSource = file;
+            title.Content = file.Count() > 1? "Last " + file.Count() + " Games":"Last Game";
+            
         }
     }
 }
