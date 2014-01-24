@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="LabPong.ConnectPage"
         Title="connectPage" Style="{DynamicResource window_template}" MouseMove="Canvas_MouseMove">
     <StackPanel>
-        <Grid>
+        <Grid Height="560">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="210*"/>
                 <ColumnDefinition Width="295*"/>
@@ -12,14 +12,14 @@
                 <ColumnDefinition Width="114*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="47*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="47*"/>
-                <RowDefinition Height="50*"/>
+                <RowDefinition Height="112*"/>
+                <RowDefinition Height="62*"/>
+                <RowDefinition Height="42*"/>
+                <RowDefinition Height="28*"/>
+                <RowDefinition Height="257*"/>
             </Grid.RowDefinitions>
-            <Image Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Source="resources/images/Leapong Logo.png" Height="137"/>
-            
+            <Image Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Source="resources/images/Leapong Logo.png" Height="137" Grid.RowSpan="2"/>
+
             <Grid Grid.Column="1" Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10*"/>
@@ -55,36 +55,38 @@
                 <TextBox MouseEnter="Text_MouseEnter" Grid.Column="3" Grid.Row="1"  Name="serverIPText4" Text="" TextAlignment="Center" />
             </Grid>
 
-            <Button  MouseEnter="Button_MouseEnter" x:Name="joinClicked" Grid.Column="2" Grid.Row="2" Content="Join Game" FontSize="25" RenderTransformOrigin="4.34,0.1" Click="Button_Click" Style="{DynamicResource button_temp}" />
-           
-            <TextBox Grid.Column="1" Grid.Row="3" Name="notificationText" Text="" TextAlignment="Center" Visibility="Visible" BorderThickness="0" />
-            <Label Grid.Column="2" Grid.Row="3" Foreground="Red" Content="Controller not connected or not detected" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Name="label"/>
-            <Canvas Name="canvas">
-                <Ellipse Style="{DynamicResource pointer_template}" Name="pointer" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Canvas>
+            <Button  MouseEnter="Button_MouseEnter" x:Name="joinClicked" Grid.Column="2" Grid.Row="2" Content="Join Game" FontSize="25" RenderTransformOrigin="4.34,0.1" Click="Button_Click" Style="{DynamicResource button_temp}" Height="42" VerticalAlignment="Top" />
+
+            <TextBox Grid.Column="1" Grid.Row="3" Name="notificationText" Text="" TextAlignment="Center" Visibility="Hidden" BorderThickness="0" />
+            
             <Grid Grid.Column="1" Grid.Row="4" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30*"/>
                     <RowDefinition Height="10*"/>
                 </Grid.RowDefinitions>
+                <Button Height="40" Width="40"  Grid.Row="0" Name="one"  Margin="-100,20,0,100" Content="1" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
+                <Button Height="40" Width="40"  Grid.Row="0" Name="two"  Margin="0,20,0,100" Content="2" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
+                <Button Height="40" Width="40"  Grid.Row="0" Name="three"  Margin="100,20,0,100" Content="3" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
 
-                <Button Height="40" Width="40"  Grid.Row="0" Name="one"  Margin="-100,20,0,100" Content="1" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
-                <Button Height="40" Width="40"  Grid.Row="0" Name="two"  Margin="0,20,0,100" Content="2" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
-                <Button Height="40" Width="40"  Grid.Row="0" Name="three"  Margin="100,20,0,100" Content="3" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
+                <Button Height="40" Width="40"  Grid.Row="0" Name="four"  Margin="-100,20,0,0" Content="4" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
+                <Button Height="40" Width="40"  Grid.Row="0" Name="five"  Margin="0,20,0,0" Content="5" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
+                <Button Height="40" Width="40"  Grid.Row="0" Name="six"  Margin="100,20,0,0" Content="6" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
 
-                <Button Height="40" Width="40"  Grid.Row="0" Name="four"  Margin="-100,20,0,0" Content="4" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
-                <Button Height="40" Width="40"  Grid.Row="0" Name="five"  Margin="0,20,0,0" Content="5" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
-                <Button Height="40" Width="40"  Grid.Row="0" Name="six"  Margin="100,20,0,0" Content="6" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
+                <Button Height="40" Width="40" Grid.Row="0" Name="seven"  Margin="-100,20,0,-100" Content="7" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
+                <Button Height="40" Width="40" Grid.Row="0" Name="eight"  Margin="0,20,0,-100" Content="8" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
+                <Button Height="40" Width="40" Grid.Row="0" Name="nine"  Margin="100,20,0,-100" Content="9" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
+                <Button Height="40" Width="40" Grid.Row="0" Name="null"  Margin="78,186,177,31" Content="0" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter" Grid.RowSpan="2"/>
 
-                <Button Height="40" Width="40" Grid.Row="0" Name="seven"  Margin="-100,20,0,-100" Content="7" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
-                <Button Height="40" Width="40" Grid.Row="0" Name="eight"  Margin="0,20,0,-100" Content="8" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
-                <Button Height="40" Width="40" Grid.Row="0" Name="nine"  Margin="100,20,0,-100" Content="9" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
-                <Button Height="40" Width="40" Grid.Row="0" Name="null"  Margin="0,20,0,-200" Content="0" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
-
-                <Button Height="40" Grid.Column="2" Grid.Row="2" Width="50" Name="delete"  Margin="0,20,0,-150" Content="del" Style="{DynamicResource smallButton_temp}" Click="Number_Click"/>
+                <Button Height="40" Width="70" Name="delete"  Margin="148,186,77,31" Content="delete" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter" Grid.RowSpan="2"/>
 
 
             </Grid>
+            <Label Grid.Row="5" Grid.Column="0" Foreground="Red" Content="Controller not connected or not detected" VerticalAlignment="Bottom" x:Name="label" Height="34" Margin="0,0,0,0"/>
+
+            <Canvas Name="canvas" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="100" Grid.RowSpan="100">
+                <Ellipse Panel.ZIndex="0" Style="{DynamicResource pointer_template}" Name="pointer" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Canvas>
         </Grid>
+        
     </StackPanel>
-   </Window>
+</Window>

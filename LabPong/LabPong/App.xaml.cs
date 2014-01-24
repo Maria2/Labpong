@@ -136,6 +136,18 @@ namespace LabPong
             targetControl.MouseLeave += targetControl_MouseLeave;
             sb.Begin();
         }
+        /*For shorter selection times used for ip input buttons*/
+        public static void AnimateShortSelection(this UIElement targetControl)
+        {
+            sb.Children.Clear();
+            DoubleAnimation fadeInAnimation = new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(1)));
+            Storyboard.SetTarget(fadeInAnimation, targetControl);
+            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath(UIElement.OpacityProperty));
+            sb.Children.Add(fadeInAnimation);
+            targetControl.MouseLeave += targetControl_MouseLeave;
+            sb.Begin();
+        }
+
 
         static void targetControl_MouseLeave(object sender, MouseEventArgs e)
         {        

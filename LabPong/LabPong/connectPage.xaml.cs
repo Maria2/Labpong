@@ -45,6 +45,17 @@ namespace LabPong
             {
                 case "hostClicked": HostClicked(); break;
                 case "joinClicked": JoinClicked(); break;
+                case "one": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
+                case "two": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
+                case "three": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
+                case "four": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
+                case "five": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
+                case "six": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
+                case "seven": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
+                case "eight": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
+                case "nine": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
+                case "null": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
+                case "delete": deleteNum = true; Override_ButtonText(ipServerField); break;
             }
 
         }
@@ -178,6 +189,7 @@ namespace LabPong
                 hostClicked.AnimateSelection();
             }
         }
+        //Mouse enter method for the server IP input TextFields 
         private void Text_MouseEnter(object sender, MouseEventArgs e)
         {
             switch(((TextBox)sender).Name)
@@ -188,7 +200,11 @@ namespace LabPong
                 case "serverIPText4": serverIPText4.Focus(); ipServerField = 4; break;
             }
         }
-        public void Number_Click(object sender, RoutedEventArgs e)
+        /* Mouse enter for the keyboard Buttons 
+        * checks witch serverIPField was selected then writes in there
+        * animates the button via the AnimateShortSelection() method
+        * */
+        public void Number_MouseEnter(object sender, MouseEventArgs e)
         {
                 switch (((Button)sender).Name)
                 {
@@ -196,42 +212,95 @@ namespace LabPong
                         if (((Button)sender).IsMouseOver)
                          {
                              PointerAnimation.AnimationTarget = ((Button)sender);
-                             ((Button)sender).AnimateSelection();
-                            numbers += ((Button)sender).Content;
+                             ((Button)sender).AnimateShortSelection();
                          }
                         break;
-                    case "two": numbers += ((Button)sender).Content;
+                    case "two":
+                        if (((Button)sender).IsMouseOver)
+                         {
+                             PointerAnimation.AnimationTarget = ((Button)sender);
+                             ((Button)sender).AnimateShortSelection();
+                         }
                         break;
-                    case "three": numbers += ((Button)sender).Content;
+                    case "three": 
+                        if (((Button)sender).IsMouseOver)
+                        {
+                            PointerAnimation.AnimationTarget = ((Button)sender);
+                            ((Button)sender).AnimateShortSelection();
+                        }
                         break;
-                    case "four": numbers += ((Button)sender).Content;
+                    case "four":
+                        if (((Button)sender).IsMouseOver)
+                        {
+                            PointerAnimation.AnimationTarget = ((Button)sender);
+                            ((Button)sender).AnimateShortSelection();
+                        }
                         break;
-                    case "five": numbers += ((Button)sender).Content;
+                    case "five":
+                        if (((Button)sender).IsMouseOver)
+                        {
+                            PointerAnimation.AnimationTarget = ((Button)sender);
+                            ((Button)sender).AnimateShortSelection();
+                        }
                         break;
-                    case "six": numbers += ((Button)sender).Content;
+                    case "six":
+                        if (((Button)sender).IsMouseOver)
+                        {
+                            PointerAnimation.AnimationTarget = ((Button)sender);
+                            ((Button)sender).AnimateShortSelection();
+                        }
                         break;
-                    case "seven": numbers += ((Button)sender).Content;
+                    case "seven":
+                        if (((Button)sender).IsMouseOver)
+                        {
+                            PointerAnimation.AnimationTarget = ((Button)sender);
+                            ((Button)sender).AnimateShortSelection();
+                        }
                         break;
-                    case "eight": numbers += ((Button)sender).Content;
+                    case "eight":
+                        if (((Button)sender).IsMouseOver)
+                        {
+                            PointerAnimation.AnimationTarget = ((Button)sender);
+                            ((Button)sender).AnimateShortSelection();
+                        }
                         break;
-                    case "nine": numbers += ((Button)sender).Content;
+                    case "nine":
+                        if (((Button)sender).IsMouseOver)
+                        {
+                            PointerAnimation.AnimationTarget = ((Button)sender);
+                            ((Button)sender).AnimateShortSelection();
+                        }
                         break;
-                    case "null": numbers += ((Button)sender).Content;
+                    case "null":
+                        if (((Button)sender).IsMouseOver)
+                        {
+                            PointerAnimation.AnimationTarget = ((Button)sender);
+                            ((Button)sender).AnimateShortSelection();
+                        }
                         break;
-                    case "delete": numbers = ""; deleteNum = true;
+                    case "delete": 
+                        if (((Button)sender).IsMouseOver)
+                        {
+                            PointerAnimation.AnimationTarget = ((Button)sender);
+                            ((Button)sender).AnimateShortSelection();
+                        }
                         break;
                 }
                 
-                    switch (ipServerField)
-                    {
-                        case 0: OnNotification(NotificationTyp.selectField); break;
-                        case 1: if (deleteNum) { serverIPText1.Text = ""; deleteNum = false; } else { serverIPText1.Text += numbers; }; break;
-                        case 2: if (deleteNum) { serverIPText2.Text = ""; deleteNum = false; } else { serverIPText2.Text += numbers; }; break;
-                        case 3: if (deleteNum) { serverIPText3.Text = ""; deleteNum = false; } else { serverIPText3.Text += numbers; }; break;
-                        case 4: if (deleteNum) { serverIPText4.Text = ""; deleteNum = false; } else { serverIPText4.Text += numbers; }; break;
-
-                    }
-                    numbers = "";
+                    
             }
+        public void Override_ButtonText(int ipServerField)
+        {
+            switch (ipServerField)
+            {
+                case 0: OnNotification(NotificationTyp.selectField); break;
+                case 1: if (deleteNum) { serverIPText1.Text = ""; deleteNum = false; } else { serverIPText1.Text += numbers; }; break;
+                case 2: if (deleteNum) { serverIPText2.Text = ""; deleteNum = false; } else { serverIPText2.Text += numbers; }; break;
+                case 3: if (deleteNum) { serverIPText3.Text = ""; deleteNum = false; } else { serverIPText3.Text += numbers; }; break;
+                case 4: if (deleteNum) { serverIPText4.Text = ""; deleteNum = false; } else { serverIPText4.Text += numbers; }; break;
+
+            }
+            numbers = "";
+        }
     }
 }
