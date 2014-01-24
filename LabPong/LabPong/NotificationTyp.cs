@@ -19,6 +19,10 @@ namespace LabPong
         /// <summary>
         /// 
         /// </summary>
-        wait
+        wait,
+        /// <summary>
+        /// 
+        /// </summary>
+        selectField
     }
 }

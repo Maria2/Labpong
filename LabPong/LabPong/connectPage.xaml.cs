@@ -30,7 +30,8 @@ namespace LabPong
         string[] serverIP = new string[4];
         string[] userIP = new string[4];
         string numbers="";
-        Boolean serverChoosen = true;
+        int ipServerField=0; //1,2,3,4
+        Boolean deleteNum = false;
         public ConnectPage()
         {
             InitializeComponent();
@@ -81,7 +82,8 @@ namespace LabPong
             {
                 case NotificationTyp.conFailed: notificationText.Visibility = System.Windows.Visibility.Visible; notificationText.Text = "Connection has Failed"; break;
                 case NotificationTyp.wrongInput: notificationText.Visibility = System.Windows.Visibility.Visible; notificationText.Text = "Wrong input was entered"; break;
-                case NotificationTyp.wait: notificationText.Visibility = System.Windows.Visibility.Visible; notificationText.Text = "Connection is established...please wait"; break;  
+                case NotificationTyp.wait: notificationText.Visibility = System.Windows.Visibility.Visible; notificationText.Text = "Connection is established...please wait"; break;
+                case NotificationTyp.selectField: notificationText.Visibility = System.Windows.Visibility.Visible; notificationText.Text = "Please hover over the text field u want to input first"; break;  
             }
         }
         /// <summary>
@@ -180,43 +182,56 @@ namespace LabPong
         {
             switch(((TextBox)sender).Name)
             {
-                case "userIPText1": userIPText1.Focus(); userIPText1.Text=numbers; break;
-                case "userIPText2": userIPText2.Focus(); new Keyboard().Show(); break;
-                case "userIPText3": userIPText3.Focus(); new Keyboard().Show(); break;
-                case "userIPText4": userIPText4.Focus(); new Keyboard().Show(); break;
-                case "serverIPText1": serverIPText1.Focus(); new Keyboard().Show(); break;
-                case "serverIPText2": serverIPText2.Focus(); new Keyboard().Show(); break;
-                case "serverIPText3": serverIPText3.Focus(); new Keyboard().Show(); break;
-                case "serverIPText4": serverIPText4.Focus(); new Keyboard().Show(); break;
+                case "serverIPText1": serverIPText1.Focus(); ipServerField = 1; break;
+                case "serverIPText2": serverIPText2.Focus(); ipServerField = 2; break;
+                case "serverIPText3": serverIPText3.Focus(); ipServerField = 3; break;
+                case "serverIPText4": serverIPText4.Focus(); ipServerField = 4; break;
             }
         }
         public void Number_Click(object sender, RoutedEventArgs e)
         {
                 switch (((Button)sender).Name)
                 {
-                    case "one": numbers += ((Button)sender).Name; //Missing: get the focused textfield and write number in it
+                    case "one":
+                        if (((Button)sender).IsMouseOver)
+                         {
+                             PointerAnimation.AnimationTarget = ((Button)sender);
+                             ((Button)sender).AnimateSelection();
+                            numbers += ((Button)sender).Content;
+                         }
                         break;
-                    case "two": numbers += ((Button)sender).Name;
+                    case "two": numbers += ((Button)sender).Content;
                         break;
-                    case "three": numbers += ((Button)sender).Name;
+                    case "three": numbers += ((Button)sender).Content;
                         break;
-                    case "four": numbers += ((Button)sender).Name;
+                    case "four": numbers += ((Button)sender).Content;
                         break;
-                    case "five": numbers += ((Button)sender).Name;
+                    case "five": numbers += ((Button)sender).Content;
                         break;
-                    case "six": numbers += ((Button)sender).Name;
+                    case "six": numbers += ((Button)sender).Content;
                         break;
-                    case "seven": numbers += ((Button)sender).Name;
+                    case "seven": numbers += ((Button)sender).Content;
                         break;
-                    case "eight": numbers += ((Button)sender).Name;
+                    case "eight": numbers += ((Button)sender).Content;
                         break;
-                    case "nine": numbers += ((Button)sender).Name;
+                    case "nine": numbers += ((Button)sender).Content;
                         break;
-                    case "null": numbers += ((Button)sender).Name;
+                    case "null": numbers += ((Button)sender).Content;
                         break;
-                    case "ok": numbers += ((Button)sender).Name;
+                    case "delete": numbers = ""; deleteNum = true;
                         break;
                 }
+                
+                    switch (ipServerField)
+                    {
+                        case 0: OnNotification(NotificationTyp.selectField); break;
+                        case 1: if (deleteNum) { serverIPText1.Text = ""; deleteNum = false; } else { serverIPText1.Text += numbers; }; break;
+                        case 2: if (deleteNum) { serverIPText2.Text = ""; deleteNum = false; } else { serverIPText2.Text += numbers; }; break;
+                        case 3: if (deleteNum) { serverIPText3.Text = ""; deleteNum = false; } else { serverIPText3.Text += numbers; }; break;
+                        case 4: if (deleteNum) { serverIPText4.Text = ""; deleteNum = false; } else { serverIPText4.Text += numbers; }; break;
+
+                    }
+                    numbers = "";
             }
     }
 }
