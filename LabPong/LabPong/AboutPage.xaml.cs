@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace LabPong
 {
     /// <summary>
-    /// Interaction logic for PreviousGames.xaml
+    /// Interaction logic for AboutPage.xaml
     /// </summary>
-    public partial class PreviousGames : Window
+    public partial class AboutPage : Window
     {
-        List<String> file;
-        public PreviousGames()
+        public AboutPage()
         {
             InitializeComponent();
-            file = System.IO.File.ReadLines("resources/highscore.txt").ToList();
-            highscore.ItemsSource = file;
-            title.Content = file.Count() > 1? "Last " + file.Count() + " Games":"Last Game";
-            
         }
     }
 }

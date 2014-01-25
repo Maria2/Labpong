@@ -19,32 +19,60 @@ using System.Windows.Shapes;
 namespace LabPong
 {
     /// <summary>
-    /// Interaction logic for MainPage.xaml
+    /// Interaction logic for selectGameMode.xaml
     /// </summary>
-    public partial class MainPage : Window
+    public partial class selectGameMode : Window
     {
         delegate void ChangeLabel(String message);
         delegate void Update(Point point);
 
-        public MainPage()
+        public selectGameMode()
         {
-            InitializeComponent();                    
+            InitializeComponent();
             App.CustomListener.PropertyChanged += _customListener_PropertyChanged;
             PointerAnimation.Sb.Completed += Animation_Completed;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            switch (((Button)sender).Name)
+            {
+                case "playPong": new Pong().Show(); this.Close(); break;
+                case "playLabyrinth": new Pong().Show(); this.Close(); break;
+                case "playRandom": RandomGame(); break;
+            }
+
+        }
+        //senseless code used if 2nd game would exist just calls pong all the time
+        public void RandomGame()
+        {
+            Random random = new Random();
+            int randomNumber = random.Next(0, 100);
+
+            if (randomNumber % 2 == 0)
+            {
+                new Pong().Show();
+                this.Close();
+            }
+            else
+            {
+                new Pong().Show();
+                this.Close();
+            }
+            
+        }
         void _customListener_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case "NothingTracked": 
+                case "NothingTracked":
                     label.Dispatcher.Invoke(new ChangeLabel(UpdateLabel), "Nothing Tracked");
                     break;
                 case "Position":
-                    label.Dispatcher.Invoke(new ChangeLabel(UpdateLabel), ((CustomListener)sender).Position.ToString());                    
+                    label.Dispatcher.Invoke(new ChangeLabel(UpdateLabel), ((CustomListener)sender).Position.ToString());
                     pointer.Dispatcher.Invoke(new Update(UpdateUI), ((CustomListener)sender).Position);
                     break;
-            }            
+            }
         }
 
         private void UpdateUI(Point point)
@@ -74,46 +102,22 @@ namespace LabPong
         {
             Button_Click(PointerAnimation.AnimationTarget, null);
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            switch (((Button)sender).Name)
-            {
-                case "start_game": new ConnectPage().Show(); this.Close(); break;
-                case "high_score": new PreviousGames().Show(); this.Close(); break;
-                case "options": new OptionsPage().ShowDialog(); break;
-                case "about": new AboutPage().Show(); this.Close(); break;
-                case "exit": new ExitConfirmation().Show(); break;
-            }
-                            
-        }
-
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (start_game.IsMouseOver)
+            if (playLabyrinth.IsMouseOver)
             {
-                PointerAnimation.AnimationTarget = start_game;
-                start_game.AnimateSelection();                
+                PointerAnimation.AnimationTarget = playLabyrinth;
+                playLabyrinth.AnimateSelection();
             }
-            if (high_score.IsMouseOver)
+            if (playPong.IsMouseOver)
             {
-                PointerAnimation.AnimationTarget = high_score;
-                high_score.AnimateSelection();                
+                PointerAnimation.AnimationTarget = playPong;
+                playPong.AnimateSelection();
             }
-            if (options.IsMouseOver)
+            if (playLabyrinth.IsMouseOver)
             {
-                PointerAnimation.AnimationTarget = options;
-                options.AnimateSelection();                
-            }
-            if (about.IsMouseOver)
-            {
-                PointerAnimation.AnimationTarget = about;
-                about.AnimateSelection();
-            }
-            if (exit.IsMouseOver)
-            {
-                PointerAnimation.AnimationTarget = exit;
-                exit.AnimateSelection();
+                PointerAnimation.AnimationTarget = playLabyrinth;
+                playLabyrinth.AnimateSelection();
             }
         }
     }
