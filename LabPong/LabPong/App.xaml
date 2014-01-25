@@ -1,11 +1,7 @@
 ﻿<Application x:Class="LabPong.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-<<<<<<< HEAD
-             StartupUri="PreviousGames.xaml"> 
-=======
-             StartupUri="MainPage.xaml"> 
->>>>>>> 6947cf2c612f57d0a527becf759cdf1ce05bb0ec
+             StartupUri="Pong.xaml"> 
     <Application.Resources>
         <Style x:Key="window_template" TargetType="{x:Type Window}">
             <Setter Property="WindowState" Value="Maximized"/>

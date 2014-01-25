@@ -31,8 +31,6 @@ namespace LabPong
             base.OnStartup(e);
             CustomListener = new CustomListener();
         }
-        delegate void ChangeLabel(String message);
-        delegate void Update(Point point);
     }    
     #region CustomListener
     /// <summary>
