@@ -25,37 +25,25 @@ namespace LabPong.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("default")]
-        public string username {
+        [global::System.Configuration.DefaultSettingValueAttribute("Default")]
+        public string Username {
             get {
-                return ((string)(this["username"]));
+                return ((string)(this["Username"]));
             }
             set {
-                this["username"] = value;
+                this["Username"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool customTrack {
+        [global::System.Configuration.DefaultSettingValueAttribute("Default")]
+        public string Track {
             get {
-                return ((bool)(this["customTrack"]));
+                return ((string)(this["Track"]));
             }
             set {
-                this["customTrack"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.0.10")]
-        public string serverIP {
-            get {
-                return ((string)(this["serverIP"]));
-            }
-            set {
-                this["serverIP"] = value;
+                this["Track"] = value;
             }
         }
     }

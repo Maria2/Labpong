@@ -138,11 +138,8 @@ namespace LabPong
         {
             Canvas.SetLeft(pointer, (this.ActualWidth / 2 + 120) + (point.X * 3));
             Canvas.SetTop(pointer, (this.ActualHeight / 2) + (point.Y * 3));
-            SetCursorPos((int)((this.ActualWidth / 2 + 100) + (point.X * 3)), (int)((this.ActualHeight / 2) + (point.Y * 3)));
+            App.SetCursorPos((int)((this.ActualWidth / 2 + 100) + (point.X * 3)), (int)((this.ActualHeight / 2) + (point.Y * 3)));
         }
-
-        [DllImport("User32.dll")]
-        private static extern bool SetCursorPos(int X, int Y);
 
         private void UpdateLabel(String content)
         {
