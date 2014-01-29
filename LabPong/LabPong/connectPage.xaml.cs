@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 ﻿using Leap;
 using System;
 using System.Collections.Generic;
