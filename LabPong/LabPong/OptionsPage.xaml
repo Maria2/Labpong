@@ -1,7 +1,7 @@
 ﻿<Window x:Class="LabPong.OptionsPage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="OptionsPage" Height="200" Width="300" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderBrush="Black" BorderThickness="5">
+        Title="OptionsPage" Height="200" Width="300" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" BorderBrush="Black" BorderThickness="5">    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -12,8 +12,13 @@
             <Label Content="Audio" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0" Width="80" HorizontalContentAlignment="Center"/>
         </StackPanel>
         <StackPanel Grid.Column="1">
-            <TextBox VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,55,0,0" Width="100"/>
-            <TextBox VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,15,0,0" Width="100"/>
+            <TextBox VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,55,0,0" Width="100" Name="username" />
+            <ComboBox VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="0,15,0,0" Width="100" Name="audio" Background="Black" Foreground="Red" FontSize="15">
+                <ComboBox.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Black" />
+                </ComboBox.Resources>
+            </ComboBox>
         </StackPanel>
     </Grid>
 </Window>

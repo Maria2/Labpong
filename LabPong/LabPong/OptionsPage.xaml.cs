@@ -22,6 +22,12 @@ namespace LabPong
         public OptionsPage()
         {
             InitializeComponent();
+            username.Text = Properties.Settings.Default.Username;
+            List<String> options = new List<string>(2);
+            options.Add("Default");
+            options.Add("Custom");
+            audio.ItemsSource = options;
+            audio.SelectedValue = Properties.Settings.Default.Username;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,6 +21,10 @@ namespace LabPong
     public partial class App : Application
     {
         public static CustomListener CustomListener;
+
+        [DllImport("User32.dll")]
+        public static extern bool SetCursorPos(int X, int Y);
+
         protected override void OnExit(ExitEventArgs e)
         {
             CustomListener.EndListening();
@@ -31,8 +36,6 @@ namespace LabPong
             base.OnStartup(e);
             CustomListener = new CustomListener();
         }
-        delegate void ChangeLabel(String message);
-        delegate void Update(Point point);
     }    
     #region CustomListener
     /// <summary>
