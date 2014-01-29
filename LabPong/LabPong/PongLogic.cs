@@ -6,21 +6,22 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace LabPong
 {
-    class PongLogic
+    class PongLogic 
     {
         #region instance-scope variables
         PongModel pongModel;
         delegate void NoArgDelegate();   
         //private Point ballPos = new Point(300,500);
-        private Point ballSpeed = new Point(1, 0);
+        private Point ballSpeed = new Point(10, 0);
         //private double playerX;
         //private double playerY;
         //private int playerXScore;
-        //private int playerYScore;
+        //private int playerYScore
         #endregion
         #region static variables
         public static Boolean GameStarted;
@@ -113,8 +114,8 @@ namespace LabPong
             InitializeDirectionIncrement();
             while (pongModel.PlayerXScore < 10 && pongModel.PlayerYScore < 10)
             {
-                Thread.Sleep(1);
-                pongModel.BallPos = new Point(pongModel.BallPos.X + ballSpeed.X, pongModel.BallPos.Y + ballSpeed.Y);
+                Thread.Sleep(100);
+                pongModel.BallPos = new Point(pongModel.BallPos.X + ballSpeed.X * 10, pongModel.BallPos.Y + ballSpeed.Y * 10);
                 CheckCollision();
             }
         }
@@ -130,27 +131,30 @@ namespace LabPong
         }
 
         private void CheckCollision()
-        {
-            if ((int)pongModel.BallPos.X == (int)(PongModel.PlayerSizes.X / 2))
-            {
-                if ((pongModel.PlayerX - 20) < pongModel.BallPos.Y && (pongModel.PlayerX + PongModel.PlayerSizes.Y - 15) > pongModel.BallPos.Y)
-                    ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
-                else
-                {
-                    pongModel.PlayerYScore++;
-                    ResetBall();
-                }
-            }
-            if ((int)(pongModel.BallPos.X + PongModel.BallSize.X / 2) == (int)(PongModel.WINDOW_WIDTH - (PongModel.PlayerSizes.X * 3)))
-            {
-                if ((pongModel.PlayerY - 20) < pongModel.BallPos.Y && (pongModel.PlayerY + PongModel.PlayerSizes.Y - 15) > pongModel.BallPos.Y)
-                    ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
-                else
-                {
-                    pongModel.PlayerXScore++;
-                    ResetBall();
-                }
-            }
+        {            
+            Console.WriteLine(new Rect(pongModel.BallPos.X, pongModel.BallPos.Y, PongModel.BallSize.X, PongModel.BallSize.Y).
+                IntersectsWith(new Rect(pongModel.PlayerX, 0, PongModel.PlayerSizes.X, PongModel.PlayerSizes.Y)));
+            //Change
+            //if ((int)pongModel.BallPos.X == (int)(PongModel.PlayerSizes.X / 2))
+            //{
+            //    if ((pongModel.PlayerX - 20) < pongModel.BallPos.Y && (pongModel.PlayerX + PongModel.PlayerSizes.Y - 15) > pongModel.BallPos.Y)
+            //        ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
+            //    else
+            //    {
+            //        pongModel.PlayerYScore++;
+            //        ResetBall();
+            //    }
+            //}
+            //if ((int)(pongModel.BallPos.X + PongModel.BallSize.X / 2) == (int)(PongModel.WINDOW_WIDTH - (PongModel.PlayerSizes.X * 3)))
+            //{
+            //    if ((pongModel.PlayerY - 20) < pongModel.BallPos.Y && (pongModel.PlayerY + PongModel.PlayerSizes.Y - 15) > pongModel.BallPos.Y)
+            //        ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
+            //    else
+            //    {
+            //        pongModel.PlayerXScore++;
+            //        ResetBall();
+            //    }
+            //}
             if (pongModel.BallPos.Y < 0)
             {
                 pongModel.BallPos = new Point(pongModel.BallPos.X, 0);
