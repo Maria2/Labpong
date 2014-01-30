@@ -81,7 +81,7 @@ namespace LabPong
             {
                 case "start_game": new ConnectPage().Show(); this.Close(); break;
                 case "high_score": new PreviousGames().Show(); this.Close(); break;
-                case "options": new OptionsPage().ShowDialog(); break;
+                case "options": new OptionsPage().Show(); this.Close(); break;
                 case "about": new AboutPage().Show(); this.Close(); break;
                 case "exit": new ExitConfirmation().Show(); break;
             }
