@@ -32,6 +32,9 @@ namespace LabPong
         string numbers="";
         int ipServerField=0; //1,2,3,4
         Boolean deleteNum = false;
+        //used for validation check at the communicator class
+        public Boolean isHost;
+       
         public ConnectPage()
         {
             InitializeComponent();
@@ -69,6 +72,7 @@ namespace LabPong
             userIP[3] = userIPText4.Text;
             OnNotification(NotificationTyp.wait);
             CheckIp(userIP);
+            isHost = true;
         }
 
         //user enters ip of other player
@@ -80,6 +84,7 @@ namespace LabPong
             serverIP[3] = serverIPText4.Text;
             OnNotification(NotificationTyp.wait);
             CheckIp(serverIP);
+            isHost = false;
 
             //if error -> OnNotification()
         }
