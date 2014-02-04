@@ -22,13 +22,30 @@ namespace LabPong
         public static IPAddress LocalIP;
         public static IPAddress ServerIP;
 
+        
+        private static void Main(string[] args)
+        {
+            UdpClient udpclient = new UdpClient();
+
+            IPAddress multicastaddress = IPAddress.Parse("239.0.0.222"); // clientadress
+            udpclient.JoinMulticastGroup(multicastaddress);
+            IPEndPoint remoteep = new IPEndPoint(multicastaddress, 2222);
+
+            Byte[] buffer = null;
+
+            for (int i = 0; i <= 8000; i++)
+            {
+                buffer = Encoding.Unicode.GetBytes(i.ToString());
+                udpclient.Send(buffer, buffer.Length, remoteep);
+            }
+        }
         static Server()
         {
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
                 LocalIP = IPAddress.None;
             else
             {
-                IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+                IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName()); // wofür dns?
                 LocalIP = host
                     .AddressList
                     .FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
