@@ -11,13 +11,6 @@ namespace LabPong
     {
         //Request bytes
         static readonly byte SERVER_REQUEST = 1;
-        static readonly byte CLIENT_REQUEST = 2;
-
-        //Types of acknowledgements
-        static readonly byte SERVER_ACKNOWLEDGED = 10;
-        static readonly byte CLIENT_ACKNOWLEDGED = 11;
-        static readonly byte SERVER_ERROR = 20;        
-        static readonly byte CLIENT_ERROR = 21;
 
         public static IPAddress LocalIP;
         public static IPAddress ServerIP;
