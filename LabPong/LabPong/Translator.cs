@@ -7,6 +7,5 @@ namespace LabPong
 {
     class Translator
     {
-
     }
 }
