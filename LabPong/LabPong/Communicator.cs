@@ -7,6 +7,6 @@ namespace LabPong
 {
     class Communicator
     {
-
+        // why u no see this
     }
 }
