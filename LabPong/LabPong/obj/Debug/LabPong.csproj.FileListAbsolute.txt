@@ -64,3 +64,4 @@ C:\Users\Anil\Desktop\labpong\Labpong\LabPong\LabPong\obj\Debug\LabPong.Properti
 C:\Users\Anil\Desktop\labpong\Labpong\LabPong\LabPong\obj\Debug\LabPong.csproj.GenerateResource.Cache
 C:\Users\Anil\Desktop\labpong\Labpong\LabPong\LabPong\obj\Debug\LabPong.exe
 C:\Users\Anil\Desktop\labpong\Labpong\LabPong\LabPong\obj\Debug\LabPong.pdb
+C:\Users\Anil\Source\Repos\Labpong\LabPong\LabPong\bin\Debug\LabPong.exe.config
