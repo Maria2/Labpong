@@ -16,7 +16,7 @@ namespace LabPong
         public static IPAddress ServerIP;
 
         
-        private static void Main(string[] args)
+        private static void StartMethod(string[] args)
         {
             UdpClient udpclient = new UdpClient();
 
@@ -32,6 +32,7 @@ namespace LabPong
                 udpclient.Send(buffer, buffer.Length, remoteep);
             }
         }
+
         static Server()
         {
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())

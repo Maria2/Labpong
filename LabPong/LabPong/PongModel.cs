@@ -96,9 +96,8 @@ namespace LabPong
             if (e.PropertyName.Equals("Position"))
             {
                 PlayerX = ((CustomListener)sender).Position.Y;
-                PlayerY = -((CustomListener)sender).Position.Y;
             }
-        }
+        }        
 
         private void NotifyPropertyChanged(String info)
         {

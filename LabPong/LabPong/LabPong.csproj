@@ -200,6 +200,10 @@
     <Resource Include="resources\images\Leapong Logo.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="items\ball_direction.png" />
+    <Resource Include="items\invert.png" />
+    <Resource Include="items\resize.png" />
+    <Resource Include="items\white_screen.png" />
     <Content Include="Leap.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -209,6 +213,7 @@
     <Content Include="LeapCSharp.NET4.0.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="items\shot.png" />
     <None Include="resources\highscore.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
