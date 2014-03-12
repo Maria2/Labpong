@@ -17,7 +17,6 @@ namespace LabPong
         const int maxBuffer = 100;
         int port = 11000;
 
-        public void Join(){}
         static Int32 portUDP = 11000;
         //UdpClient with port
         static UdpClient udpClientR = new UdpClient(portUDP);
@@ -27,7 +26,7 @@ namespace LabPong
         IPAddress ip = IPAddress.Parse(ipaddress);
 
 
-        public void runClient()
+        public void Join()
         {
             FTPReciever(); //start recieving
             if(!OptionsPage.getUsername().Equals(""))
@@ -40,7 +39,7 @@ namespace LabPong
             if (!OptionsPage.getUsername().Equals(""))
                 FTPSender(OptionsPage.getUsername()); //transmit username
             else
-                FTPSender("default"); //transmit username
+                FTPSender("Host"); //transmit username
             FTPReciever(); //start recieving
         }
         //----- FTP Sender (Client) ----
