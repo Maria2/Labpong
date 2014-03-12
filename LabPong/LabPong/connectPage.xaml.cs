@@ -34,6 +34,7 @@ namespace LabPong
         Boolean deleteNum = false;
         //used for validation check at the communicator class
         public Boolean isHost;
+        private Communicator com = new Communicator();
        
         public ConnectPage()
         {
@@ -46,8 +47,8 @@ namespace LabPong
         {
             switch (((Button)sender).Name)
             {
-                case "hostClicked": HostClicked(); break;
-                case "joinClicked": JoinClicked(); break;
+                case "hostClicked": HostClicked(); com.runServer(); break; 
+                case "joinClicked": JoinClicked(); com.runClient(); break;
                 case "one": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
                 case "two": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
                 case "three": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;

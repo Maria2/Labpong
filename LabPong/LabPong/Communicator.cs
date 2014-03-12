@@ -16,7 +16,21 @@ namespace LabPong
         TcpListener tcpListener;
         const int maxBuffer = 100;
         int port = 11000;
-       
+
+        public void runClient()
+        {
+            while (true)
+            {
+                FTPReciever();
+            }
+        }
+        public void runServer()
+        {
+            while (true)
+            {
+                FTPSender();
+            }
+        }
         //----- FTP Sender (Client) ----
 
         private void FTPSender()
