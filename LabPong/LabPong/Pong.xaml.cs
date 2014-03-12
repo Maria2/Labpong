@@ -44,8 +44,8 @@ namespace LabPong
                 Ball.Dispatcher.BeginInvoke(new ChangePosition(UpdateBallPos), DispatcherPriority.DataBind, new object[] { ((PongModel)sender).BallPos });
             if (e.PropertyName.Split(new char[] { ':' })[0].Equals("add"))
             {                
-                g.Source = new BitmapImage(new Uri(@"/items/"+e.PropertyName.Split(new char[]{':'})[1]+".png"));
-                playerX_item.Children.Add(g);
+                //g.Source = new BitmapImage(new Uri(@"/items/"+e.PropertyName.Split(new char[]{':'})[1]+".png"));
+                //playerX_item.Children.Add(g);
             }
             if (e.PropertyName.Split(new char[] { ':' }).Equals("del"))
             {

@@ -112,7 +112,6 @@
     <Compile Include="SelectGameMode.xaml.cs">
       <DependentUpon>SelectGameMode.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Server.cs" />
     <Compile Include="Translator.cs" />
     <Page Include="AboutPage.xaml">
       <SubType>Designer</SubType>
