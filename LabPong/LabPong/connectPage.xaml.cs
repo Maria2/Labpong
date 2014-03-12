@@ -27,6 +27,11 @@ namespace LabPong
         delegate void ChangeLabel(String message);
         delegate void Update(Point point);
 
+        // checked ips used for connection
+        public static string joinIP;
+        public string hostIP;
+
+        //ip arrays needed for progress
         string[] serverIP = new string[4];
         string[] userIP = new string[4];
         string numbers="";
@@ -47,8 +52,8 @@ namespace LabPong
         {
             switch (((Button)sender).Name)
             {
-                case "hostClicked": HostClicked(); com.runServer(); break; 
-                case "joinClicked": JoinClicked(); com.runClient(); break;
+                case "hostClicked": HostClicked(); com.Host(); break; 
+                case "joinClicked": JoinClicked(); com.Join(); break;
                 case "one": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
                 case "two": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
                 case "three": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
@@ -73,6 +78,8 @@ namespace LabPong
             userIP[3] = userIPText4.Text;
             OnNotification(NotificationTyp.wait);
             CheckIp(userIP);
+            if (userIP != null)
+                hostIP = userIP[0] + "." + userIP[1] + "." + userIP[2] + "." + userIP[3];
             isHost = true;
         }
 
@@ -85,6 +92,8 @@ namespace LabPong
             serverIP[3] = serverIPText4.Text;
             OnNotification(NotificationTyp.wait);
             CheckIp(serverIP);
+            if (userIP != null)
+                joinIP = userIP[0] + "." + userIP[1] + "." + userIP[2] + "." + userIP[3];
             isHost = false;
 
             //if error -> OnNotification()
