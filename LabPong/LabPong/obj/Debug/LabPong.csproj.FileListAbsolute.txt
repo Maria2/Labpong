@@ -65,3 +65,4 @@ C:\Users\Anil\Desktop\labpong\Labpong\LabPong\LabPong\obj\Debug\LabPong.csproj.G
 C:\Users\Anil\Desktop\labpong\Labpong\LabPong\LabPong\obj\Debug\LabPong.exe
 C:\Users\Anil\Desktop\labpong\Labpong\LabPong\LabPong\obj\Debug\LabPong.pdb
 C:\Users\Anil\Source\Repos\Labpong\LabPong\LabPong\bin\Debug\LabPong.exe.config
+C:\Users\Anil\Documents\Visual Studio 2012\Projects\Labpong\LabPong\LabPong\bin\Debug\LabPong.exe.config
