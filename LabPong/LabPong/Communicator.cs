@@ -18,6 +18,7 @@ namespace LabPong
         const int maxBuffer = 100;
         int port = 11000;
 
+<<<<<<< HEAD
         static Int32 portUDP = 11000;
         //UdpClient with port
         static UdpClient udpClientR = new UdpClient(portUDP);
@@ -26,6 +27,22 @@ namespace LabPong
         static String ipaddress = "192.168.0.3";
         IPAddress ip = IPAddress.Parse(ipaddress);
 
+=======
+        public void runClient()
+        {
+            while (true)
+            {
+                FTPReciever();
+            }
+        }
+        public void runServer()
+        {
+            while (true)
+            {
+                FTPSender();
+            }
+        }
+>>>>>>> 36c94236de214aae054957bdd8b91be5bd39b2cc
         //----- FTP Sender (Client) ----
 
         private void FTPSender()
