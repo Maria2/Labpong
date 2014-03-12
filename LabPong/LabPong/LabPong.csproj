@@ -97,6 +97,7 @@
     <Compile Include="AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Communicator.cs" />
     <Compile Include="ExitConfirmation.xaml.cs">
       <DependentUpon>ExitConfirmation.xaml</DependentUpon>
     </Compile>
@@ -112,6 +113,7 @@
       <DependentUpon>SelectGameMode.xaml</DependentUpon>
     </Compile>
     <Compile Include="Server.cs" />
+    <Compile Include="Translator.cs" />
     <Page Include="AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

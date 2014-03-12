@@ -19,11 +19,11 @@ namespace LabPong
         #endregion
         #region static variables
         public static Boolean GameStarted;
-        #endregion
+        #endregion        
 
         public PongLogic()
-        {                                   
-            pongModel = new PongModel();
+        {
+            pongModel = new PongModel();            
             new NoArgDelegate(StartGame).BeginInvoke(null, null);            
         }
 
@@ -38,7 +38,7 @@ namespace LabPong
                 pongModel.BallPos = new Point(pongModel.BallPos.X + ballSpeed.X * 10, pongModel.BallPos.Y + ballSpeed.Y * 10);
                 CheckCollision();
             }
-        }
+        }        
 
         private void InitializeDirectionIncrement()
         {
@@ -48,7 +48,7 @@ namespace LabPong
               (Math.PI / 6.0);
             angle += random.Next(3) * (Math.PI / 2.0);
             ballSpeed = new Point(Math.Sin(angle), -Math.Cos(angle));
-        }
+        }        
 
         private void CheckCollision()
         {
@@ -60,7 +60,7 @@ namespace LabPong
                 ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
             if (pongModel.BallPos.X < 0)
             {
-                pongModel.PlayerYScore++;
+                pongModel.PlayerYScore++;                
                 ResetBall();
             }
             if (pongModel.BallPos.X > PongModel.WINDOW_WIDTH)

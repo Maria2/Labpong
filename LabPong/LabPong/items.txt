@@ -1,0 +1,9 @@
+After 2 Scores:
+Shot --> 3 shots
+Change ball direction 
+
+
+After 3 Scores againnst:
+White screen --> 1 Sec
+Invert position
+Smaller spring
