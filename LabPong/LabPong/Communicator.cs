@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 
 namespace LabPong
@@ -13,12 +16,7 @@ namespace LabPong
         TcpListener tcpListener;
         const int maxBuffer = 100;
         int port = 11000;
-
-        public static void Main(string[] args)
-        { 
-            //
-        }
-
+       
         //----- FTP Sender (Client) ----
 
         private void FTPSender()

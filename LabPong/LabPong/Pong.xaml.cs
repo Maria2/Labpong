@@ -42,6 +42,14 @@ namespace LabPong
                 ScoreY.Dispatcher.BeginInvoke(new ChangeScore(UpdateScore), new object[] { ScoreY, ((PongModel)sender).PlayerYScore });
             if (e.PropertyName.Equals("ballPos"))
                 Ball.Dispatcher.BeginInvoke(new ChangePosition(UpdateBallPos), DispatcherPriority.DataBind, new object[] { ((PongModel)sender).BallPos });
+            if (e.PropertyName.Split(new char[] { ':' })[0].Equals("add"))
+            {                
+                g.Source = new BitmapImage(new Uri(@"/items/"+e.PropertyName.Split(new char[]{':'})[1]+".png"));
+                playerX_item.Children.Add(g);
+            }
+            if (e.PropertyName.Split(new char[] { ':' }).Equals("del"))
+            {
+            }
         }
 
         void UpdateScore(Label label, int currentScore)
