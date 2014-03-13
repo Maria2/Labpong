@@ -119,7 +119,7 @@ namespace LabPong
             if (items.Count() > 0)
             {
                 //Launch Item
-                NotifyPropertyChanged("del:" + items[0]);
+                NotifyPropertyChanged("del");
                 items.RemoveAt(0);
             }
         }

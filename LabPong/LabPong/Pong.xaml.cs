@@ -22,6 +22,8 @@ namespace LabPong
         delegate void ChangePos(Rectangle player, double pos);
         delegate void ChangeScore(Label label, int score);
         delegate void ChangePosition(Point pos);
+        delegate void UpdateImage(String path);
+        delegate void VoidMethod();
 
         public Pong()
         {
@@ -43,13 +45,21 @@ namespace LabPong
             if (e.PropertyName.Equals("ballPos"))
                 Ball.Dispatcher.BeginInvoke(new ChangePosition(UpdateBallPos), DispatcherPriority.DataBind, new object[] { ((PongModel)sender).BallPos });
             if (e.PropertyName.Split(new char[] { ':' })[0].Equals("add"))
-            {                
-                g.Source = new BitmapImage(new Uri(@"/items/"+e.PropertyName.Split(new char[]{':'})[1]+".png"));
-                playerX_item.Children.Add(g);
-            }
-            if (e.PropertyName.Split(new char[] { ':' }).Equals("del"))
-            {
-            }
+                playerX_item.Dispatcher.BeginInvoke(new UpdateImage(AddItem), new object[] {"/items/"+e.PropertyName.Split(new char[]{':'})[1]+".png"});
+            if (e.PropertyName.Equals("del"))
+                playerX_item.Dispatcher.BeginInvoke(new VoidMethod(DeleteItem), null);
+        }
+
+        void DeleteItem()
+        {
+            playerX_item.Children.RemoveAt(0);
+        }
+
+        void AddItem(String image)
+        {
+            Image im = new Image();
+            im.Source = new BitmapImage(new Uri(image));
+            playerX_item.Children.Add(im);
         }
 
         void UpdateScore(Label label, int currentScore)
