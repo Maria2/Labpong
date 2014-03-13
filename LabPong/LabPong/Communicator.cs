@@ -5,27 +5,53 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 namespace LabPong
 {
     class Communicator
     {
-        String FTPSendText = "";
         IPAddress ipAdresse = null;
         Socket socket;
         TcpListener tcpListener;
         const int maxBuffer = 100;
         int port = 11000;
-       
+
+        public void Join(){}
+        static Int32 portUDP = 11000;
+        //UdpClient with port
+        static UdpClient udpClientR = new UdpClient(portUDP);
+        UdpClient udpClientS = new UdpClient();
+        static Thread thread;
+        static String ipaddress = "192.168.0.3";
+        IPAddress ip = IPAddress.Parse(ipaddress);
+
+
+        public void runClient()
+        {
+            FTPReciever(); //start recieving
+            if(!OptionsPage.getUsername().Equals(""))
+               FTPSender(OptionsPage.getUsername()); //transmit username
+            else
+               FTPSender("default"); //transmit username   
+        }
+        public void Host()
+        {
+            if (!OptionsPage.getUsername().Equals(""))
+                FTPSender(OptionsPage.getUsername()); //transmit username
+            else
+                FTPSender("default"); //transmit username
+            FTPReciever(); //start recieving
+        }
         //----- FTP Sender (Client) ----
 
-        private void FTPSender()
+        private void FTPSender(string msg)
         { 
             TcpClient tcpClient;
             Stream tcpStream;
             const int maxBuffer = 100;
 
-            String ipAdresse = "169.254.49.18";
+            String ipAdresse = ConnectPage.joinIP;
             int port = 11000;
             try
             {
@@ -44,13 +70,18 @@ namespace LabPong
 
                 UTF8Encoding encoding = new UTF8Encoding();
 
-                byte[] ba = encoding.GetBytes(FTPSendText);
+                byte[] ba = encoding.GetBytes(";"+msg+";");
                 tcpStream.Write(ba, 0, ba.Length);
                 byte[] buffer = new byte[maxBuffer];
                 int gelesen = tcpStream.Read(buffer, 0, maxBuffer);
                 string empfangen = encoding.GetString(buffer, 0, gelesen);
-          //    if (tcpStream != null) tcpStream.Close();
-           //   if (tcpClient != null) tcpClient.Close();
+                if (empfangen.Equals("Ack"))
+                {
+                    tcpStream.Close();
+                    tcpClient.Close();
+                    PongLogic p = new PongLogic();
+                    //start udp
+                }
             }
             catch (Exception exp) { /*error Message */ return; }
         }
@@ -115,6 +146,46 @@ namespace LabPong
                 Console.WriteLine("Keine IPV4-IP auflösbar."); Console.ReadKey();
             return ipAdresse;
         }
-
+        public void UDPSend()
+        {
+            //Where to send it to
+            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Broadcast, portUDP);
+            //Message
+            byte[] content = Encoding.ASCII.GetBytes("Can anybody hear me?");
+            try
+            {
+                //Sending
+                udpClientS.Send(content, content.Length, ipEndPoint);
+            }
+            catch
+            {
+                Console.WriteLine("ERROR");
+            }
+        }
+        public void UDPReceive()
+        {
+            Communicator c = new Communicator();
+            //Start a new thread with the ReceiveMessage method to listen for input
+            thread = new Thread(c.ReceiveMessage);
+            thread.IsBackground = true;
+            thread.Start();
+            Console.ReadKey();
+        }
+        public void ReceiveMessage()
+        {
+            while (true)
+            {
+                //Wait for any IPAddress to send something on port 11000
+                IPEndPoint remoteIPEndPoint = new IPEndPoint(IPAddress.Any, portUDP);
+                //Load content
+                byte[] content = udpClientR.Receive(ref remoteIPEndPoint);
+                if (content.Length > 0)
+                {
+                    //Output content
+                    string message = Encoding.ASCII.GetString(content);
+                    Console.WriteLine(message);
+                }
+            }
+        }
     }
 }

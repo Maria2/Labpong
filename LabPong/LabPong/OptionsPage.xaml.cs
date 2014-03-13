@@ -19,15 +19,22 @@ namespace LabPong
     /// </summary>
     public partial class OptionsPage : Window
     {
+        private static string username1="";
         public OptionsPage()
         {
             InitializeComponent();
             username.Text = Properties.Settings.Default.Username;
+            username1 = username.Text;
             List<String> options = new List<string>(2);
             options.Add("Default");
             options.Add("Custom");
             audio.ItemsSource = options;
             audio.SelectedValue = Properties.Settings.Default.Username;
+        }
+
+        public static string getUsername()
+        {
+            return username1;
         }
     }
 }

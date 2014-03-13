@@ -12,7 +12,7 @@
             <Label Content="Audio" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0" Width="80" HorizontalContentAlignment="Center"/>
         </StackPanel>
         <StackPanel Grid.Column="1">
-            <TextBox VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,55,0,0" Width="100" Name="username" />
+            <TextBox VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,55,0,0" Width="100" Name="username"/>
             <ComboBox VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="0,15,0,0" Width="100" Name="audio" Background="Black" Foreground="Red" FontSize="15">
                 <ComboBox.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
