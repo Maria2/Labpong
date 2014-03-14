@@ -7,11 +7,9 @@ namespace LabPong
 {
     class Translator
     {
-<<<<<<< HEAD
         internal void decodeMessage(byte[] content)
         {
             throw new NotImplementedException();
-=======
         public String encodePlayerPosition(String playerPosition, String playerID)
         {
             //First one defines what kind of encoding this is, rest is only data
@@ -67,7 +65,6 @@ namespace LabPong
                     //ERROR
                     break;
             }
->>>>>>> fe42013f47ef00f39bbed1ac3e7e8abacf4c9523
         }
     }
 }

@@ -17,10 +17,6 @@ namespace LabPong
         const int maxBuffer = 100;
         int port = 11000;
 
-<<<<<<< HEAD
-=======
-        public void Join(){}
->>>>>>> fe42013f47ef00f39bbed1ac3e7e8abacf4c9523
         static Int32 portUDP = 11000;
         //UdpClient with port
         static UdpClient udpClientR = new UdpClient(portUDP);
@@ -29,11 +25,7 @@ namespace LabPong
         static String ipaddress = "192.168.0.3";
         IPAddress ip = IPAddress.Parse(ipaddress);
 
-<<<<<<< HEAD
-=======
-
->>>>>>> fe42013f47ef00f39bbed1ac3e7e8abacf4c9523
-        public void runClient()
+       public void runClient()
         {
             FTPReciever(); //start recieving
             if(!OptionsPage.getUsername().Equals(""))
@@ -157,7 +149,7 @@ namespace LabPong
             //Where to send it to
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Broadcast, portUDP);
             //Message
-            byte[] content = Encoding.ASCII.GetBytes(";"+message+";");
+            byte[] content = Encoding.ASCII.GetBytes(message);
             try
             {
                 //Sending
@@ -180,23 +172,24 @@ namespace LabPong
         public void ReceiveMessage()
         {// ruft translator auf um daten rauszulesen
             Translator t = new Translator();
-            int counter = 0;
             while (true)
             {
                 //Wait for any IPAddress to send something on port 11000
                 IPEndPoint remoteIPEndPoint = new IPEndPoint(IPAddress.Any, portUDP);
                 //Load content
                 byte[] content = udpClientR.Receive(ref remoteIPEndPoint);
+                String contenttoreturn = "";
                 if (content.Length > 0)
                 {
-                    for (int i = 0; i<content.Length ; i++)
+                    for (int i = 0; i < content.Length; i++)
                     {
-                        if (content[i] == ';')
-                        {
-                            counter++;
-                        }
+                        contenttoreturn = contenttoreturn + content[i];
+                        Console.WriteLine(contenttoreturn);
                     }
-                    t.decodeMessage(content);
+                    // Console.WriteLine(contenttoreturn);
+                    System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+                    byte[] contenttoreturn1 = enc.GetBytes(contenttoreturn);
+                    t.decodeMessage(contenttoreturn1);
                 }
             }
         }
