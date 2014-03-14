@@ -25,8 +25,12 @@ namespace LabPong
         static String ipaddress = "192.168.0.3";
         IPAddress ip = IPAddress.Parse(ipaddress);
 
+<<<<<<< HEAD
 
         public void Join()
+=======
+       public void runClient()
+>>>>>>> 3cc73ad0f965d4b7799b5831b9997e80f720f75e
         {
             FTPReciever(); //start recieving
             if(!OptionsPage.getUsername().Equals(""))
@@ -145,12 +149,12 @@ namespace LabPong
                 Console.WriteLine("Keine IPV4-IP auflösbar."); Console.ReadKey();
             return ipAdresse;
         }
-        public void UDPSend()
+        public void UDPSend(String message)
         {
             //Where to send it to
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Broadcast, portUDP);
             //Message
-            byte[] content = Encoding.ASCII.GetBytes("Can anybody hear me?");
+            byte[] content = Encoding.ASCII.GetBytes(message);
             try
             {
                 //Sending
@@ -171,18 +175,26 @@ namespace LabPong
             Console.ReadKey();
         }
         public void ReceiveMessage()
-        {
+        {// ruft translator auf um daten rauszulesen
+            Translator t = new Translator();
             while (true)
             {
                 //Wait for any IPAddress to send something on port 11000
                 IPEndPoint remoteIPEndPoint = new IPEndPoint(IPAddress.Any, portUDP);
                 //Load content
                 byte[] content = udpClientR.Receive(ref remoteIPEndPoint);
+                String contenttoreturn = "";
                 if (content.Length > 0)
                 {
-                    //Output content
-                    string message = Encoding.ASCII.GetString(content);
-                    Console.WriteLine(message);
+                    for (int i = 0; i < content.Length; i++)
+                    {
+                        contenttoreturn = contenttoreturn + content[i];
+                        Console.WriteLine(contenttoreturn);
+                    }
+                    // Console.WriteLine(contenttoreturn);
+                    System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+                    byte[] contenttoreturn1 = enc.GetBytes(contenttoreturn);
+                    t.decodeMessage(contenttoreturn1);
                 }
             }
         }
