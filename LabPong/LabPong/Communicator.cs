@@ -25,12 +25,8 @@ namespace LabPong
         static String ipaddress = "192.168.0.3";
         IPAddress ip = IPAddress.Parse(ipaddress);
 
-<<<<<<< HEAD
-
-        public void Join()
-=======
+       
        public void runClient()
->>>>>>> 3cc73ad0f965d4b7799b5831b9997e80f720f75e
         {
             FTPReciever(); //start recieving
             if(!OptionsPage.getUsername().Equals(""))
