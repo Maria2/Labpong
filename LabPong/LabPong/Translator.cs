@@ -7,5 +7,9 @@ namespace LabPong
 {
     class Translator
     {
+        internal void decodeMessage(byte[] content)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

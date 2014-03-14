@@ -18,7 +18,6 @@ namespace LabPong
         const int maxBuffer = 100;
         int port = 11000;
 
-<<<<<<< HEAD
         static Int32 portUDP = 11000;
         //UdpClient with port
         static UdpClient udpClientR = new UdpClient(portUDP);
@@ -27,7 +26,6 @@ namespace LabPong
         static String ipaddress = "192.168.0.3";
         IPAddress ip = IPAddress.Parse(ipaddress);
 
-=======
         public void runClient()
         {
             while (true)
@@ -42,7 +40,6 @@ namespace LabPong
                 FTPSender();
             }
         }
->>>>>>> 36c94236de214aae054957bdd8b91be5bd39b2cc
         //----- FTP Sender (Client) ----
 
         private void FTPSender()
@@ -141,12 +138,12 @@ namespace LabPong
                 Console.WriteLine("Keine IPV4-IP auflösbar."); Console.ReadKey();
             return ipAdresse;
         }
-        public void UDPSend()
+        public void UDPSend(String message)
         {
             //Where to send it to
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Broadcast, portUDP);
             //Message
-            byte[] content = Encoding.ASCII.GetBytes("Can anybody hear me?");
+            byte[] content = Encoding.ASCII.GetBytes(";"+message+";");
             try
             {
                 //Sending
@@ -167,7 +164,9 @@ namespace LabPong
             Console.ReadKey();
         }
         public void ReceiveMessage()
-        {
+        {// ruft translator auf um daten rauszulesen
+            Translator t = new Translator();
+            int counter = 0;
             while (true)
             {
                 //Wait for any IPAddress to send something on port 11000
@@ -176,9 +175,14 @@ namespace LabPong
                 byte[] content = udpClientR.Receive(ref remoteIPEndPoint);
                 if (content.Length > 0)
                 {
-                    //Output content
-                    string message = Encoding.ASCII.GetString(content);
-                    Console.WriteLine(message);
+                    for (int i = 0; i<content.Length ; i++)
+                    {
+                        if (content[i] == ';')
+                        {
+                            counter++;
+                        }
+                    }
+                    t.decodeMessage(content);
                 }
             }
         }
