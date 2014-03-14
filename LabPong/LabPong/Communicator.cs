@@ -11,13 +11,16 @@ namespace LabPong
 {
     class Communicator
     {
-        String FTPSendText = "";
         IPAddress ipAdresse = null;
         Socket socket;
         TcpListener tcpListener;
         const int maxBuffer = 100;
         int port = 11000;
 
+<<<<<<< HEAD
+=======
+        public void Join(){}
+>>>>>>> fe42013f47ef00f39bbed1ac3e7e8abacf4c9523
         static Int32 portUDP = 11000;
         //UdpClient with port
         static UdpClient udpClientR = new UdpClient(portUDP);
@@ -26,29 +29,35 @@ namespace LabPong
         static String ipaddress = "192.168.0.3";
         IPAddress ip = IPAddress.Parse(ipaddress);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe42013f47ef00f39bbed1ac3e7e8abacf4c9523
         public void runClient()
         {
-            while (true)
-            {
-                FTPReciever();
-            }
+            FTPReciever(); //start recieving
+            if(!OptionsPage.getUsername().Equals(""))
+               FTPSender(OptionsPage.getUsername()); //transmit username
+            else
+               FTPSender("default"); //transmit username   
         }
-        public void runServer()
+        public void Host()
         {
-            while (true)
-            {
-                FTPSender();
-            }
+            if (!OptionsPage.getUsername().Equals(""))
+                FTPSender(OptionsPage.getUsername()); //transmit username
+            else
+                FTPSender("default"); //transmit username
+            FTPReciever(); //start recieving
         }
         //----- FTP Sender (Client) ----
 
-        private void FTPSender()
+        private void FTPSender(string msg)
         { 
             TcpClient tcpClient;
             Stream tcpStream;
             const int maxBuffer = 100;
 
-            String ipAdresse = "169.254.49.18";
+            String ipAdresse = ConnectPage.joinIP;
             int port = 11000;
             try
             {
@@ -67,13 +76,18 @@ namespace LabPong
 
                 UTF8Encoding encoding = new UTF8Encoding();
 
-                byte[] ba = encoding.GetBytes(FTPSendText);
+                byte[] ba = encoding.GetBytes(";"+msg+";");
                 tcpStream.Write(ba, 0, ba.Length);
                 byte[] buffer = new byte[maxBuffer];
                 int gelesen = tcpStream.Read(buffer, 0, maxBuffer);
                 string empfangen = encoding.GetString(buffer, 0, gelesen);
-          //    if (tcpStream != null) tcpStream.Close();
-           //   if (tcpClient != null) tcpClient.Close();
+                if (empfangen.Equals("Ack"))
+                {
+                    tcpStream.Close();
+                    tcpClient.Close();
+                    PongLogic p = new PongLogic();
+                    //start udp
+                }
             }
             catch (Exception exp) { /*error Message */ return; }
         }
