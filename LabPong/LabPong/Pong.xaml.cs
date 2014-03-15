@@ -7,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
@@ -45,7 +44,7 @@ namespace LabPong
             if (e.PropertyName.Equals("ballPos"))
                 Ball.Dispatcher.BeginInvoke(new ChangePosition(UpdateBallPos), DispatcherPriority.DataBind, new object[] { ((PongModel)sender).BallPos });
             if (e.PropertyName.Split(new char[] { ':' })[0].Equals("add"))
-                playerX_item.Dispatcher.BeginInvoke(new UpdateImage(AddItem), new object[] {"/items/"+e.PropertyName.Split(new char[]{':'})[1]+".png"});
+                playerX_item.Dispatcher.BeginInvoke(new UpdateImage(AddItem), new object[] {e.PropertyName.Split(new char[]{':'})[1]});
             if (e.PropertyName.Equals("del"))
                 playerX_item.Dispatcher.BeginInvoke(new VoidMethod(DeleteItem), null);
         }
@@ -57,8 +56,8 @@ namespace LabPong
 
         void AddItem(String image)
         {
-            Image im = new Image();
-            im.Source = new BitmapImage(new Uri(image));
+            Image im = new Image();            
+            im.Source = new BitmapImage(new Uri("pack://application:,,,/items/"+image+".png"));
             playerX_item.Children.Add(im);
         }
 

@@ -30,17 +30,11 @@ namespace LabPong
         public void runClient()
         {
             FTPReciever(); //start recieving
-            if(!OptionsPage.getUsername().Equals(""))
-               FTPSender(OptionsPage.getUsername()); //transmit username
-            else
-               FTPSender("default"); //transmit username   
+            FTPSender(Properties.Settings.Default.Username); //transmit username   
         }
         public void Host()
         {
-            if (!OptionsPage.getUsername().Equals(""))
-                FTPSender(OptionsPage.getUsername()); //transmit username
-            else
-                FTPSender("default"); //transmit username
+            FTPSender(Properties.Settings.Default.Username); //transmit username
             FTPReciever(); //start recieving
         }
         //----- FTP Sender (Client) ----
@@ -59,7 +53,7 @@ namespace LabPong
                 tcpClient.Connect(ipAdresse, port);
 
             }
-            catch (Exception exp)
+            catch (Exception)
             {
                 // return error code connection dead
                return;
@@ -83,7 +77,7 @@ namespace LabPong
                     //start udp
                 }
             }
-            catch (Exception exp) { /*error Message */ return; }
+            catch (Exception) { /*error Message */ return; }
         }
 
         //----- FTP Reciever (Server) ----
@@ -96,7 +90,7 @@ namespace LabPong
                 tcpListener = new TcpListener(ipAdresse, port);
                 tcpListener.Start();
             }
-            catch (Exception exp)
+            catch (Exception)
             {
                 //errorMessage
                 return;
@@ -123,7 +117,7 @@ namespace LabPong
                 }
                 while (received != 0);
             }
-            catch (Exception exp)
+            catch (Exception)
             {
                 // error message
                 if (socket != null) socket.Close();

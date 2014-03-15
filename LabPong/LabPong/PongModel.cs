@@ -19,6 +19,8 @@ namespace LabPong
         private List<String> items = new List<string>(3);
         private int negCounter = 0;
         private int posCounter = 0;
+        private int shots = 0;
+        private Boolean invert = false;
         #endregion
         #region static variables
         public static PongModel pongModel;
@@ -49,7 +51,7 @@ namespace LabPong
             {
                 if (value == playerYScore) return;                
                 playerYScore = value;
-                incrementPosCounter();
+                incrementNegCounter();
                 NotifyPropertyChanged("playerYScore");
             }
         }
@@ -118,7 +120,14 @@ namespace LabPong
             if (e.Key != Key.Space) return;
             if (items.Count() > 0)
             {
-                //Launch Item
+                switch (items[0])
+                {
+                    case "shot": shots = 3; break;
+                    //case "ball_direction": BallS = new Point(-ballSpeed.X, ballSpeed.Y); break;
+                    //case "white_screen": break;
+                    case "invert": break;
+                    case "resize": break;
+                }
                 NotifyPropertyChanged("del");
                 items.RemoveAt(0);
             }
