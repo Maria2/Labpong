@@ -10,6 +10,7 @@ namespace LabPong
         internal void decodeMessage(byte[] content)
         {
             throw new NotImplementedException();
+        }
         public String encodePlayerPosition(String playerPosition, String playerID)
         {
             //First one defines what kind of encoding this is, rest is only data
