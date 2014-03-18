@@ -10,7 +10,7 @@
         </Grid.ColumnDefinitions>
         <Image Grid.Column="0" HorizontalAlignment="Center" Margin="50,0,0,0" VerticalAlignment="Center" Source="resources/images/Leapong Logo.png"/>
         <Label Grid.Column="0" Foreground="Red" Content="Controller not connected or not detected" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Name="label"/>
-        <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" MouseEnter="Button_MouseEnter">
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" MouseEnter="Button_MouseEnter">
             <Button Height="90" Width="350" Name="start_game" VerticalAlignment="Top" Margin="0,30,0,0" Content="Start game" Style="{DynamicResource button_temp}" Click="Button_Click"/>
             <Button Height="90" Width="350" Name="high_score" VerticalAlignment="Top" Margin="0,20,0,0" Content="High score" Style="{DynamicResource button_temp}" Click="Button_Click"/>
             <Button Height="90" Width="350" Name="options" VerticalAlignment="Top" Margin="0,20,0,0" Content="Options" Style="{DynamicResource button_temp}" Click="Button_Click"/>
