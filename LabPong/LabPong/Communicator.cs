@@ -22,8 +22,6 @@ namespace LabPong
         static UdpClient udpClientR = new UdpClient(portUDP);
         UdpClient udpClientS = new UdpClient();
         static Thread thread;
-        static String ipaddress = "192.168.0.3";
-        IPAddress ip = IPAddress.Parse(ipaddress);
 
        
        public void Join()
@@ -45,12 +43,12 @@ namespace LabPong
             Stream tcpStream;
             const int maxBuffer = 100;
 
-            String ipAdresse = ConnectPage.joinIP;
+            IPAddress ipAdresse = IPAddress.Parse(ConnectPage.joinIP);
             int port = 11000;
             tcpClient = new TcpClient(); 
             try
-            {            
-                tcpClient.Connect(ip, port);
+            {
+                tcpClient.Connect(ipAdresse, port);
 
             }
             catch (Exception exp)
