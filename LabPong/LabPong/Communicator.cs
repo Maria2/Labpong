@@ -28,13 +28,11 @@ namespace LabPong
        public void Join(String ip)
         {
            joinIP = ip;
-           FTPReciever(); //start recieving
            FTPSender(); //transmit username              
         }
 
         public void Host()
         {
-            FTPSender(); //transmit username
             FTPReciever(); //start recieving
         }
         //----- FTP Sender (Client) ----
