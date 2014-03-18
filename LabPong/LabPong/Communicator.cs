@@ -16,7 +16,8 @@ namespace LabPong
         TcpListener tcpListener;
         const int maxBuffer = 100;
         int port = 11000;
-
+        private String joinIP;
+        private String username = Properties.Settings.Default.Username;
         static Int32 portUDP = 11000;
         //UdpClient with port
         static UdpClient udpClientR = new UdpClient(portUDP);
@@ -24,26 +25,27 @@ namespace LabPong
         static Thread thread;
 
        
-       public void Join()
+       public void Join(String ip)
         {
-            FTPReciever(); //start recieving
-            FTPSender(Properties.Settings.Default.Username); //transmit username   
+           joinIP = ip;
+           FTPReciever(); //start recieving
+           FTPSender(); //transmit username              
         }
 
         public void Host()
         {
-            FTPSender(Properties.Settings.Default.Username); //transmit username
+            FTPSender(); //transmit username
             FTPReciever(); //start recieving
         }
         //----- FTP Sender (Client) ----
 
-        private void FTPSender(string msg)
+        private void FTPSender()
         { 
             TcpClient tcpClient;
             Stream tcpStream;
             const int maxBuffer = 100;
 
-            IPAddress ipAdresse = IPAddress.Parse(ConnectPage.joinIP);
+            IPAddress ipAdresse = IPAddress.Parse(joinIP);
             int port = 11000;
             tcpClient = new TcpClient(); 
             try
@@ -62,7 +64,7 @@ namespace LabPong
 
                 UTF8Encoding encoding = new UTF8Encoding();
 
-                byte[] ba = encoding.GetBytes(";"+msg+";");
+                byte[] ba = encoding.GetBytes(";"+username+";");
                 tcpStream.Write(ba, 0, ba.Length);
                 byte[] buffer = new byte[maxBuffer];
                 int gelesen = tcpStream.Read(buffer, 0, maxBuffer);

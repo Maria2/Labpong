@@ -28,8 +28,15 @@ namespace LabPong
         delegate void Update(Point point);
 
         // checked ips used for connection
-        public static string joinIP;
-        public string hostIP;
+        private string joinIP;
+
+        public string JoinIP
+        {
+            get { return joinIP; }
+            set { joinIP = value; }
+        }
+
+
 
         //ip arrays needed for progress
         string[] serverIP = new string[4];
@@ -52,8 +59,8 @@ namespace LabPong
         {
             switch (((Button)sender).Name)
             {
-                case "hostClicked": HostClicked(); com.Host(); break; 
-                case "joinClicked": JoinClicked(); com.Join(); break;
+                case "hostClicked": com.Host(); break;
+                case "joinClicked": JoinClicked(); com.Join(joinIP); this.Close(); new Pong().Show(); break;
                 case "one": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
                 case "two": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
                 case "three": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
@@ -69,19 +76,19 @@ namespace LabPong
 
         }
 
-        //user enters own ip and hosts game
-        private void HostClicked()
-        {
-            userIP[0] = userIPText1.Text;
-            userIP[1] = userIPText2.Text;
-            userIP[2] = userIPText3.Text;
-            userIP[3] = userIPText4.Text;
-            OnNotification(NotificationTyp.wait);
-            CheckIp(userIP);
-            if (userIP != null)
-                hostIP = userIP[0] + "." + userIP[1] + "." + userIP[2] + "." + userIP[3];
-            isHost = true;
-        }
+        ////user enters own ip and hosts game
+        //private void HostClicked()
+        //{
+        //    userIP[0] = userIPText1.Text;
+        //    userIP[1] = userIPText2.Text;
+        //    userIP[2] = userIPText3.Text;
+        //    userIP[3] = userIPText4.Text;
+        //    OnNotification(NotificationTyp.wait);
+        //    CheckIp(userIP);
+        //    if (userIP != null)
+        //        Jo = userIP[0] + "." + userIP[1] + "." + userIP[2] + "." + userIP[3];
+        //    isHost = true;
+        //}
 
         //user enters ip of other player
         private void JoinClicked()
@@ -92,8 +99,7 @@ namespace LabPong
             serverIP[3] = serverIPText4.Text;
             OnNotification(NotificationTyp.wait);
             CheckIp(serverIP);
-            if (userIP != null)
-                joinIP = userIP[0] + "." + userIP[1] + "." + userIP[2] + "." + userIP[3];
+            joinIP = serverIP[0] + "." + serverIP[1] + "." + serverIP[2] + "." + serverIP[3];
             isHost = false;
 
             //if error -> OnNotification()
