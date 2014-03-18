@@ -53,7 +53,7 @@ namespace LabPong
                 tcpClient.Connect(ip, port);
 
             }
-            catch (Exception)
+            catch (Exception exp)
             {
                 // return error code connection dead
                 Console.WriteLine(exp.StackTrace);
