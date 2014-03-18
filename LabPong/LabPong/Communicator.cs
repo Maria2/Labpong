@@ -26,7 +26,7 @@ namespace LabPong
         IPAddress ip = IPAddress.Parse(ipaddress);
 
        
-       public void runClient()
+       public void Join()
         {
             FTPReciever(); //start recieving
             if(!OptionsPage.getUsername().Equals(""))
@@ -52,16 +52,16 @@ namespace LabPong
 
             String ipAdresse = ConnectPage.joinIP;
             int port = 11000;
+            tcpClient = new TcpClient(); 
             try
-            {
-                tcpClient = new TcpClient();             
-                tcpClient.Connect(ipAdresse, port);
+            {            
+                tcpClient.Connect(ip, port);
 
             }
             catch (Exception exp)
             {
                 // return error code connection dead
-               return;
+                Console.WriteLine(exp.StackTrace);
             }
             try
             {
