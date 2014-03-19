@@ -67,13 +67,9 @@ namespace LabPong
                 byte[] buffer = new byte[maxBuffer];
                 int gelesen = tcpStream.Read(buffer, 0, maxBuffer);
                 string empfangen = encoding.GetString(buffer, 0, gelesen);
-                if (empfangen.Equals("Ack"))
-                {
-                    tcpStream.Close();
-                    tcpClient.Close();
-                    PongLogic p = new PongLogic();
-                    //start udp
-                }
+                tcpStream.Close();
+                tcpClient.Close();
+                UDPReceive();
             }
             catch (Exception) { /*error Message */ return; }
         }
@@ -138,6 +134,7 @@ namespace LabPong
                 Console.WriteLine("Keine IPV4-IP auflösbar."); Console.ReadKey();
             return ipAdresse;
         }
+
         public void UDPSend(String message)
         {
             //Where to send it to
@@ -156,20 +153,20 @@ namespace LabPong
         }
         public void UDPReceive()
         {
-            Communicator c = new Communicator();
             //Start a new thread with the ReceiveMessage method to listen for input
-            thread = new Thread(c.ReceiveMessage);
+            thread = new Thread(ReceiveMessage);
             thread.IsBackground = true;
             thread.Start();
             Console.ReadKey();
         }
+
         public void ReceiveMessage()
         {// ruft translator auf um daten rauszulesen
             Translator t = new Translator();
             while (true)
             {
                 //Wait for any IPAddress to send something on port 11000
-                IPEndPoint remoteIPEndPoint = new IPEndPoint(IPAddress.Any, portUDP);
+                IPEndPoint remoteIPEndPoint = new IPEndPoint(IPAddress.Parse(joinIP), portUDP);
                 //Load content
                 byte[] content = udpClientR.Receive(ref remoteIPEndPoint);
                 String contenttoreturn = "";
