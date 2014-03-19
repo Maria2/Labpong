@@ -26,7 +26,7 @@ namespace LabPong
         IPAddress ip = IPAddress.Parse(ipaddress);
 
        
-       public void runClient()
+       public void Join()
         {
             FTPReciever(); //start recieving
             if(!OptionsPage.getUsername().Equals(""))
