@@ -34,7 +34,7 @@ namespace LabPong
             InitializeDirectionIncrement();
             while (pongModel.PlayerXScore < 10 && pongModel.PlayerYScore < 10)
             {
-                Thread.Sleep(5);
+                Thread.Sleep(15);
                 pongModel.BallPos = new Point(pongModel.BallPos.X + ballSpeed.X * 10, pongModel.BallPos.Y + ballSpeed.Y * 10);
                 CheckCollision();
             }
@@ -57,7 +57,7 @@ namespace LabPong
                     ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
             if (new Rect(pongModel.BallPos.X, pongModel.BallPos.Y, PongModel.BallSize.X, PongModel.BallSize.Y).
                 IntersectsWith(new Rect(PongModel.WINDOW_WIDTH - PongModel.PlayerSizes.X, pongModel.PlayerY, PongModel.PlayerSizes.X, PongModel.PlayerSizes.Y)))
-                ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
+                    ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
             if (pongModel.BallPos.X < 0)
             {
                 pongModel.PlayerYScore++;                
