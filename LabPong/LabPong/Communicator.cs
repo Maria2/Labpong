@@ -71,7 +71,6 @@ namespace LabPong
                 {
                     tcpStream.Close();
                     tcpClient.Close();
-                    PongLogic p = new PongLogic();
                     //start udp
                 }
             }
@@ -110,8 +109,9 @@ namespace LabPong
                     }
                     UTF8Encoding encoding = new UTF8Encoding();
                     empfangen = encoding.GetString(buffer, 0, received);
-                    string toSend = "ACK";
-                    socket.Send(encoding.GetBytes(toSend));
+                    PongLogic p = new PongLogic();
+                    UDPSend("Test");
+                    
                 }
                 while (received != 0);
             }
@@ -135,7 +135,7 @@ namespace LabPong
                     ipAdresse = ip; break;
                 }
             if (ipAdresse == null)
-                Console.WriteLine("Keine IPV4-IP auflösbar."); Console.ReadKey();
+                return ipAdresse; //ERROR!!! catching
             return ipAdresse;
         }
         public void UDPSend(String message)
