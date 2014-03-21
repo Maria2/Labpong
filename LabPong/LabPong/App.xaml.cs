@@ -132,7 +132,7 @@ namespace LabPong
         public static void AnimateSelection(this UIElement targetControl)
         {
             sb.Children.Clear();
-            DoubleAnimation fadeInAnimation = new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(3)));
+            DoubleAnimation fadeInAnimation = new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(2)));
             Storyboard.SetTarget(fadeInAnimation, targetControl);
             Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath(UIElement.OpacityProperty));
             sb.Children.Add(fadeInAnimation);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,31 +25,31 @@ namespace LabPong
 
         public PreviousGames()
         {
-            InitializeComponent();
+            InitializeComponent();            
             file = System.IO.File.ReadLines("resources/highscore.txt").ToList();
             highscore.ItemsSource = file;
-            title.Content = file.Count() > 1? "Last " + file.Count() + " Games":"Last Game";
+            title.Content = file.Count() > 1? "Last " + file.Count() + " Games":"Last Game";            
             App.CustomListener.PropertyChanged += _customListener_PropertyChanged;
             PointerAnimation.Sb.Completed += Animation_Completed;
         }
 
         private void Animation_Completed(object sender, EventArgs e)
         {
-            new MainPage().Show();
-            this.Close();
+            this.Close();  
         }
 
         private void _customListener_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            
             if(e.PropertyName.Equals("Position"))
                 pointer.Dispatcher.Invoke(new Update(UpdateUI), ((CustomListener)sender).Position);
         }
 
         private void UpdateUI(Point point)
         {
-            Canvas.SetLeft(pointer, (this.ActualWidth / 2 + 120) + (point.X * 3));
-            Canvas.SetTop(pointer, (this.ActualHeight / 2) + (point.Y * 3));
-            App.SetCursorPos((int)((this.ActualWidth / 2 + 100) + (point.X * 3)), (int)((this.ActualHeight / 2) + (point.Y * 3)));
+            Canvas.SetLeft(pointer, (this.ActualWidth / 2 + 90) + (point.X * 5));
+            Canvas.SetTop(pointer, (this.ActualHeight / 2) + (point.Y * 4));
+            App.SetCursorPos((int)((this.ActualWidth / 2 + 90) + (point.X * 5)), (int)((this.ActualHeight / 2) + (point.Y * 4)));
         }
 
         private void Window_MouseMove(object sender, MouseEventArgs e)
@@ -61,6 +62,11 @@ namespace LabPong
         {
             PointerAnimation.AnimationTarget = back;
             back.AnimateSelection();
+        }
+
+        private void back_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

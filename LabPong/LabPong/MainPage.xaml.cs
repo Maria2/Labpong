@@ -25,16 +25,18 @@ namespace LabPong
     {
         delegate void ChangeLabel(String message);
         delegate void Update(Point point);
+        PreviousGames prev;
 
         public MainPage()
         {
             InitializeComponent();                    
             App.CustomListener.PropertyChanged += _customListener_PropertyChanged;
-            PointerAnimation.Sb.Completed += Animation_Completed;
+            PointerAnimation.Sb.Completed += Animation_Completed;            
         }
 
         void _customListener_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (this.Visibility == Visibility.Hidden) return;
             switch (e.PropertyName)
             {
                 case "NothingTracked": 
@@ -76,13 +78,19 @@ namespace LabPong
         {
             switch (((Button)sender).Name)
             {
-                case "start_game": new ConnectPage().Show(); this.Close(); break;
-                case "high_score": new PreviousGames().Show(); this.Close(); break;
-                case "options": new OptionsPage().ShowDialog(); break;
-                case "about": new AboutPage().Show(); this.Close(); break;
+                case "start_game": new ConnectPage().Show(); this.Visibility = Visibility.Hidden; break;
+                case "high_score": prev = new PreviousGames(); prev.Closing += prev_Closing;
+                    prev.Show(); this.Visibility = Visibility.Hidden; break;
+                case "options": new OptionsPage().Show(); break;
+                case "about": new AboutPage().Show(); this.Visibility = Visibility.Hidden; break;
                 case "exit": new ExitConfirmation().Show(); break;
             }
                             
+        }
+
+        void prev_Closing(object sender, CancelEventArgs e)
+        {            
+            this.Visibility = Visibility.Visible;
         }
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)

@@ -7,11 +7,15 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
         <StackPanel Grid.Column="0">
             <Label Content="Username" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,50,0,0" Width="80"/>
             <Label Content="Audio" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0" Width="80" HorizontalContentAlignment="Center"/>
         </StackPanel>
-        <StackPanel Grid.Column="1">
+        <StackPanel Grid.Column="1" MouseEnter="Button_MouseEnter">
             <TextBox VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,55,0,0" Width="100" Name="username"/>
             <ComboBox VerticalAlignment="Top"  HorizontalAlignment="Center" Margin="0,15,0,0" Width="100" Name="audio" Background="Black" Foreground="Red" FontSize="15">
                 <ComboBox.Resources>
@@ -20,5 +24,9 @@
                 </ComboBox.Resources>
             </ComboBox>
         </StackPanel>
+        <Button Grid.Row="1" Content="Back" Name="back" FontSize="18" Foreground="Red" MouseEnter="Button_MouseEnter"/>
+        <Canvas Name="canvas">
+            <Ellipse Style="{DynamicResource pointer_template}" Width="30" Height="30" Name="pointer"/>
+        </Canvas>
     </Grid>
 </Window>

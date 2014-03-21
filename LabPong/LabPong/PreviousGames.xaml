@@ -12,12 +12,11 @@
             <Label FontSize="30" HorizontalAlignment="Center" Content="Last x Games" Name="title"/>
         </StackPanel>
         <StackPanel Grid.Row="1">
-            <ListBox Name="highscore" FontSize="20" Background="Black" Height="50" Foreground="Red" BorderThickness="0">
-                
+            <ListBox Name="highscore" FontSize="20" Background="Black" Foreground="Red" BorderThickness="0">                
             </ListBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <Button Name="back" Content="Back" FontSize="20" Style="{DynamicResource button_temp}" MouseEnter="back_MouseEnter" />
+            <Button Name="back" Content="Back" Width="100" FontSize="20" Style="{DynamicResource button_temp}" MouseEnter="back_MouseEnter" Click="back_Click" />
         </StackPanel>
         <Canvas Name="canvas">
             <Ellipse Style="{DynamicResource pointer_template}" Name="pointer"/>
