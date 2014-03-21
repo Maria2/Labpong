@@ -37,7 +37,6 @@ namespace LabPong
             FTPReciever(); //start recieving
             UDPReceive();
         }
-
         //----- FTP Sender (Client) ----
 
         private void FTPSender()
@@ -137,7 +136,6 @@ namespace LabPong
                 Console.WriteLine("Keine IPV4-IP auflösbar."); Console.ReadKey();
             return ipAdresse;
         }
-
         public void UDPSend(String message)
         {
             //Where to send it to
@@ -162,7 +160,6 @@ namespace LabPong
             thread.Start();
             Console.ReadKey();
         }
-
         public void ReceiveMessage()
         {// ruft translator auf um daten rauszulesen
             Translator t = new Translator();
