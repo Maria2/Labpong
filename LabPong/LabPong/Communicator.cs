@@ -28,12 +28,14 @@ namespace LabPong
        public void Join(String ip)
         {
            joinIP = ip;
-           FTPSender(); //transmit username              
+           FTPSender(); //transmit username
+           UDPReceive();
         }
 
         public void Host()
         {
             FTPReciever(); //start recieving
+            UDPReceive();
         }
         //----- FTP Sender (Client) ----
 
@@ -181,9 +183,9 @@ namespace LabPong
                         Console.WriteLine(contenttoreturn);
                     }
                     // Console.WriteLine(contenttoreturn);
-                    System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
-                    byte[] contenttoreturn1 = enc.GetBytes(contenttoreturn);
-                    t.decodeMessage(contenttoreturn1);
+                    //System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+                    //] contenttoreturn1 = enc.GetBytes(contenttoreturn);
+                    t.decode(contenttoreturn);
                 }
             }
         }

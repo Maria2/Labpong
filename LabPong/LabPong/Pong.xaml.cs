@@ -27,7 +27,6 @@ namespace LabPong
         public Pong()
         {
             InitializeComponent();
-            new PongLogic();
             PongModel.pongModel.PropertyChanged += pl_PropertyChanged;            
         }
 
