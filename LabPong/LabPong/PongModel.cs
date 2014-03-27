@@ -24,16 +24,30 @@ namespace LabPong
         private Communicator communicator;
         #endregion
         #region static variables
-        public static PongModel pongModel;
-        public static double WINDOW_HEIGHT_2;
+        public static PongModel pongModel;        
         public static double WINDOW_HEIGHT;
         public static double WINDOW_WIDTH;
+        public static double WINDOW_MIDDLE;
         public static Point BallSize = new Point(50,50);
         public static Point PlayerSizes = new Point(15, 220);
         public static String[] posItems = { "shot", "ball_direction" };
         public static String[] negItems = { "white_screen", "invert", "resize" };
         #endregion
         #region Properties
+
+        public static double WINDOW_HEIGHT_2
+        {
+            get { return WINDOW_HEIGHT_2; }
+            set
+            {
+                WINDOW_HEIGHT_2 = value;
+                if (WINDOW_HEIGHT > WINDOW_HEIGHT_2)
+                    WINDOW_MIDDLE = WINDOW_HEIGHT_2 / 2;
+                else
+                    WINDOW_MIDDLE = WINDOW_HEIGHT / 2;
+            }
+        }
+
         public int PlayerXScore
         {
             get { return playerXScore; }
@@ -63,7 +77,15 @@ namespace LabPong
             get { return playerX; }
             set
             {
-                value = (value * 4) + ((WINDOW_HEIGHT / 2) - (PlayerSizes.Y / 2));
+                value = (value * 4) + ((WINDOW_MIDDLE) - (PlayerSizes.Y / 2));
+                if(WINDOW_HEIGHT > WINDOW_HEIGHT_2)
+                {
+                    if(value > WINDOW_MIDDLE)
+                        value = value + ((WINDOW_HEIGHT - WINDOW_HEIGHT_2) / 2);
+                    else
+                        value = value - ((WINDOW_HEIGHT - WINDOW_HEIGHT_2) / 2);
+                }
+                                    
                 if (value > -1 && value < (WINDOW_HEIGHT - PlayerSizes.Y) + 1)
                 {
                     playerX = value;
@@ -78,8 +100,15 @@ namespace LabPong
             get { return playerY; }
             set
             {
-                value = (value * 4) + ((WINDOW_HEIGHT_2 / 2) - (PlayerSizes.Y / 2));
-                if (value > -1 && value < (WINDOW_HEIGHT_2 - PlayerSizes.Y) + 1)
+                value = (value * 4) + ((WINDOW_MIDDLE) - (PlayerSizes.Y / 2));
+                if (WINDOW_HEIGHT_2 > WINDOW_HEIGHT)
+                {
+                    if (value > WINDOW_MIDDLE)
+                        value = value + ((WINDOW_HEIGHT_2 - WINDOW_HEIGHT) / 2);
+                    else
+                        value = value - ((WINDOW_HEIGHT_2 - WINDOW_HEIGHT) / 2);
+                }
+                if (value > -1 && value < (WINDOW_HEIGHT - PlayerSizes.Y) + 1)
                 {
                     playerY = value;
                     NotifyPropertyChanged("playerY");
@@ -117,7 +146,7 @@ namespace LabPong
             this.communicator = communicator;
             EventManager.RegisterClassHandler(typeof(Window), Keyboard.KeyUpEvent, new KeyEventHandler(SpaceKeyUp), true);
             App.CustomListener.PropertyChanged += CustomListener_PropertyChanged;
-            communicator.UDPSend(Translator.encodeExtra("WINDOW_HEIGHT|" + WINDOW_HEIGHT));
+            communicator.UDPSend(Translator.encodeExtra("WINDOW_HEIGHT|" + System.Windows.SystemParameters.PrimaryScreenHeight));
         }
 
         private void SpaceKeyUp(object sender, KeyEventArgs e)
@@ -159,6 +188,7 @@ namespace LabPong
             if (e.PropertyName.Equals("Position"))
             {
                 PlayerX = ((CustomListener)sender).Position.Y;
+                Console.WriteLine(playerX);
             }
         }
 

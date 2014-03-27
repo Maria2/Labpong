@@ -22,7 +22,7 @@ namespace LabPong
         public static String player2;
         static int portUDP = 11000;
         //UdpClient with port
-        UdpClient udpClientR = new UdpClient(11000);
+        UdpClient udpClientR = new UdpClient(portUDP);
         UdpClient udpClientS = new UdpClient();
         static Thread thread;
         private Boolean connected = true;
@@ -145,6 +145,7 @@ namespace LabPong
             try
             {
                 //Sending
+                remoteIPEndPoint.Port = portUDP;
                 udpClientS.Send(content, content.Length, remoteIPEndPoint);
             }
             catch
@@ -165,7 +166,7 @@ namespace LabPong
             //Wait for any IPAddress to send something on port 11000
             remoteIPEndPoint = new IPEndPoint(joinIP, portUDP);
             while (ongoing)
-            {                
+            {
                 //Load content
                 byte[] content = udpClientR.Receive(ref remoteIPEndPoint);
                 if (content.Length > 0)

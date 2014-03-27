@@ -33,7 +33,7 @@ namespace LabPong
         private void StartGame()
         {
             while (!GameStarted) ;
-            pongModel.BallPos = new Point((PongModel.WINDOW_WIDTH / 2) - (PongModel.BallSize.X / 2), (PongModel.WINDOW_HEIGHT / 2) - (PongModel.BallSize.Y / 2));
+            pongModel.BallPos = new Point((PongModel.WINDOW_WIDTH / 2) - (PongModel.BallSize.X / 2), (PongModel.WINDOW_HEIGHT / 2) - (PongModel.BallSize.Y / 2));            
             communicator.UDPSend(Translator.encodeBallPosition(pongModel.BallPos));
             InitializeDirectionIncrement();
             while (pongModel.PlayerXScore < 10 && pongModel.PlayerYScore < 10)
