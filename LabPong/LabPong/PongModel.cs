@@ -21,6 +21,7 @@ namespace LabPong
         private int posCounter = 0;
         private int shots = 0;
         private Boolean invert = false;
+        private Communicator communicator;
         #endregion
         #region static variables
         public static PongModel pongModel;
@@ -65,6 +66,7 @@ namespace LabPong
                 if (value > -1 && value < (WINDOW_HEIGHT - PlayerSizes.Y) + 1)
                 {
                     playerX = value;
+                    communicator.UDPSend(Translator.encodePlayerPosition(value));
                     NotifyPropertyChanged("playerX");
                 }
             }
@@ -108,9 +110,10 @@ namespace LabPong
 
         #endregion
 
-        public PongModel()
+        public PongModel(Communicator communicator)
         {
             pongModel = this;
+            this.communicator = communicator;
             EventManager.RegisterClassHandler(typeof(Window), Keyboard.KeyUpEvent, new KeyEventHandler(SpaceKeyUp), true);
             App.CustomListener.PropertyChanged += CustomListener_PropertyChanged;
         }

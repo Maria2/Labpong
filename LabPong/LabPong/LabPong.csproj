@@ -108,6 +108,7 @@
       <DependentUpon>Pong.xaml</DependentUpon>
     </Compile>
     <Compile Include="PongLogic.cs" />
+    <Compile Include="PongManager.cs" />
     <Compile Include="PongModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

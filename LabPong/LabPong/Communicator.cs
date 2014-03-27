@@ -18,11 +18,19 @@ namespace LabPong
         int port = 11000;
         private String joinIP;
         private String username = Properties.Settings.Default.Username;
+        public static String player2;
         static Int32 portUDP = 11000;
         //UdpClient with port
         static UdpClient udpClientR = new UdpClient(portUDP);
         UdpClient udpClientS = new UdpClient();
         static Thread thread;
+        private Boolean connected = true;
+
+        public Boolean Connected
+        {
+            get { return connected; }
+            set { connected = value; }
+        }
 
        
        public void Join(String ip)
@@ -56,7 +64,7 @@ namespace LabPong
             catch (Exception exp)
             {
                 // return error code connection dead
-                Console.WriteLine(exp.StackTrace);
+                connected = false;
             }
             try
             {
@@ -71,9 +79,10 @@ namespace LabPong
                 string empfangen = encoding.GetString(buffer, 0, gelesen);
                 tcpStream.Close();
                 tcpClient.Close();
-                UDPReceive();
             }
-            catch (Exception) { /*error Message */ return; }
+            catch (Exception) {
+                connected = false;
+                /*error Message */ return; }
         }
 
         //----- FTP Reciever (Server) ----
@@ -89,6 +98,7 @@ namespace LabPong
             catch (Exception)
             {
                 //errorMessage
+                connected = false;
                 return;
             }
             try
@@ -108,6 +118,7 @@ namespace LabPong
                     }
                     UTF8Encoding encoding = new UTF8Encoding();
                     empfangen = encoding.GetString(buffer, 0, received);
+                    player2 = empfangen;
                     string toSend = "ACK";
                     socket.Send(encoding.GetBytes(toSend));
                 }
@@ -116,6 +127,7 @@ namespace LabPong
             catch (Exception)
             {
                 // error message
+                connected = false;
                 if (socket != null) socket.Close();
                 if (tcpListener != null) tcpListener.Stop();
                 return;
@@ -158,7 +170,6 @@ namespace LabPong
             thread = new Thread(ReceiveMessage);
             thread.IsBackground = true;
             thread.Start();
-            Console.ReadKey();
         }
         public void ReceiveMessage()
         {// ruft translator auf um daten rauszulesen

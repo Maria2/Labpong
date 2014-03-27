@@ -36,7 +36,7 @@
                 <TextBox  MouseEnter="Text_MouseEnter" Margin="0,0,0,20" Grid.Column="3" Grid.Row="1"  Name="userIPText4" Text="000" TextAlignment="Center" />
             </Grid>
 
-            <Button  MouseEnter="Button_MouseEnter" Grid.Column="2" Grid.Row="1" Margin="0,0,0,20" Content="Host Game" Click="Button_Click" FontSize="25" x:Name="hostClicked" Style="{DynamicResource button_temp}"/>
+            <Button  MouseEnter="Button_MouseEnter" Grid.Column="2" Grid.Row="1" Margin="0,0,0,20" Content="Host Game" Click="Button_Click" FontSize="20" x:Name="hostClicked" Style="{DynamicResource button_temp}"/>
 
             <Grid Grid.Column="1" Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -54,7 +54,7 @@
                 <TextBox MouseEnter="Text_MouseEnter" Grid.Column="3" Grid.Row="1"  Name="serverIPText4" Text="" TextAlignment="Center" />
             </Grid>
 
-            <Button  MouseEnter="Button_MouseEnter" x:Name="joinClicked" Grid.Column="2" Grid.Row="2" Content="Join Game" FontSize="25" RenderTransformOrigin="4.34,0.1" Click="Button_Click" Style="{DynamicResource button_temp}" Height="42" VerticalAlignment="Top" />
+            <Button  MouseEnter="Button_MouseEnter" x:Name="joinClicked" Grid.Column="2" Grid.Row="2" Content="Join Game" FontSize="20" RenderTransformOrigin="4.34,0.1" Click="Button_Click" Style="{DynamicResource button_temp}" Height="42" VerticalAlignment="Top" />
 
             <TextBox Grid.Column="1" Grid.Row="3" Name="notificationText" Text="" TextAlignment="Center" Visibility="Hidden" BorderThickness="0" />
             

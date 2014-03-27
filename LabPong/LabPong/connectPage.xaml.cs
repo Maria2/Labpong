@@ -26,6 +26,8 @@ namespace LabPong
     {
         delegate void ChangeLabel(String message);
         delegate void Update(Point point);
+        delegate void host();
+        delegate void join(String ip);
 
         // checked ips used for connection
         private string joinIP;
@@ -41,13 +43,9 @@ namespace LabPong
         //ip arrays needed for progress
         string[] serverIP = new string[4];
         string[] userIP = new string[4];
-        string numbers="";
-        int ipServerField=0; //1,2,3,4
+        string numbers = "";
+        int ipServerField = 0; //1,2,3,4
         Boolean deleteNum = false;
-        //used for validation check at the communicator class
-        public Boolean isHost;
-        private Communicator com = new Communicator();
-       
         public ConnectPage()
         {
             InitializeComponent();
@@ -59,8 +57,8 @@ namespace LabPong
         {
             switch (((Button)sender).Name)
             {
-                case "hostClicked": com.Host(); break;
-                case "joinClicked": JoinClicked(); com.Join(joinIP); this.Close(); new Pong().Show(); break;
+                case "hostClicked": new host(new PongManager(this).hostGame).BeginInvoke(null, null); break;
+                case "joinClicked": JoinClicked(); new join(new PongManager(this).joinGame).BeginInvoke(joinIP, null, null); break;
                 case "one": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
                 case "two": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
                 case "three": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
@@ -100,7 +98,6 @@ namespace LabPong
             OnNotification(NotificationTyp.wait);
             CheckIp(serverIP);
             joinIP = serverIP[0] + "." + serverIP[1] + "." + serverIP[2] + "." + serverIP[3];
-            isHost = false;
 
             //if error -> OnNotification()
         }
@@ -115,7 +112,7 @@ namespace LabPong
                 case NotificationTyp.conFailed: notificationText.Visibility = System.Windows.Visibility.Visible; notificationText.Text = "Connection has Failed"; break;
                 case NotificationTyp.wrongInput: notificationText.Visibility = System.Windows.Visibility.Visible; notificationText.Text = "Wrong input was entered"; break;
                 case NotificationTyp.wait: notificationText.Visibility = System.Windows.Visibility.Visible; notificationText.Text = "Connection is established...please wait"; break;
-                case NotificationTyp.selectField: notificationText.Visibility = System.Windows.Visibility.Visible; notificationText.Text = "Please hover over the text field u want to input first"; break;  
+                case NotificationTyp.selectField: notificationText.Visibility = System.Windows.Visibility.Visible; notificationText.Text = "Please hover over the text field u want to input first"; break;
             }
         }
         /// <summary>
@@ -129,7 +126,7 @@ namespace LabPong
             //not null smaller than 255
             //add dots
 
-            string ipRet="0.0.0.0";
+            string ipRet = "0.0.0.0";
 
             try
             {
@@ -147,9 +144,9 @@ namespace LabPong
                     }
                     else OnNotification(NotificationTyp.wrongInput);
                 }
-                else OnNotification(NotificationTyp.wrongInput); 
+                else OnNotification(NotificationTyp.wrongInput);
             }
-            catch(FormatException)
+            catch (FormatException)
             {
                 OnNotification(NotificationTyp.wrongInput);
             }
@@ -213,7 +210,7 @@ namespace LabPong
         //Mouse enter method for the server IP input TextFields 
         private void Text_MouseEnter(object sender, MouseEventArgs e)
         {
-            switch(((TextBox)sender).Name)
+            switch (((TextBox)sender).Name)
             {
                 case "serverIPText1": serverIPText1.Focus(); ipServerField = 1; break;
                 case "serverIPText2": serverIPText2.Focus(); ipServerField = 2; break;
@@ -227,89 +224,89 @@ namespace LabPong
         * */
         public void Number_MouseEnter(object sender, MouseEventArgs e)
         {
-                switch (((Button)sender).Name)
-                {
-                    case "one":
-                        if (((Button)sender).IsMouseOver)
-                         {
-                             PointerAnimation.AnimationTarget = ((Button)sender);
-                             ((Button)sender).AnimateShortSelection();
-                         }
-                        break;
-                    case "two":
-                        if (((Button)sender).IsMouseOver)
-                         {
-                             PointerAnimation.AnimationTarget = ((Button)sender);
-                             ((Button)sender).AnimateShortSelection();
-                         }
-                        break;
-                    case "three": 
-                        if (((Button)sender).IsMouseOver)
-                        {
-                            PointerAnimation.AnimationTarget = ((Button)sender);
-                            ((Button)sender).AnimateShortSelection();
-                        }
-                        break;
-                    case "four":
-                        if (((Button)sender).IsMouseOver)
-                        {
-                            PointerAnimation.AnimationTarget = ((Button)sender);
-                            ((Button)sender).AnimateShortSelection();
-                        }
-                        break;
-                    case "five":
-                        if (((Button)sender).IsMouseOver)
-                        {
-                            PointerAnimation.AnimationTarget = ((Button)sender);
-                            ((Button)sender).AnimateShortSelection();
-                        }
-                        break;
-                    case "six":
-                        if (((Button)sender).IsMouseOver)
-                        {
-                            PointerAnimation.AnimationTarget = ((Button)sender);
-                            ((Button)sender).AnimateShortSelection();
-                        }
-                        break;
-                    case "seven":
-                        if (((Button)sender).IsMouseOver)
-                        {
-                            PointerAnimation.AnimationTarget = ((Button)sender);
-                            ((Button)sender).AnimateShortSelection();
-                        }
-                        break;
-                    case "eight":
-                        if (((Button)sender).IsMouseOver)
-                        {
-                            PointerAnimation.AnimationTarget = ((Button)sender);
-                            ((Button)sender).AnimateShortSelection();
-                        }
-                        break;
-                    case "nine":
-                        if (((Button)sender).IsMouseOver)
-                        {
-                            PointerAnimation.AnimationTarget = ((Button)sender);
-                            ((Button)sender).AnimateShortSelection();
-                        }
-                        break;
-                    case "null":
-                        if (((Button)sender).IsMouseOver)
-                        {
-                            PointerAnimation.AnimationTarget = ((Button)sender);
-                            ((Button)sender).AnimateShortSelection();
-                        }
-                        break;
-                    case "delete": 
-                        if (((Button)sender).IsMouseOver)
-                        {
-                            PointerAnimation.AnimationTarget = ((Button)sender);
-                            ((Button)sender).AnimateShortSelection();
-                        }
-                        break;
-                }
-                
-                    
+            switch (((Button)sender).Name)
+            {
+                case "one":
+                    if (((Button)sender).IsMouseOver)
+                    {
+                        PointerAnimation.AnimationTarget = ((Button)sender);
+                        ((Button)sender).AnimateShortSelection();
+                    }
+                    break;
+                case "two":
+                    if (((Button)sender).IsMouseOver)
+                    {
+                        PointerAnimation.AnimationTarget = ((Button)sender);
+                        ((Button)sender).AnimateShortSelection();
+                    }
+                    break;
+                case "three":
+                    if (((Button)sender).IsMouseOver)
+                    {
+                        PointerAnimation.AnimationTarget = ((Button)sender);
+                        ((Button)sender).AnimateShortSelection();
+                    }
+                    break;
+                case "four":
+                    if (((Button)sender).IsMouseOver)
+                    {
+                        PointerAnimation.AnimationTarget = ((Button)sender);
+                        ((Button)sender).AnimateShortSelection();
+                    }
+                    break;
+                case "five":
+                    if (((Button)sender).IsMouseOver)
+                    {
+                        PointerAnimation.AnimationTarget = ((Button)sender);
+                        ((Button)sender).AnimateShortSelection();
+                    }
+                    break;
+                case "six":
+                    if (((Button)sender).IsMouseOver)
+                    {
+                        PointerAnimation.AnimationTarget = ((Button)sender);
+                        ((Button)sender).AnimateShortSelection();
+                    }
+                    break;
+                case "seven":
+                    if (((Button)sender).IsMouseOver)
+                    {
+                        PointerAnimation.AnimationTarget = ((Button)sender);
+                        ((Button)sender).AnimateShortSelection();
+                    }
+                    break;
+                case "eight":
+                    if (((Button)sender).IsMouseOver)
+                    {
+                        PointerAnimation.AnimationTarget = ((Button)sender);
+                        ((Button)sender).AnimateShortSelection();
+                    }
+                    break;
+                case "nine":
+                    if (((Button)sender).IsMouseOver)
+                    {
+                        PointerAnimation.AnimationTarget = ((Button)sender);
+                        ((Button)sender).AnimateShortSelection();
+                    }
+                    break;
+                case "null":
+                    if (((Button)sender).IsMouseOver)
+                    {
+                        PointerAnimation.AnimationTarget = ((Button)sender);
+                        ((Button)sender).AnimateShortSelection();
+                    }
+                    break;
+                case "delete":
+                    if (((Button)sender).IsMouseOver)
+                    {
+                        PointerAnimation.AnimationTarget = ((Button)sender);
+                        ((Button)sender).AnimateShortSelection();
+                    }
+                    break;
             }
+
+
+        }
         public void Override_ButtonText(int ipServerField)
         {
             switch (ipServerField)

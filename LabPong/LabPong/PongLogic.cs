@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -16,14 +17,16 @@ namespace LabPong
         PongModel pongModel;
         delegate void NoArgDelegate();
         private Point ballSpeed = new Point(10, 0);
+        Communicator communicator;
         #endregion
         #region static variables
         public static Boolean GameStarted;
         #endregion        
 
-        public PongLogic()
+        public PongLogic(Communicator communicator)
         {
-            pongModel = new PongModel();            
+            pongModel = new PongModel(communicator);
+            this.communicator = communicator;
             new NoArgDelegate(StartGame).BeginInvoke(null, null);            
         }
 
@@ -31,13 +34,19 @@ namespace LabPong
         {
             while (!GameStarted) ;
             pongModel.BallPos = new Point((PongModel.WINDOW_WIDTH / 2) - (PongModel.BallSize.X / 2), (PongModel.WINDOW_HEIGHT / 2) - (PongModel.BallSize.Y / 2));
+            communicator.UDPSend(Translator.encodeBallPosition(pongModel.BallPos));
             InitializeDirectionIncrement();
             while (pongModel.PlayerXScore < 10 && pongModel.PlayerYScore < 10)
             {
                 Thread.Sleep(15);
                 pongModel.BallPos = new Point(pongModel.BallPos.X + ballSpeed.X * 10, pongModel.BallPos.Y + ballSpeed.Y * 10);
+                communicator.UDPSend(Translator.encodeBallPosition(pongModel.BallPos));
                 CheckCollision();
             }
+            String highscore = new DateTime().ToShortDateString()+" "
+                +Properties.Settings.Default.Username+" "+pongModel.PlayerXScore+":"+pongModel.PlayerYScore+" "+Communicator.player2;
+            communicator.UDPSend(Translator.encodeGameEnd(highscore));
+            new StreamWriter("resources/highscore.txt", true).WriteLine(highscore);
         }        
 
         private void InitializeDirectionIncrement()
@@ -72,11 +81,14 @@ namespace LabPong
             if (pongModel.BallPos.Y < 0)
             {
                 pongModel.BallPos = new Point(pongModel.BallPos.X, 0);
+                communicator.UDPSend(Translator.encodeBallPosition(pongModel.BallPos));
                 ballSpeed = new Point(ballSpeed.X, -ballSpeed.Y);
             }
+
             if (pongModel.BallPos.Y > PongModel.WINDOW_HEIGHT - PongModel.BallSize.Y)
             {
                 pongModel.BallPos = new Point(pongModel.BallPos.X, PongModel.WINDOW_HEIGHT - PongModel.BallSize.Y);
+                communicator.UDPSend(Translator.encodeBallPosition(pongModel.BallPos));
                 ballSpeed = new Point(ballSpeed.X, -ballSpeed.Y);
             }
         }
@@ -84,6 +96,7 @@ namespace LabPong
         private void ResetBall()
         {
             pongModel.BallPos = new Point((PongModel.WINDOW_WIDTH / 2) - (PongModel.BallSize.X / 2), (PongModel.WINDOW_HEIGHT / 2) - (PongModel.BallSize.Y / 2));
+            communicator.UDPSend(Translator.encodeBallPosition(pongModel.BallPos));
             InitializeDirectionIncrement();
         }
     }

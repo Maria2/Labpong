@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -8,33 +9,33 @@ namespace LabPong
 {
     class Translator
     {
-        public String encodePlayerPosition(double playerPosition)
+        public static String encodePlayerPosition(double playerPosition)
         {
             //First one defines what kind of encoding this is, rest is only data
             return "1" + "|" + playerPosition;
         }
 
-        public String encodeBallPosition(Point ballPosition)
+        public static String encodeBallPosition(Point ballPosition)
         {
             return "2|" + ballPosition;
         }
 
-        public String encodeScore(int scorePlayer1, int scorePlayer2)
+        public static String encodeScore(int scorePlayer1, int scorePlayer2)
         {
             return "3|" + scorePlayer1 + "|" + scorePlayer2;
         }
 
-        public String encodeGameBegin()
+        public static String encodeGameBegin()
         {
             return "4";
         }
 
-        public String encodeGameEnd()
+        public static String encodeGameEnd(String gameResult)
         {
-            return "5";
+            return "5|"+gameResult;
         }
 
-        public String encodeExtra(String extra)
+        public static String encodeExtra(String extra)
         {
             return "6|" + extra;
         }
@@ -47,22 +48,22 @@ namespace LabPong
                 case "1":
                     double playerPosition = Double.Parse(commands[1]);
                     PongModel.pongModel.PlayerY = playerPosition;
-                    //Call method to update the position of the ball
                     break;
                 case "2":
                     Point ballPosition = Point.Parse(commands[1]);
-                    //Call method to update the position of the ball
+                    PongModel.pongModel.BallPos = ballPosition;
                     break;
                 case "3":
                     int scorePlayer1 = Int32.Parse(commands[1]);
                     int scorePlayer2 = Int32.Parse(commands[2]);
-                    //Call method to update score
+                    PongModel.pongModel.PlayerXScore = scorePlayer1;
+                    PongModel.pongModel.PlayerYScore = scorePlayer2;
                     break;
-                case "4":
-                    //Call method for starting game
-                    break;
+                //case "4":
+                //    //Call method for starting game
+                //    break;
                 case "5":
-                    //Call method for ending game
+                    new StreamWriter("resources/highscore.txt", true).WriteLine(commands[1]);
                     break;
                 case "6":
                     String ext = commands[1];
