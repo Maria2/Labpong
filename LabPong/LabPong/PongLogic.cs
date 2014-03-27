@@ -38,7 +38,7 @@ namespace LabPong
             InitializeDirectionIncrement();
             while (pongModel.PlayerXScore < 10 && pongModel.PlayerYScore < 10)
             {
-                Thread.Sleep(15);
+                Thread.Sleep(20);
                 pongModel.BallPos = new Point(pongModel.BallPos.X + ballSpeed.X * 10, pongModel.BallPos.Y + ballSpeed.Y * 10);
                 communicator.UDPSend(Translator.encodeBallPosition(pongModel.BallPos));
                 CheckCollision();

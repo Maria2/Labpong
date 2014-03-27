@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace LabPong
 {
@@ -10,27 +12,28 @@ namespace LabPong
     {
         ConnectPage connectPage;
         Communicator communicator;
-        Translator translator;
+        Dispatcher mainDispatcher;
+        delegate void DelegateVoid();
 
         public PongManager(ConnectPage connect)
         {
             connectPage = connect;
+            mainDispatcher = connectPage.Dispatcher;
             communicator = new Communicator();
         }
 
         public void hostGame()
         {
             connectPage.Toggle_HostButton();
-            communicator.Host();            
+            //communicator.Host();            
             if (!communicator.Connected)
             {
                 connectPage.Toggle_HostButton();
                 return;
             }
-            connectPage.Close();
+            connectPage.Dispatcher.BeginInvoke(new DelegateVoid(connectPage.Close), null);
             PongLogic ponglogic = new PongLogic(communicator);
-            Pong pong = new Pong();
-            pong.Show();
+            mainDispatcher.BeginInvoke(new Action(() => this.CreatePongWindow()), null);
         }
 
         public void joinGame(String ip)
@@ -42,10 +45,15 @@ namespace LabPong
                 connectPage.Toggle_HostButton();
                 return;
             }
-            connectPage.Close();
-            PongModel pongModel = new PongModel(communicator);            
+            mainDispatcher.BeginInvoke(new DelegateVoid(connectPage.Close), null);
+            PongModel pongModel = new PongModel(communicator);
+            mainDispatcher.BeginInvoke(new Action(() => this.CreatePongWindow()), null);
+        }
+
+        private void CreatePongWindow()
+        {
             Pong pong = new Pong();
-            pong.Show();
+            pong.Show();            
         }
     }
 }
