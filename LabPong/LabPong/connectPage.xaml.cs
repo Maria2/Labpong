@@ -27,6 +27,7 @@ namespace LabPong
         delegate void ChangeLabel(String message);
         delegate void Update(Point point);
         delegate void host();
+        delegate void hostbutton();
         delegate void join(String ip);
 
         // checked ips used for connection
@@ -172,6 +173,16 @@ namespace LabPong
             Canvas.SetLeft(pointer, (this.ActualWidth / 2 + 120) + (point.X * 3));
             Canvas.SetTop(pointer, (this.ActualHeight / 2) + (point.Y * 3));
             SetCursorPos((int)((this.ActualWidth / 2 + 100) + (point.X * 3)), (int)((this.ActualHeight / 2) + (point.Y * 3)));
+        }
+
+        public void Toggle_HostButton()
+        {
+            new hostbutton(toggleHost).BeginInvoke(null, null);
+        }
+
+        private void toggleHost()
+        {
+            hostClicked.IsEnabled = !hostClicked.IsEnabled;
         }
 
         [DllImport("User32.dll")]

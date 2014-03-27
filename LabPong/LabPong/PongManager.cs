@@ -8,11 +8,11 @@ namespace LabPong
 {
     class PongManager
     {
-        Window connectPage;
+        ConnectPage connectPage;
         Communicator communicator;
         Translator translator;
 
-        public PongManager(Window connect)
+        public PongManager(ConnectPage connect)
         {
             connectPage = connect;
             communicator = new Communicator();
@@ -21,7 +21,12 @@ namespace LabPong
         public void hostGame()
         {
             communicator.Host();
-            if (!communicator.Connected) return;
+            connectPage.Toggle_HostButton();
+            if (!communicator.Connected)
+            {
+                connectPage.Toggle_HostButton();
+                return;
+            }
             connectPage.Close();
             PongLogic ponglogic = new PongLogic(communicator);
             Pong pong = new Pong();
@@ -31,7 +36,12 @@ namespace LabPong
         public void joinGame(String ip)
         {
             communicator.Join(ip);
-            if (!communicator.Connected) return;
+            connectPage.Toggle_HostButton();
+            if (!communicator.Connected)
+            {
+                connectPage.Toggle_HostButton();
+                return;
+            }
             connectPage.Close();
             PongModel pongModel = new PongModel(communicator);            
             Pong pong = new Pong();
