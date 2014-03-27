@@ -117,6 +117,7 @@ namespace LabPong
             this.communicator = communicator;
             EventManager.RegisterClassHandler(typeof(Window), Keyboard.KeyUpEvent, new KeyEventHandler(SpaceKeyUp), true);
             App.CustomListener.PropertyChanged += CustomListener_PropertyChanged;
+            communicator.UDPSend(Translator.encodeExtra("WINDOW_HEIGHT|" + WINDOW_HEIGHT));
         }
 
         private void SpaceKeyUp(object sender, KeyEventArgs e)

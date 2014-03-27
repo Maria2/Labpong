@@ -67,9 +67,7 @@ namespace LabPong
                     return false;
                 case "6":
                     if(commands[1].Equals("WINDOW_HEIGHT"))
-                    {
-                        PongModel.
-                    }
+                        PongModel.WINDOW_HEIGHT_2 = double.Parse(commands[2]);
                     String ext = commands[1];
                     break;                    
             }
