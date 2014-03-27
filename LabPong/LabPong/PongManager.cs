@@ -20,8 +20,8 @@ namespace LabPong
 
         public void hostGame()
         {
-            communicator.Host();
             connectPage.Toggle_HostButton();
+            communicator.Host();            
             if (!communicator.Connected)
             {
                 connectPage.Toggle_HostButton();
@@ -35,8 +35,8 @@ namespace LabPong
 
         public void joinGame(String ip)
         {
-            communicator.Join(ip);
             connectPage.Toggle_HostButton();
+            communicator.Join(ip);            
             if (!communicator.Connected)
             {
                 connectPage.Toggle_HostButton();

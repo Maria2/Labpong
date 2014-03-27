@@ -145,7 +145,7 @@ namespace LabPong
                     ipAdresse = ip; break;
                 }
             if (ipAdresse == null)
-                Console.WriteLine("Keine IPV4-IP auflösbar."); Console.ReadKey();
+                Console.WriteLine("Keine IPV4-IP auflösbar.");
             return ipAdresse;
         }
         public void UDPSend(String message)

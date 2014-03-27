@@ -29,6 +29,7 @@ namespace LabPong
         delegate void host();
         delegate void hostbutton();
         delegate void join(String ip);
+        Boolean enable = true;
 
         // checked ips used for connection
         private string joinIP;
@@ -177,12 +178,13 @@ namespace LabPong
 
         public void Toggle_HostButton()
         {
-            new hostbutton(toggleHost).BeginInvoke(null, null);
+            hostClicked.Dispatcher.BeginInvoke(new host(toggleHost), null);
         }
 
         private void toggleHost()
         {
-            hostClicked.IsEnabled = !hostClicked.IsEnabled;
+            hostClicked.IsEnabled = false;
+            joinClicked.IsEnabled = false;
         }
 
         [DllImport("User32.dll")]
@@ -207,6 +209,7 @@ namespace LabPong
         }
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
+            if (!enable) return;
             if (joinClicked.IsMouseOver)
             {
                 PointerAnimation.AnimationTarget = joinClicked;

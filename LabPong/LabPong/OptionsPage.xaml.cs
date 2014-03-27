@@ -44,7 +44,7 @@ namespace LabPong
                 Properties.Settings.Default.Save();
                 this.Close();
                 Application.Current.MainWindow.Visibility = Visibility.Visible ;
-            }
+            }            
         }  
     }
 }
