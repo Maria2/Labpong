@@ -57,6 +57,7 @@ namespace LabPong
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (!enable) return;
             switch (((Button)sender).Name)
             {
                 case "hostClicked": new host(new PongManager(this).hostGame).BeginInvoke(null, null); break;
@@ -183,8 +184,9 @@ namespace LabPong
 
         private void toggleHost()
         {
-            hostClicked.IsEnabled = false;
-            joinClicked.IsEnabled = false;
+            hostClicked.IsEnabled = !hostClicked.IsEnabled;
+            joinClicked.IsEnabled = !joinClicked.IsEnabled;
+            enable = !enable;
         }
 
         [DllImport("User32.dll")]

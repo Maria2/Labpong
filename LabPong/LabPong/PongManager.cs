@@ -25,7 +25,7 @@ namespace LabPong
         public void hostGame()
         {
             connectPage.Toggle_HostButton();
-            //communicator.Host();            
+            communicator.Host();            
             if (!communicator.Connected)
             {
                 connectPage.Toggle_HostButton();

@@ -14,6 +14,7 @@ namespace LabPong
         IPAddress ipAdresse = null;
         Socket socket;
         TcpListener tcpListener;
+        IPEndPoint remoteIPEndPoint;
         const int maxBuffer = 100;
         int port = 11000;
         private IPAddress joinIP;
@@ -139,14 +140,12 @@ namespace LabPong
         }
         public void UDPSend(String message)
         {
-            //Where to send it to
-            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Broadcast, portUDP);
             //Message
             byte[] content = Encoding.ASCII.GetBytes(message);
             try
             {
                 //Sending
-                udpClientS.Send(content, content.Length, ipEndPoint);
+                udpClientS.Send(content, content.Length, remoteIPEndPoint);
             }
             catch
             {
@@ -166,7 +165,7 @@ namespace LabPong
             while (true)
             {
                 //Wait for any IPAddress to send something on port 11000
-                IPEndPoint remoteIPEndPoint = new IPEndPoint(joinIP, portUDP);
+                remoteIPEndPoint = new IPEndPoint(joinIP, portUDP);
                 //Load content
                 byte[] content = udpClientR.Receive(ref remoteIPEndPoint);
                 String contenttoreturn = "";
