@@ -50,7 +50,7 @@ namespace LabPong
                     PongModel.pongModel.PlayerY = playerPosition;
                     break;
                 case "2":
-                    Point ballPosition = Point.Parse(commands[1]);
+                    Point ballPosition = new Point(Double.Parse(commands[1]), Double.Parse(commands[2]));
                     PongModel.pongModel.BallPos = ballPosition;
                     break;
                 case "3":
