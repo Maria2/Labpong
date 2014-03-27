@@ -26,14 +26,12 @@ namespace LabPong
         UdpClient udpClientS = new UdpClient();
         static Thread thread;
         private Boolean connected = true;
-        private bool ongoing = true;
 
         public Boolean Connected
         {
             get { return connected; }
             set { connected = value; }
         }
-
        
        public void Join(String ip)
         {
@@ -165,12 +163,12 @@ namespace LabPong
             Translator t = new Translator();
             //Wait for any IPAddress to send something on port 11000
             remoteIPEndPoint = new IPEndPoint(joinIP, portUDP);
-            while (ongoing)
+            while (connected)
             {
                 //Load content
                 byte[] content = udpClientR.Receive(ref remoteIPEndPoint);
                 if (content.Length > 0)
-                    ongoing = t.decode(new System.Text.ASCIIEncoding().GetString(content));
+                    connected = t.decode(new System.Text.ASCIIEncoding().GetString(content));
             }
             udpClientR.Close();
         }        
