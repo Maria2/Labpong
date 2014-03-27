@@ -17,7 +17,7 @@ namespace LabPong
 
         public static String encodeBallPosition(Point ballPosition)
         {
-            return "2|" + ballPosition;
+            return "2|" + ballPosition.X+ "|" +ballPosition.Y;
         }
 
         public static String encodeScore(int scorePlayer1, int scorePlayer2)
@@ -40,7 +40,7 @@ namespace LabPong
             return "6|" + extra;
         }
 
-        public void decode(String message)
+        public bool decode(String message)
         {
             String[] commands = message.Split('|');
             switch (commands[0])
@@ -64,15 +64,12 @@ namespace LabPong
                 //    break;
                 case "5":
                     new StreamWriter("resources/highscore.txt", true).WriteLine(commands[1]);
-                    break;
+                    return false;
                 case "6":
                     String ext = commands[1];
-
-                    break;
-                default:
-                    //ERROR
-                    break;
+                    break;                    
             }
+            return true;
         }
     }
 }

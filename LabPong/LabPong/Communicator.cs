@@ -16,16 +16,17 @@ namespace LabPong
         TcpListener tcpListener;
         IPEndPoint remoteIPEndPoint;
         const int maxBuffer = 100;
-        int port = 11000;
+        int port = 11001;
         private IPAddress joinIP;
         private String username = Properties.Settings.Default.Username;
         public static String player2;
         static Int32 portUDP = 11000;
         //UdpClient with port
-        static UdpClient udpClientR = new UdpClient(portUDP);
+        UdpClient udpClientR = new UdpClient(portUDP);
         UdpClient udpClientS = new UdpClient();
         static Thread thread;
         private Boolean connected = true;
+        private bool ongoing = true;
 
         public Boolean Connected
         {
@@ -54,7 +55,6 @@ namespace LabPong
             Stream tcpStream;
             const int maxBuffer = 100;
 
-            int port = 11000;
             tcpClient = new TcpClient(); 
             try
             {
@@ -162,25 +162,16 @@ namespace LabPong
         public void ReceiveMessage()
         {// ruft translator auf um daten rauszulesen
             Translator t = new Translator();
-            while (true)
+            while (ongoing)
             {
                 //Wait for any IPAddress to send something on port 11000
                 remoteIPEndPoint = new IPEndPoint(joinIP, portUDP);
                 //Load content
                 byte[] content = udpClientR.Receive(ref remoteIPEndPoint);
-                String contenttoreturn = "";
                 if (content.Length > 0)
-                {
-                    for (int i = 0; i < content.Length; i++)
-                    {
-                        contenttoreturn = contenttoreturn + content[i];
-                        Console.WriteLine(contenttoreturn);
-                    }
-                    // Console.WriteLine(contenttoreturn);
-                    System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
-                    t.decode(contenttoreturn);
-                }
+                    ongoing = t.decode(new System.Text.ASCIIEncoding().GetString(content));
             }
-        }
+            udpClientR.Close();
+        }        
     }
 }
