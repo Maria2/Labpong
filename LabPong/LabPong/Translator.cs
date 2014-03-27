@@ -66,6 +66,10 @@ namespace LabPong
                     new StreamWriter("resources/highscore.txt", true).WriteLine(commands[1]);
                     return false;
                 case "6":
+                    if(commands[1].Equals("WINDOW_HEIGHT"))
+                    {
+                        PongModel.
+                    }
                     String ext = commands[1];
                     break;                    
             }

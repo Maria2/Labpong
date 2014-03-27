@@ -20,9 +20,9 @@ namespace LabPong
         private IPAddress joinIP;
         private String username = Properties.Settings.Default.Username;
         public static String player2;
-        static Int32 portUDP = 11000;
+        static int portUDP = 11000;
         //UdpClient with port
-        UdpClient udpClientR = new UdpClient(portUDP);
+        UdpClient udpClientR = new UdpClient(11000);
         UdpClient udpClientS = new UdpClient();
         static Thread thread;
         private Boolean connected = true;
@@ -162,10 +162,10 @@ namespace LabPong
         public void ReceiveMessage()
         {// ruft translator auf um daten rauszulesen
             Translator t = new Translator();
+            //Wait for any IPAddress to send something on port 11000
+            remoteIPEndPoint = new IPEndPoint(joinIP, portUDP);
             while (ongoing)
-            {
-                //Wait for any IPAddress to send something on port 11000
-                remoteIPEndPoint = new IPEndPoint(joinIP, portUDP);
+            {                
                 //Load content
                 byte[] content = udpClientR.Receive(ref remoteIPEndPoint);
                 if (content.Length > 0)

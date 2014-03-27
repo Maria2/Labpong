@@ -25,6 +25,7 @@ namespace LabPong
         #endregion
         #region static variables
         public static PongModel pongModel;
+        public static double WINDOW_HEIGHT_2;
         public static double WINDOW_HEIGHT;
         public static double WINDOW_WIDTH;
         public static Point BallSize = new Point(50,50);
@@ -77,8 +78,8 @@ namespace LabPong
             get { return playerY; }
             set
             {
-                value = (value * 4) + ((WINDOW_HEIGHT / 2) - (PlayerSizes.Y / 2));
-                if (value > -1 && value < (WINDOW_HEIGHT - PlayerSizes.Y) + 1)
+                value = (value * 4) + ((WINDOW_HEIGHT_2 / 2) - (PlayerSizes.Y / 2));
+                if (value > -1 && value < (WINDOW_HEIGHT_2 - PlayerSizes.Y) + 1)
                 {
                     playerY = value;
                     NotifyPropertyChanged("playerY");
