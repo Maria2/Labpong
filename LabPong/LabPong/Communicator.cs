@@ -16,7 +16,7 @@ namespace LabPong
         TcpListener tcpListener;
         const int maxBuffer = 100;
         int port = 11000;
-        private String joinIP;
+        private IPAddress joinIP;
         private String username = Properties.Settings.Default.Username;
         public static String player2;
         static Int32 portUDP = 11000;
@@ -35,7 +35,7 @@ namespace LabPong
        
        public void Join(String ip)
         {
-           joinIP = ip;
+           joinIP = IPAddress.Parse(ip);
            FTPSender(); //transmit username
            UDPReceive();
         }
@@ -53,25 +53,13 @@ namespace LabPong
             Stream tcpStream;
             const int maxBuffer = 100;
 
-            IPAddress ipAdresse = IPAddress.Parse(joinIP);
             int port = 11000;
             tcpClient = new TcpClient(); 
             try
             {
-                tcpClient.Connect(ipAdresse, port);
-
-            }
-            catch (Exception exp)
-            {
-                // return error code connection dead
-                connected = false;
-            }
-            try
-            {
+                tcpClient.Connect(joinIP, port);
                 tcpStream = tcpClient.GetStream();
-
                 UTF8Encoding encoding = new UTF8Encoding();
-
                 byte[] ba = encoding.GetBytes(";"+username+";");
                 tcpStream.Write(ba, 0, ba.Length);
                 byte[] buffer = new byte[maxBuffer];
@@ -82,7 +70,7 @@ namespace LabPong
             }
             catch (Exception) {
                 connected = false;
-                /*error Message */ return; }
+            }
         }
 
         //----- FTP Reciever (Server) ----
@@ -121,6 +109,7 @@ namespace LabPong
                     player2 = empfangen;
                     string toSend = "ACK";
                     socket.Send(encoding.GetBytes(toSend));
+                    joinIP = (socket.RemoteEndPoint as IPEndPoint).Address;
                 }
                 while (received != 0);
             }
@@ -177,7 +166,7 @@ namespace LabPong
             while (true)
             {
                 //Wait for any IPAddress to send something on port 11000
-                IPEndPoint remoteIPEndPoint = new IPEndPoint(IPAddress.Parse(joinIP), portUDP);
+                IPEndPoint remoteIPEndPoint = new IPEndPoint(joinIP, portUDP);
                 //Load content
                 byte[] content = udpClientR.Receive(ref remoteIPEndPoint);
                 String contenttoreturn = "";
