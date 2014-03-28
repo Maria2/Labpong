@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -133,12 +134,29 @@ namespace LabPong
 
         private IPAddress GetIpAdresse(ref IPAddress ipAdresse, string hostName)
         {
-            IPAddress[] ipAdressen = Dns.GetHostEntry(hostName).AddressList;
-            foreach (IPAddress ip in ipAdressen)
+            //IPAddress[] ipAdressen = Dns.GetHostEntry(hostName).AddressList;
+            ////foreach (IPAddress ip in ipAdressen)
+            ////{
+            ////    if (ip.AddressFamily == AddressFamily.InterNetwork)
+            ////    {
+            ////        ipAdresse = ip; break;
+            ////    }
+            ////}
+            foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
             {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
                 {
-                    ipAdresse = ip; break;
+                    if (!ni.Name.ToLower().Contains("lan"))
+                        continue;
+
+                    foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
+                    {
+                        if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        {
+                            ipAdresse = ip.Address;
+                            Console.WriteLine(ipAdresse);
+                        }
+                    }
                 }
             }
             if (ipAdresse == null)
