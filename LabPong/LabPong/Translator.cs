@@ -56,18 +56,27 @@ namespace LabPong
                 case "3":
                     int scorePlayer1 = Int32.Parse(commands[1]);
                     int scorePlayer2 = Int32.Parse(commands[2]);
-                    PongModel.pongModel.PlayerXScore = scorePlayer1;
-                    PongModel.pongModel.PlayerYScore = scorePlayer2;
+                    PongModel.pongModel.PlayerYScore = scorePlayer1;
+                    PongModel.pongModel.PlayerXScore = scorePlayer2;
                     break;
                 //case "4":
                 //    //Call method for starting game
                 //    break;
                 case "5":
-                    new StreamWriter("resources/highscore.txt", true).WriteLine(commands[1]);
+                    StreamWriter file = new StreamWriter("resources/highscore.txt", true);
+                    file.WriteLine(commands[1]);
+                    file.Flush(); 
+                    file.Close();
                     return false;
                 case "6":
-                    if(commands[1].Equals("WINDOW_HEIGHT"))
-                        PongModel.WINDOW_HEIGHT_2 = double.Parse(commands[2]);
+                    switch (commands[1])
+                    {
+                        //case "ball_direction": PongModel.pongModel.BallPos = new Point(PongModel.pongModel.BallPos.X, - PongModel.pongModel.BallPos.X  break;
+                        case "white_screen":  break;
+                        case "invert": PongModel.pongModel.Invert = true; break;
+                        case "resize": break;
+                    }                
+                    if (commands[1].Equals("WINDOW_HEIGHT")) ;
                     String ext = commands[1];
                     break;                    
             }

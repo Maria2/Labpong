@@ -40,13 +40,15 @@ namespace LabPong
             {
                 Thread.Sleep(20);
                 pongModel.BallPos = new Point(pongModel.BallPos.X + ballSpeed.X * 10, pongModel.BallPos.Y + ballSpeed.Y * 10);
-                communicator.UDPSend(Translator.encodeBallPosition(pongModel.BallPos));
+                communicator.UDPSend(Translator.encodeBallPosition(new Point(PongModel.WINDOW_WIDTH - pongModel.BallPos.X, pongModel.BallPos.Y)));
                 CheckCollision();
             }
             String highscore = new DateTime().ToShortDateString()+" "
                 +Properties.Settings.Default.Username+" "+pongModel.PlayerXScore+":"+pongModel.PlayerYScore+" "+Communicator.player2;
             communicator.UDPSend(Translator.encodeGameEnd(highscore));
-            new StreamWriter("resources/highscore.txt", true).WriteLine(highscore);
+            StreamWriter file = new StreamWriter("resources/highscore.txt", true);
+            file.WriteLine(highscore); file.Flush(); file.Close();
+            communicator.Connected = false;
         }        
 
         private void InitializeDirectionIncrement()
@@ -97,6 +99,7 @@ namespace LabPong
         {
             pongModel.BallPos = new Point((PongModel.WINDOW_WIDTH / 2) - (PongModel.BallSize.X / 2), (PongModel.WINDOW_HEIGHT / 2) - (PongModel.BallSize.Y / 2));
             communicator.UDPSend(Translator.encodeBallPosition(pongModel.BallPos));
+            communicator.UDPSend(Translator.encodeScore(pongModel.PlayerXScore,pongModel.PlayerYScore));
             InitializeDirectionIncrement();
         }
     }

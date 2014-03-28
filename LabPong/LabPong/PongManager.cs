@@ -13,6 +13,7 @@ namespace LabPong
         ConnectPage connectPage;
         Communicator communicator;
         Dispatcher mainDispatcher;
+        Pong pong = null;
         delegate void DelegateVoid();
 
         public PongManager(ConnectPage connect)
@@ -45,14 +46,17 @@ namespace LabPong
                 connectPage.Toggle_HostButton();
                 return;
             }
-            mainDispatcher.BeginInvoke(new DelegateVoid(connectPage.Close), null);
+            mainDispatcher.BeginInvoke(new DelegateVoid(connectPage.Hide), null);
             PongModel pongModel = new PongModel(communicator);
             mainDispatcher.BeginInvoke(new Action(() => this.CreatePongWindow()), null);
+            while (communicator.Connected) ;
+            mainDispatcher.BeginInvoke(new DelegateVoid(pong.Close), null);
+            mainDispatcher.BeginInvoke(new DelegateVoid(connectPage.Show), null);
         }
 
         private void CreatePongWindow()
         {
-            Pong pong = new Pong();
+            pong = new Pong();
             pong.Show();            
         }
     }

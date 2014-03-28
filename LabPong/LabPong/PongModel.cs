@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 
@@ -27,24 +28,18 @@ namespace LabPong
         public static PongModel pongModel;        
         public static double WINDOW_HEIGHT;
         public static double WINDOW_WIDTH;
-        public static double WINDOW_MIDDLE;
         public static Point BallSize = new Point(50,50);
-        public static Point PlayerSizes = new Point(15, 220);
+        public static Point PlayerSizes;
         public static String[] posItems = { "shot", "ball_direction" };
         public static String[] negItems = { "white_screen", "invert", "resize" };
         #endregion
         #region Properties
 
-        public static double WINDOW_HEIGHT_2
+        public Boolean Invert
         {
-            get { return WINDOW_HEIGHT_2; }
-            set
-            {
-                WINDOW_HEIGHT_2 = value;
-                if (WINDOW_HEIGHT > WINDOW_HEIGHT_2)
-                    WINDOW_MIDDLE = WINDOW_HEIGHT_2 / 2;
-                else
-                    WINDOW_MIDDLE = WINDOW_HEIGHT / 2;
+            set {
+                if (value == true) new Timer(onTimer, null, 3000, Timeout.Infinite).Change(3000, Timeout.Infinite);
+                invert = value;
             }
         }
 
@@ -77,19 +72,12 @@ namespace LabPong
             get { return playerX; }
             set
             {
-                value = (value * 4) + ((WINDOW_MIDDLE) - (PlayerSizes.Y / 2));
-                if(WINDOW_HEIGHT > WINDOW_HEIGHT_2)
+                if (invert) value = -value;
+                value = (value * 4) + ((WINDOW_HEIGHT/2) - (PlayerSizes.Y / 2));                 
+                if (value > -1 && value < (WINDOW_HEIGHT - PlayerSizes.Y - PlayerSizes.Y/2) + 1)
                 {
-                    if(value > WINDOW_MIDDLE)
-                        value = value + ((WINDOW_HEIGHT - WINDOW_HEIGHT_2) / 2);
-                    else
-                        value = value - ((WINDOW_HEIGHT - WINDOW_HEIGHT_2) / 2);
-                }
-                                    
-                if (value > -1 && value < (WINDOW_HEIGHT - PlayerSizes.Y) + 1)
-                {
-                    playerX = value;
                     communicator.UDPSend(Translator.encodePlayerPosition(value));
+                    playerX = value;                    
                     NotifyPropertyChanged("playerX");
                 }
             }
@@ -100,19 +88,8 @@ namespace LabPong
             get { return playerY; }
             set
             {
-                value = (value * 4) + ((WINDOW_MIDDLE) - (PlayerSizes.Y / 2));
-                if (WINDOW_HEIGHT_2 > WINDOW_HEIGHT)
-                {
-                    if (value > WINDOW_MIDDLE)
-                        value = value + ((WINDOW_HEIGHT_2 - WINDOW_HEIGHT) / 2);
-                    else
-                        value = value - ((WINDOW_HEIGHT_2 - WINDOW_HEIGHT) / 2);
-                }
-                if (value > -1 && value < (WINDOW_HEIGHT - PlayerSizes.Y) + 1)
-                {
                     playerY = value;
                     NotifyPropertyChanged("playerY");
-                }
             }
         }
 
@@ -156,15 +133,20 @@ namespace LabPong
             {
                 switch (items[0])
                 {
-                    case "shot": shots = 3; break;
-                    //case "ball_direction": BallS = new Point(-ballSpeed.X, ballSpeed.Y); break;
-                    //case "white_screen": break;
-                    case "invert": break;
-                    case "resize": break;
+                    //case "shot": shots = 3; break;
+                    case "ball_direction": communicator.UDPSend(Translator.encodeExtra("ball_direction")); break;
+                    case "white_screen": communicator.UDPSend(Translator.encodeExtra("white_screen")); break;
+                    case "invert": communicator.UDPSend(Translator.encodeExtra("invert")); break;
+                    case "resize": communicator.UDPSend(Translator.encodeExtra("resize")); break;
                 }
                 NotifyPropertyChanged("del");
                 items.RemoveAt(0);
             }
+        }
+
+        private void onTimer(object state)
+        {
+            invert = false;
         }
 
         public void incrementPosCounter()
@@ -186,10 +168,7 @@ namespace LabPong
         private void CustomListener_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals("Position"))
-            {
                 PlayerX = ((CustomListener)sender).Position.Y;
-                Console.WriteLine(playerX);
-            }
         }
 
         public void addItem(String item)
