@@ -34,6 +34,10 @@ namespace LabPong
             set { connected = value; }
         }
 
+        public Communicator()
+        {
+            GetIpAdresse(ref ipAdresse, Dns.GetHostName());
+        }
        
        public void Join(String ip)
         {
@@ -125,15 +129,21 @@ namespace LabPong
             if (socket != null) socket.Close();
             if (tcpListener != null) tcpListener.Stop();
         }
-        
+        public string ReturnIp()
+        {
+            return ipAdresse.ToString();
+        }
+
         private IPAddress GetIpAdresse(ref IPAddress ipAdresse, string hostName)
         {
             IPAddress[] ipAdressen = Dns.GetHostEntry(hostName).AddressList;
             foreach (IPAddress ip in ipAdressen)
+            {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
                     ipAdresse = ip; break;
                 }
+            }
             if (ipAdresse == null)
                 Console.WriteLine("Keine IPV4-IP auflösbar.");
             return ipAdresse;

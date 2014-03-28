@@ -26,7 +26,6 @@ namespace LabPong
         delegate void ChangeLabel(String message);
         delegate void Update(Point point);
         PreviousGames prev;
-
         public MainPage()
         {
             InitializeComponent();                    

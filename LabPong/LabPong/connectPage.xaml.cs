@@ -53,6 +53,7 @@ namespace LabPong
             InitializeComponent();
             App.CustomListener.PropertyChanged += _customListener_PropertyChanged;
             PointerAnimation.Sb.Completed += Animation_Completed;
+            initializeHostIp();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -60,7 +61,7 @@ namespace LabPong
             if (!enable) return;
             switch (((Button)sender).Name)
             {
-                case "hostClicked": new host(new PongManager(this).hostGame).BeginInvoke(null, null); break;
+                case "hostClicked": OnNotification(NotificationTyp.wait); new host(new PongManager(this).hostGame).BeginInvoke(null, null); break;
                 case "joinClicked": JoinClicked(); new join(new PongManager(this).joinGame).BeginInvoke(joinIP, null, null); break;
                 case "one": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
                 case "two": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
@@ -76,7 +77,16 @@ namespace LabPong
             }
 
         }
-
+        public void initializeHostIp()
+        {
+            Communicator com = new Communicator();
+            String ip = com.ReturnIp();
+            var ipParts = ip.Split('.');
+            userIPText1.Text = ipParts[0];
+            userIPText2.Text = ipParts[1];
+            userIPText3.Text = ipParts[2];
+            userIPText4.Text = ipParts[3];
+        }
         ////user enters own ip and hosts game
         //private void HostClicked()
         //{
