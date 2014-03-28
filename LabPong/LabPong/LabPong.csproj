@@ -97,6 +97,9 @@
     <Compile Include="AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChooseInt.xaml.cs">
+      <DependentUpon>ChooseInt.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Communicator.cs" />
     <Compile Include="ExitConfirmation.xaml.cs">
       <DependentUpon>ExitConfirmation.xaml</DependentUpon>
@@ -120,6 +123,10 @@
     </Compile>
     <Compile Include="Translator.cs" />
     <Page Include="AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChooseInt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

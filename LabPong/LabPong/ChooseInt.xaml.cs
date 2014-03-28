@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,28 +9,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace LabPong
 {
     /// <summary>
-    /// Interaction logic for OptionsPage.xaml
+    /// Interaction logic for ChooseInt.xaml
     /// </summary>
-    public partial class OptionsPage : Window
+    public partial class ChooseInt : Window
     {
         delegate void Update(Point point);
 
-        public OptionsPage()
+        public ChooseInt(String[] ip)
         {
             InitializeComponent();
-            username.Text = Properties.Settings.Default.Username;
-            List<String> options = new List<string>(2);
-            options.Add("Default");
-            options.Add("Custom");            
-            audio.ItemsSource = options;
-            audio.SelectedItem = Properties.Settings.Default.Track;
+            List<String> ips = new List<string>(ip);
+            IP.ItemsSource = ips;
+            IP.SelectedIndex = 0;
             App.CustomListener.PropertyChanged += _customListener_PropertyChanged;
-
         }
 
         private void _customListener_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -51,19 +46,20 @@ namespace LabPong
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (audio.IsMouseOver)
-                audio.SelectedIndex = (audio.SelectedIndex + 1) % 2;
-            if (username.IsMouseOver)
-                username.Focus();
-            if (back.IsMouseOver)
+            if (IP.IsMouseOver)
             {
-                Properties.Settings.Default.Username = username.Text;
-                Properties.Settings.Default.Track = (string)audio.SelectedItem;
+                if (IP.SelectedIndex < IP.Items.Count)
+                    IP.SelectedIndex = IP.SelectedIndex++;
+                else
+                    IP.SelectedIndex = IP.SelectedIndex--;
+            }
+            else
+            {
+                Properties.Settings.Default.IP = (string)IP.SelectedItem;
                 Properties.Settings.Default.Save();
                 this.Hide();
                 this.Close();
-                Application.Current.MainWindow.Visibility = Visibility.Visible ;
-            }            
-        }  
+            }
+        }
     }
 }

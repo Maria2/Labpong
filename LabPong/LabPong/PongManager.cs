@@ -23,10 +23,10 @@ namespace LabPong
             communicator = new Communicator();
         }
 
-        public void hostGame()
+        public void hostGame(String ip)
         {
             connectPage.Toggle_HostButton();
-            communicator.Host();            
+            communicator.Host(ip);            
             if (!communicator.Connected)
             {
                 connectPage.Toggle_HostButton();

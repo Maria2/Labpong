@@ -12,7 +12,8 @@ namespace LabPong
 {
     class Communicator
     {
-        IPAddress ipAdresse = null;
+        List<IPAddress> ipAdresse = new List<IPAddress>();
+        IPAddress hostIp;
         Socket socket;
         TcpListener tcpListener;
         IPEndPoint remoteIPEndPoint;
@@ -36,7 +37,7 @@ namespace LabPong
 
         public Communicator()
         {
-            GetIpAdresse(ref ipAdresse, Dns.GetHostName());
+            GetIpAdresse(ref hostIp, Dns.GetHostName());
         }
        
        public void Join(String ip)
@@ -46,8 +47,9 @@ namespace LabPong
            UDPReceive();
         }
 
-        public void Host()
+        public void Host(String ip)
         {
+            hostIp = IPAddress.Parse(ip);
             FTPReciever(); //start recieving
             UDPReceive();
         }
@@ -82,8 +84,7 @@ namespace LabPong
         {
             try
             {
-                GetIpAdresse(ref ipAdresse, Dns.GetHostName());
-                tcpListener = new TcpListener(ipAdresse, port);
+                tcpListener = new TcpListener(hostIp, port);
                 tcpListener.Start();
             }
             catch (Exception)
@@ -127,40 +128,22 @@ namespace LabPong
             if (socket != null) socket.Close();
             if (tcpListener != null) tcpListener.Stop();
         }
-        public string ReturnIp()
+        public string[] ReturnIp()
         {
-            return ipAdresse.ToString();
+            String[] ips = new string[ipAdresse.Count];
+            for (int i = 0; i < ipAdresse.Count; i++)
+                ips[i] = ipAdresse[i].ToString();
+            return ips;
         }
 
         private IPAddress GetIpAdresse(ref IPAddress ipAdresse, string hostName)
         {
-            //IPAddress[] ipAdressen = Dns.GetHostEntry(hostName).AddressList;
-            ////foreach (IPAddress ip in ipAdressen)
-            ////{
-            ////    if (ip.AddressFamily == AddressFamily.InterNetwork)
-            ////    {
-            ////        ipAdresse = ip; break;
-            ////    }
-            ////}
-            foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
+            IPAddress[] ipAdressen = Dns.GetHostEntry(hostName).AddressList;
+            foreach (IPAddress ip in ipAdressen)
             {
-                if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
-                {
-                    if (!ni.Name.ToLower().Contains("lan"))
-                        continue;
-
-                    foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
-                    {
-                        if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                        {
-                            ipAdresse = ip.Address;
-                            Console.WriteLine(ipAdresse);
-                        }
-                    }
-                }
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    this.ipAdresse.Add(ip);
             }
-            if (ipAdresse == null)
-                Console.WriteLine("Keine IPV4-IP auflösbar.");
             return ipAdresse;
         }
         public void UDPSend(String message)

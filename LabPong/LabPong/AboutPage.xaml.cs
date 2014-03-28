@@ -30,6 +30,7 @@ namespace LabPong
 
         private void _customListener_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            if (Visibility == Visibility.Hidden) return;
             if (e.PropertyName.Equals("Position"))
                 pointer.Dispatcher.Invoke(new Update(UpdateUI), ((CustomListener)sender).Position);
         }
@@ -43,6 +44,7 @@ namespace LabPong
 
         private void Animation_Completed(object sender, EventArgs e)
         {
+            this.Hide();
             this.Close();            
             Application.Current.MainWindow.Visibility = Visibility.Visible;
         }

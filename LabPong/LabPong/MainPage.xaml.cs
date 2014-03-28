@@ -26,7 +26,8 @@ namespace LabPong
     {
         delegate void ChangeLabel(String message);
         delegate void Update(Point point);
-        PreviousGames prev;
+        Boolean measure = true;
+
         public MainPage()
         {
             InitializeComponent();                    
@@ -36,7 +37,7 @@ namespace LabPong
 
         void _customListener_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (this.Visibility == Visibility.Hidden) return;
+            if (this.Visibility == Visibility.Hidden || !measure) return;
             switch (e.PropertyName)
             {
                 case "NothingTracked": 
@@ -78,20 +79,15 @@ namespace LabPong
         {
             switch (((Button)sender).Name)
             {
-                case "start_game": new ConnectPage().Show(); this.Visibility = Visibility.Hidden; break;
-                case "high_score": prev = new PreviousGames(); prev.Closing += prev_Closing;
-                    prev.Show(); this.Visibility = Visibility.Hidden; break;
-                case "options": new OptionsPage().Show(); break;
-                case "about": new AboutPage().Show(); this.Visibility = Visibility.Hidden; break;
-                case "exit": new ExitConfirmation().Show(); break;
+                case "start_game": this.Hide(); new ConnectPage().Show(); break;
+                case "high_score": this.Hide(); new PreviousGames().Show(); break;
+                case "options": measure = false; new OptionsPage().ShowDialog(); measure = true; break;
+                case "about": this.Hide(); new AboutPage().ShowDialog(); this.Show(); break;
+                case "exit": measure = false; new ExitConfirmation().ShowDialog(); measure = true; break;
             }
                             
         }
 
-        void prev_Closing(object sender, CancelEventArgs e)
-        {            
-            this.Visibility = Visibility.Visible;
-        }
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {

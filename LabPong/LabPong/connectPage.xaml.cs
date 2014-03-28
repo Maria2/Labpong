@@ -26,10 +26,10 @@ namespace LabPong
     {
         delegate void ChangeLabel(String message);
         delegate void Update(Point point);
-        delegate void host();
         delegate void hostbutton();
         delegate void join(String ip);
         Boolean enable = true;
+        private string hostIP;
 
         // checked ips used for connection
         private string joinIP;
@@ -61,7 +61,7 @@ namespace LabPong
             if (!enable) return;
             switch (((Button)sender).Name)
             {
-                case "hostClicked": OnNotification(NotificationTyp.wait); new host(new PongManager(this).hostGame).BeginInvoke(null, null); break;
+                case "hostClicked": OnNotification(NotificationTyp.wait); new join(new PongManager(this).hostGame).BeginInvoke(hostIP, null, null); break;
                 case "joinClicked": JoinClicked(); new join(new PongManager(this).joinGame).BeginInvoke(joinIP, null, null); break;
                 case "one": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
                 case "two": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
@@ -80,12 +80,19 @@ namespace LabPong
         public void initializeHostIp()
         {
             Communicator com = new Communicator();
-            String ip = com.ReturnIp();
-            var ipParts = ip.Split('.');
-            userIPText1.Text = ipParts[0];
-            userIPText2.Text = ipParts[1];
-            userIPText3.Text = ipParts[2];
-            userIPText4.Text = ipParts[3];
+            String[] ip = com.ReturnIp();
+            if (ip == null)
+            {
+                notificationText.Text = NotificationTyp.conFailed.ToString();
+                return;
+            }
+            ChooseInt chooseInt = new ChooseInt(ip);
+            chooseInt.ShowDialog();
+            hostIP = Properties.Settings.Default.IP;
+            userIPText1.Text = hostIP.Split('.')[0];
+            userIPText2.Text = hostIP.Split('.')[1];
+            userIPText3.Text = hostIP.Split('.')[2];
+            userIPText4.Text = hostIP.Split('.')[3];
         }
         ////user enters own ip and hosts game
         //private void HostClicked()
@@ -189,7 +196,7 @@ namespace LabPong
 
         public void Toggle_HostButton()
         {
-            hostClicked.Dispatcher.BeginInvoke(new host(toggleHost), null);
+            hostClicked.Dispatcher.BeginInvoke(new hostbutton(toggleHost), null);
         }
 
         private void toggleHost()
