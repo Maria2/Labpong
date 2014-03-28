@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace LabPong
 {
@@ -20,6 +22,7 @@ namespace LabPong
         private List<String> items = new List<string>(3);
         private int negCounter = 0;
         private int posCounter = 0;
+        static SoundPlayer player;
         private int shots = 0;
         private Boolean invert = false;
         private Communicator communicator;
@@ -126,6 +129,24 @@ namespace LabPong
             communicator.UDPSend(Translator.encodeExtra("WINDOW_HEIGHT|" + System.Windows.SystemParameters.PrimaryScreenHeight));
         }
 
+        public static void playAudio(String audio)
+        {
+            switch (audio)
+            {
+                case "ball_hit": 
+                    player = new SoundPlayer("resources/Ball-hits-player.wav");
+                    break;
+                case "defeat":
+                    player = new SoundPlayer("resources/Defeat.wav");
+                    break;
+                case "victory":
+                    player = new SoundPlayer("resources/Victory.wav");
+                    break;
+            }
+            player.Play();
+            player.Dispose(); 
+        }
+
         private void SpaceKeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Space) return;
@@ -153,8 +174,18 @@ namespace LabPong
         {
             NegCounter = 0;
             PosCounter++;
-            if (PosCounter % 2 == 0)
+            if (PosCounter % 2 == 0){
                 addItem(posItems[new Random().Next(posItems.Length)]);
+                player = new SoundPlayer("resources/2points.wav");
+                player.Play();
+                player.Dispose();
+            }
+            if (posCounter % 5 == 0)
+            {
+                player = new SoundPlayer("resources/5inarow.wav");
+                player.Play();
+                player.Dispose();
+            }
         }
 
         public void incrementNegCounter()
@@ -163,6 +194,9 @@ namespace LabPong
             NegCounter++;
             if (NegCounter % 3 == 0)
                 addItem(negItems[new Random().Next(negItems.Length)]);
+            player = new SoundPlayer("resources/Lose_point.wav");
+            player.Play();
+            player.Dispose();
         }
 
         private void CustomListener_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -175,7 +209,7 @@ namespace LabPong
         {
             if (items.Count < 3)
             {
-                items.Add(item);
+                items.Add(item);                
                 NotifyPropertyChanged("add:"+item);
             }
         }

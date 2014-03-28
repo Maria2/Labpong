@@ -202,6 +202,24 @@
     <Resource Include="resources\images\Leapong Logo.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="resources\5inarow.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="resources\Ball-hits-player.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\Defeat.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\Lose_point.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\Victory.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="resources\2points.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Resource Include="items\ball_direction.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

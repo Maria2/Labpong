@@ -75,10 +75,11 @@ namespace LabPong
                         case "white_screen":  break;
                         case "invert": PongModel.pongModel.Invert = true; break;
                         case "resize": break;
-                    }                
-                    if (commands[1].Equals("WINDOW_HEIGHT")) ;
-                    String ext = commands[1];
-                    break;                    
+                        case "ball_hit": PongModel.playAudio("ball_hit"); break;
+                        case "defeat": PongModel.playAudio("defeat"); break;
+                        case "victory": PongModel.playAudio("victory"); break;
+                    }   
+                    break;
             }
             return true;
         }

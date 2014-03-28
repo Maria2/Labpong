@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Media;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,7 +31,7 @@ namespace LabPong
         {
             InitializeComponent();                    
             App.CustomListener.PropertyChanged += _customListener_PropertyChanged;
-            PointerAnimation.Sb.Completed += Animation_Completed;            
+            PointerAnimation.Sb.Completed += Animation_Completed;             
         }
 
         void _customListener_PropertyChanged(object sender, PropertyChangedEventArgs e)

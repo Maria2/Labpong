@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading;
 using System.Timers;
@@ -38,7 +39,7 @@ namespace LabPong
             InitializeDirectionIncrement();
             while (pongModel.PlayerXScore < 10 && pongModel.PlayerYScore < 10)
             {
-                Thread.Sleep(20);
+                Thread.Sleep(10);
                 pongModel.BallPos = new Point(pongModel.BallPos.X + ballSpeed.X * 10, pongModel.BallPos.Y + ballSpeed.Y * 10);
                 communicator.UDPSend(Translator.encodeBallPosition(new Point(PongModel.WINDOW_WIDTH - pongModel.BallPos.X, pongModel.BallPos.Y)));
                 CheckCollision();
@@ -46,6 +47,10 @@ namespace LabPong
             String highscore = new DateTime().ToShortDateString()+" "
                 +Properties.Settings.Default.Username+" "+pongModel.PlayerXScore+":"+pongModel.PlayerYScore+" "+Communicator.player2;
             communicator.UDPSend(Translator.encodeGameEnd(highscore));
+            if (pongModel.PlayerXScore > pongModel.PlayerYScore)
+                play("victory");
+            else
+                play("defeat");
             StreamWriter file = new StreamWriter("resources/highscore.txt", true);
             file.WriteLine(highscore); file.Flush(); file.Close();
             communicator.Connected = false;
@@ -59,16 +64,44 @@ namespace LabPong
               (Math.PI / 6.0);
             angle += random.Next(3) * (Math.PI / 2.0);
             ballSpeed = new Point(Math.Sin(angle), -Math.Cos(angle));
-        }        
+        }
+
+        private void play(String audio)
+        {
+            SoundPlayer player = null;
+            switch (audio)
+            {
+                case "ball_hit":
+                    player = new SoundPlayer("resources/Ball-hits-player.wav");
+                    communicator.UDPSend(Translator.encodeExtra("ball_hit"));
+                    break;
+                case "defeat":
+                    player = new SoundPlayer("resources/Defeat.wav");
+                    communicator.UDPSend(Translator.encodeExtra("victory"));
+                    break;
+                case "victory":
+                    player = new SoundPlayer("resources/Victory.wav");
+                    communicator.UDPSend(Translator.encodeExtra("defeat"));
+                    break;
+            }
+            player.Play();
+            player.Dispose(); 
+        }
 
         private void CheckCollision()
         {
             if (new Rect(pongModel.BallPos.X, pongModel.BallPos.Y, PongModel.BallSize.X, PongModel.BallSize.Y).
                 IntersectsWith(new Rect(0, pongModel.PlayerX, PongModel.PlayerSizes.X, PongModel.PlayerSizes.Y)))
-                    ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
+            {
+                ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
+                play("ball_hit");
+            }
             if (new Rect(pongModel.BallPos.X, pongModel.BallPos.Y, PongModel.BallSize.X, PongModel.BallSize.Y).
                 IntersectsWith(new Rect(PongModel.WINDOW_WIDTH - PongModel.PlayerSizes.X, pongModel.PlayerY, PongModel.PlayerSizes.X, PongModel.PlayerSizes.Y)))
-                    ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
+            {
+                ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
+                play("ball_hit");
+            }
             if (pongModel.BallPos.X < 0)
             {
                 pongModel.PlayerYScore++;                
