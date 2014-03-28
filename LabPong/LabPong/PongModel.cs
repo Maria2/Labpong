@@ -41,7 +41,7 @@ namespace LabPong
         public Boolean Invert
         {
             set {
-                if (value == true) new Timer(onTimer, null, 3000, Timeout.Infinite).Change(3000, Timeout.Infinite);
+                if (value == true) new Timer(onTimer, null, 3000, Timeout.Infinite).Change(300, Timeout.Infinite);
                 invert = value;
             }
         }
@@ -77,7 +77,7 @@ namespace LabPong
             {
                 if (invert) value = -value;
                 value = (value * 4) + ((WINDOW_HEIGHT/2) - (PlayerSizes.Y / 2));                 
-                if (value > -1 && value < (WINDOW_HEIGHT - PlayerSizes.Y - PlayerSizes.Y/2) + 1)
+                if (value > -1 && value < (WINDOW_HEIGHT - PlayerSizes.Y) + 1)
                 {
                     communicator.UDPSend(Translator.encodePlayerPosition(value));
                     playerX = value;                    
