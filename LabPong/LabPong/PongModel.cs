@@ -276,7 +276,7 @@ namespace LabPong
             }
         }
 
-        private void NotifyPropertyChanged(String info)
+        public void NotifyPropertyChanged(String info)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(info));

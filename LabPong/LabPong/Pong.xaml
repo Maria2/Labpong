@@ -1,7 +1,7 @@
 ﻿<Window x:Class="LabPong.Pong"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Pong" Height="768" Width="1024" Style="{DynamicResource window_template}" Background="Black" Cursor="None">
+        Title="Pong" Height="768" Width="{Binding Width}" Style="{DynamicResource window_template}" Background="Black" Cursor="None">
     <Canvas>
         <StackPanel Width="60" Height="15" Canvas.Left="378" Canvas.Top="728" Name="playerX_item" Orientation="Horizontal">
         </StackPanel>
