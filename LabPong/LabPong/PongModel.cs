@@ -5,7 +5,7 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Threading;
-using System.Timers.Timer;
+using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;

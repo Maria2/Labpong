@@ -24,6 +24,7 @@ namespace LabPong
         public ChooseInt(String[] ip)
         {
             InitializeComponent();
+            Cursor = Cursors.None;
             List<String> ips = new List<string>(ip);
             IP.ItemsSource = ips;
             IP.SelectedIndex = 0;
@@ -37,6 +38,14 @@ namespace LabPong
                 pointer.Dispatcher.Invoke(new Update(UpdateUI), ((CustomListener)sender).Position);
         }
 
+        // raised when the mouse pointer moves. 
+        // moves the Ellipse when the mouse moves. 
+        private void Canvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            Canvas.SetLeft(pointer, e.GetPosition(this).X);
+            Canvas.SetTop(pointer, e.GetPosition(this).Y);
+        }
+
         private void UpdateUI(Point point)
         {
             Canvas.SetLeft(pointer, (this.ActualWidth / 2 + 120) + (point.X * 3));
@@ -47,12 +56,7 @@ namespace LabPong
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
             if (IP.IsMouseOver)
-            {
-                if (IP.SelectedIndex < IP.Items.Count)
-                    IP.SelectedIndex = IP.SelectedIndex++;
-                else
-                    IP.SelectedIndex = IP.SelectedIndex--;
-            }
+                IP.SelectedIndex = (IP.SelectedIndex + 1) % IP.Items.Count;
             else
             {
                 Properties.Settings.Default.IP = (string)IP.SelectedItem;
