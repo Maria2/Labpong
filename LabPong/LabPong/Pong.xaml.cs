@@ -104,10 +104,13 @@ namespace LabPong
                 PongModel.WINDOW_HEIGHT = ActualHeight;
                 PongModel.WINDOW_WIDTH = ActualWidth;
                 PongModel.PlayerSizes = new Point((ActualWidth / 1360) * 15, ActualHeight / 5);
+                PongModel.BallSize = new Point((ActualWidth / 1360) * 50, (ActualHeight / 1360) * 50);
                 Player.Width = PongModel.PlayerSizes.X;
                 Enemy.Width = PongModel.PlayerSizes.X;
                 Player.Height = PongModel.PlayerSizes.Y;
                 Enemy.Height = PongModel.PlayerSizes.Y;
+                Ball.Width = PongModel.BallSize.X;
+                Ball.Height = PongModel.BallSize.Y;
                 PongModel.pongModel.SendPos();
             }
             return base.ArrangeOverride(arrangeBounds);
