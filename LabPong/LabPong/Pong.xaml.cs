@@ -108,6 +108,7 @@ namespace LabPong
                 Enemy.Width = PongModel.PlayerSizes.X;
                 Player.Height = PongModel.PlayerSizes.Y;
                 Enemy.Height = PongModel.PlayerSizes.Y;
+                PongModel.pongModel.SendPos();
             }
             return base.ArrangeOverride(arrangeBounds);
         }
