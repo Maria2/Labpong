@@ -63,20 +63,20 @@
                     <RowDefinition Height="30*"/>
                     <RowDefinition Height="10*"/>
                 </Grid.RowDefinitions>
-                <Button Height="40" Width="40"  Grid.Row="0" Name="one"  Margin="-100,20,0,100" Content="1" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
-                <Button Height="40" Width="40"  Grid.Row="0" Name="two"  Margin="0,20,0,100" Content="2" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
-                <Button Height="40" Width="40"  Grid.Row="0" Name="three"  Margin="100,20,0,100" Content="3" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
+                <Button Height="60" Width="60"  Grid.Row="0" Name="one"  Content="1" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter" Margin="10,10,225,122"/>
+                <Button Height="60" Width="60"   Grid.Row="0" Name="two"  Margin="78,10,157,122" Content="2" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
+                <Button Height="60" Width="60"   Grid.Row="0" Name="three"  Margin="136,10,77,122" Content="3" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
 
-                <Button Height="40" Width="40"  Grid.Row="0" Name="four"  Margin="-100,20,0,0" Content="4" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
-                <Button Height="40" Width="40"  Grid.Row="0" Name="five"  Margin="0,20,0,0" Content="5" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
-                <Button Height="40" Width="40"  Grid.Row="0" Name="six"  Margin="100,20,0,0" Content="6" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
+                <Button Height="60" Width="60"  Grid.Row="0" Name="four"  Margin="10,76,225,56" Content="4" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
+                <Button Height="60" Width="60"  Grid.Row="0" Name="five"  Margin="78,76,157,56" Content="5" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
+                <Button Height="60" Width="60"  Grid.Row="0" Name="six"  Margin="147,76,88,56" Content="6" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
 
-                <Button Height="40" Width="40" Grid.Row="0" Name="seven"  Margin="-100,20,0,-100" Content="7" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
-                <Button Height="40" Width="40" Grid.Row="0" Name="eight"  Margin="0,20,0,-100" Content="8" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
-                <Button Height="40" Width="40" Grid.Row="0" Name="nine"  Margin="100,20,0,-100" Content="9" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
-                <Button Height="40" Width="40" Grid.Row="0" Name="null"  Margin="78,186,177,31" Content="0" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter" Grid.RowSpan="2"/>
+                <Button Height="60" Width="60" Grid.Row="0" Name="seven"  Margin="10,141,225,55" Content="7" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter" Grid.RowSpan="2"/>
+                <Button Height="60" Width="60" Grid.Row="0" Name="eight"  Margin="78,141,157,55" Content="8" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter" Grid.RowSpan="2"/>
+                <Button Height="60" Width="60" Grid.Row="0" Name="nine"  Margin="148,141,87,55" Content="9" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter" Grid.RowSpan="2"/>
+                <Button Height="60" Width="60" Grid.Row="1" Name="null"  Margin="78,14,157,-10" Content="0" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter"/>
 
-                <Button Height="40" Width="70" Name="delete"  Margin="148,186,77,31" Content="delete" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter" Grid.RowSpan="2"/>
+                <Button Height="40" Width="70" Name="delete"  Margin="215,24,10,0" Content="delete" Style="{DynamicResource smallButton_temp}" MouseEnter="Number_MouseEnter" Grid.Row="1"/>
 
 
             </Grid>
