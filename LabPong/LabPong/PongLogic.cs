@@ -34,17 +34,22 @@ namespace LabPong
             new NoArgDelegate(StartGame).BeginInvoke(null, null);
         }
 
+        private void sendBallPos()
+        {
+            communicator.UDPSend(Translator.encodeBallPosition(new Point(PongModel.WINDOW_WIDTH_Y - (pongModel.BallPos.X *(PongModel.WINDOW_WIDTH_Y / PongModel.WINDOW_WIDTH)), pongModel.BallPos.Y)));
+        }
+
         private void StartGame()
         {
             while (!GameStarted) ;            
-            pongModel.BallPos = new Point((PongModel.WINDOW_WIDTH / 2) - (PongModel.BallSize.X / 2), (PongModel.WINDOW_HEIGHT / 2) - (PongModel.BallSize.Y / 2));            
-            communicator.UDPSend(Translator.encodeBallPosition(pongModel.BallPos));
+            pongModel.BallPos = new Point((PongModel.WINDOW_WIDTH / 2) - (PongModel.BallSize.X / 2), (PongModel.WINDOW_HEIGHT / 2) - (PongModel.BallSize.Y / 2));
+            sendBallPos();
             InitializeDirectionIncrement();
             while (pongModel.PlayerXScore < 10 && pongModel.PlayerYScore < 10)
             {
                 Thread.Sleep(timeout);
                 pongModel.BallPos = new Point(pongModel.BallPos.X + ballSpeed.X * 10, pongModel.BallPos.Y + ballSpeed.Y * 10);
-                communicator.UDPSend(Translator.encodeBallPosition(new Point(PongModel.WINDOW_WIDTH - pongModel.BallPos.X, pongModel.BallPos.Y)));
+                sendBallPos();
                 CheckCollision();
             }
             String highscore = new DateTime().ToString()+" Datum "
@@ -127,14 +132,14 @@ namespace LabPong
             if (pongModel.BallPos.Y < 0)
             {
                 pongModel.BallPos = new Point(pongModel.BallPos.X, 0);
-                communicator.UDPSend(Translator.encodeBallPosition(pongModel.BallPos));
+                sendBallPos();
                 ballSpeed = new Point(ballSpeed.X, -ballSpeed.Y);
             }
 
             if (pongModel.BallPos.Y > PongModel.WINDOW_HEIGHT - PongModel.BallSize.Y)
             {
                 pongModel.BallPos = new Point(pongModel.BallPos.X, PongModel.WINDOW_HEIGHT - PongModel.BallSize.Y);
-                communicator.UDPSend(Translator.encodeBallPosition(pongModel.BallPos));
+                sendBallPos();
                 ballSpeed = new Point(ballSpeed.X, -ballSpeed.Y);
             }
         }
@@ -142,7 +147,7 @@ namespace LabPong
         private void ResetBall()
         {
             pongModel.BallPos = new Point((PongModel.WINDOW_WIDTH / 2) - (PongModel.BallSize.X / 2), (PongModel.WINDOW_HEIGHT / 2) - (PongModel.BallSize.Y / 2));
-            communicator.UDPSend(Translator.encodeBallPosition(pongModel.BallPos));
+            sendBallPos();
             communicator.UDPSend(Translator.encodeScore(pongModel.PlayerXScore,pongModel.PlayerYScore));
             if ((pongModel.PlayerXScore + pongModel.PlayerYScore) > 8)
                 timeout = 15;
