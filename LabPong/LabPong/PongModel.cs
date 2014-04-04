@@ -5,9 +5,11 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Threading;
+using System.Timers.Timer;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace LabPong
 {
@@ -16,15 +18,18 @@ namespace LabPong
         #region private variables
         private Point ballPos = new Point(300, 500);        
         private double playerX;
-        private double playerY;        
+        private double playerY;
+        private Boolean freeze = false;
         private int playerXScore;
         private int playerYScore;
         private List<String> items = new List<string>(3);
         private int negCounter = 0;
         private int posCounter = 0;
         static SoundPlayer player;
-        private int shots = 0;
         private Boolean invert = false;
+        private double resizeX = 0;
+        private double resizeY = 0;        
+        private delegate void VoidMethod(bool identifier);
         private Communicator communicator;
         #endregion
         #region static variables
@@ -33,18 +38,22 @@ namespace LabPong
         public static double WINDOW_WIDTH;
         public static Point BallSize = new Point(50,50);
         public static Point PlayerSizes;
-        public static String[] posItems = { "shot", "ball_direction" };
-        public static String[] negItems = { "white_screen", "invert", "resize" };
+        public static String[] posItems = { "resize" };
+        public static String[] negItems = { "white_screen", "invert", "freeze" };
         #endregion
         #region Properties
 
-        public Boolean Invert
+        public double ResizeX
         {
-            set {
-                if (value == true) new Timer(onTimer, null, 3000, Timeout.Infinite).Change(300, Timeout.Infinite);
-                invert = value;
-            }
+            get { return resizeX; }
+            set { resizeX = value; }
         }
+
+        public double ResizeY
+        {
+            get { return resizeY; }
+            set { resizeY = value; }
+        }        
 
         public int PlayerXScore
         {
@@ -53,7 +62,7 @@ namespace LabPong
             {
                 if (value == playerXScore) return;
                 playerXScore = value;
-                incrementPosCounter();
+                IncrementPosCounter();
                 NotifyPropertyChanged("playerXScore");
             }
         }        
@@ -65,7 +74,7 @@ namespace LabPong
             {
                 if (value == playerYScore) return;                
                 playerYScore = value;
-                incrementNegCounter();
+                IncrementNegCounter();
                 NotifyPropertyChanged("playerYScore");
             }
         }
@@ -75,6 +84,7 @@ namespace LabPong
             get { return playerX; }
             set
             {
+                if (freeze) return;
                 if (invert) value = -value;
                 value = (value * 4) + ((WINDOW_HEIGHT/2) - (PlayerSizes.Y / 2));                 
                 if (value > -1 && value < (WINDOW_HEIGHT - PlayerSizes.Y) + 1)
@@ -126,10 +136,60 @@ namespace LabPong
             this.communicator = communicator;
             EventManager.RegisterClassHandler(typeof(Window), Keyboard.KeyUpEvent, new KeyEventHandler(SpaceKeyUp), true);
             App.CustomListener.PropertyChanged += CustomListener_PropertyChanged;
-            communicator.UDPSend(Translator.encodeExtra("WINDOW_HEIGHT|" + System.Windows.SystemParameters.PrimaryScreenHeight));
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, new Random().Next(10,30));
+            dispatcherTimer.Start();        
         }
 
-        public static void playAudio(String audio)
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if (new Random().Next(2) == 0)
+                AddItem(posItems[new Random().Next(posItems.Length)]);
+            else
+                AddItem(negItems[new Random().Next(negItems.Length)]);
+        }
+
+        public void ResizePlayer(bool self)
+        {
+            if (self)
+            {
+                resizeX = (WINDOW_HEIGHT / 1360) * 20;
+                NotifyPropertyChanged("sizeX");
+                Thread.Sleep(5000);                
+                resizeX = 0;
+                NotifyPropertyChanged("sizeX");
+            }
+            else
+            {
+                resizeY = (WINDOW_HEIGHT / 1360) * 20;
+                NotifyPropertyChanged("sizeY");
+                Thread.Sleep(5000);
+                resizeY = 0;
+                NotifyPropertyChanged("sizeY");
+            }
+        }
+
+        public void ChangeColor()
+        {
+            NotifyPropertyChanged("white");
+        }
+
+        public void Freeze()
+        {
+            freeze = true;
+            Thread.Sleep(500);
+            freeze = false;
+        }
+
+        public void InvertMove()
+        {
+            invert = true;
+            Thread.Sleep(7000);
+            invert = false;
+        }
+
+        public static void PlayAudio(String audio)
         {
             switch (audio)
             {
@@ -154,28 +214,23 @@ namespace LabPong
             {
                 switch (items[0])
                 {
-                    //case "shot": shots = 3; break;
-                    case "ball_direction": communicator.UDPSend(Translator.encodeExtra("ball_direction")); break;
                     case "white_screen": communicator.UDPSend(Translator.encodeExtra("white_screen")); break;
+                    case "freeze": communicator.UDPSend(Translator.encodeExtra("freeze")); break;                            
                     case "invert": communicator.UDPSend(Translator.encodeExtra("invert")); break;
-                    case "resize": communicator.UDPSend(Translator.encodeExtra("resize")); break;
+                    case "resize": new VoidMethod(ResizePlayer).BeginInvoke(true, null, null);
+                        communicator.UDPSend(Translator.encodeExtra("resize")); break;
                 }
                 NotifyPropertyChanged("del");
                 items.RemoveAt(0);
             }
         }
 
-        private void onTimer(object state)
-        {
-            invert = false;
-        }
-
-        public void incrementPosCounter()
+        public void IncrementPosCounter()
         {
             NegCounter = 0;
             PosCounter++;
             if (PosCounter % 2 == 0){
-                addItem(posItems[new Random().Next(posItems.Length)]);
+                AddItem(posItems[new Random().Next(posItems.Length)]);
                 player = new SoundPlayer("resources/2points.wav");
                 player.Play();
                 player.Dispose();
@@ -188,12 +243,12 @@ namespace LabPong
             }
         }
 
-        public void incrementNegCounter()
+        public void IncrementNegCounter()
         {
             PosCounter = 0;
             NegCounter++;
             if (NegCounter % 3 == 0)
-                addItem(negItems[new Random().Next(negItems.Length)]);
+                AddItem(negItems[new Random().Next(negItems.Length)]);
             player = new SoundPlayer("resources/Lose_point.wav");
             player.Play();
             player.Dispose();
@@ -205,7 +260,7 @@ namespace LabPong
                 PlayerX = ((CustomListener)sender).Position.Y;
         }
 
-        public void addItem(String item)
+        public void AddItem(String item)
         {
             if (items.Count < 3)
             {
@@ -220,6 +275,6 @@ namespace LabPong
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;        
     }
 }

@@ -9,6 +9,9 @@ namespace LabPong
 {
     class Translator
     {
+        delegate void VoidMethod();
+        delegate void VoidMethod2(Boolean identifier);
+
         public static String encodePlayerPosition(double playerPosition)
         {
             //First one defines what kind of encoding this is, rest is only data
@@ -70,14 +73,14 @@ namespace LabPong
                     return false;
                 case "6":
                     switch (commands[1])
-                    {
-                        //case "ball_direction": PongModel.pongModel.BallPos = new Point(PongModel.pongModel.BallPos.X, - PongModel.pongModel.BallPos.X  break;
-                        case "white_screen":  break;
-                        case "invert": PongModel.pongModel.Invert = true; break;
-                        case "resize": break;
-                        case "ball_hit": PongModel.playAudio("ball_hit"); break;
-                        case "defeat": PongModel.playAudio("defeat"); break;
-                        case "victory": PongModel.playAudio("victory"); break;
+                    {                        
+                        case "white_screen": PongModel.pongModel.ChangeColor(); break;
+                        case "freeze": new VoidMethod(PongModel.pongModel.Freeze).BeginInvoke(null,null); break;                            
+                        case "invert": new VoidMethod(PongModel.pongModel.InvertMove).BeginInvoke(null,null); break;
+                        case "resize": new VoidMethod2(PongModel.pongModel.ResizePlayer).BeginInvoke(false, null, null); break;
+                        case "ball_hit": PongModel.PlayAudio("ball_hit"); break;
+                        case "defeat": PongModel.PlayAudio("defeat"); break;
+                        case "victory": PongModel.PlayAudio("victory"); break;
                     }   
                     break;
             }

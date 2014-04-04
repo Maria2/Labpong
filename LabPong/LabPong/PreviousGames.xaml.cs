@@ -40,7 +40,7 @@ namespace LabPong
 
         private void _customListener_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            
+            if (this.Visibility == Visibility.Hidden) return;
             if(e.PropertyName.Equals("Position"))
                 pointer.Dispatcher.Invoke(new Update(UpdateUI), ((CustomListener)sender).Position);
         }
@@ -66,7 +66,7 @@ namespace LabPong
 
         private void back_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.Dispatcher.BeginInvoke(new Action(this.Hide), null);
         }
     }
 }

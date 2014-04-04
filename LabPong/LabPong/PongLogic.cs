@@ -9,6 +9,7 @@ using System.Threading;
 using System.Timers;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace LabPong
 {
@@ -19,6 +20,7 @@ namespace LabPong
         delegate void NoArgDelegate();
         private Point ballSpeed = new Point(10, 0);
         Communicator communicator;
+        public int timeout = 20;
         #endregion
         #region static variables
         public static Boolean GameStarted;
@@ -28,7 +30,7 @@ namespace LabPong
         {
             pongModel = new PongModel(communicator);
             this.communicator = communicator;
-            new NoArgDelegate(StartGame).BeginInvoke(null, null);            
+            new NoArgDelegate(StartGame).BeginInvoke(null, null);
         }
 
         private void StartGame()
@@ -39,7 +41,7 @@ namespace LabPong
             InitializeDirectionIncrement();
             while (pongModel.PlayerXScore < 10 && pongModel.PlayerYScore < 10)
             {
-                Thread.Sleep(10);
+                Thread.Sleep(timeout);
                 pongModel.BallPos = new Point(pongModel.BallPos.X + ballSpeed.X * 10, pongModel.BallPos.Y + ballSpeed.Y * 10);
                 communicator.UDPSend(Translator.encodeBallPosition(new Point(PongModel.WINDOW_WIDTH - pongModel.BallPos.X, pongModel.BallPos.Y)));
                 CheckCollision();
@@ -71,17 +73,17 @@ namespace LabPong
             SoundPlayer player = null;
             switch (audio)
             {
-                case "ball_hit":
-                    player = new SoundPlayer("resources/Ball-hits-player.wav");
+                case "ball_hit":                    
                     communicator.UDPSend(Translator.encodeExtra("ball_hit"));
+                    player = new SoundPlayer("resources/Ball-hits-player.wav");
                     break;
-                case "defeat":
-                    player = new SoundPlayer("resources/Defeat.wav");
+                case "defeat":                    
                     communicator.UDPSend(Translator.encodeExtra("victory"));
+                    player = new SoundPlayer("resources/Defeat.wav");
                     break;
-                case "victory":
-                    player = new SoundPlayer("resources/Victory.wav");
+                case "victory":                    
                     communicator.UDPSend(Translator.encodeExtra("defeat"));
+                    player = new SoundPlayer("resources/Victory.wav");
                     break;
             }
             player.Play();
@@ -91,13 +93,13 @@ namespace LabPong
         private void CheckCollision()
         {
             if (new Rect(pongModel.BallPos.X, pongModel.BallPos.Y, PongModel.BallSize.X, PongModel.BallSize.Y).
-                IntersectsWith(new Rect(0, pongModel.PlayerX, PongModel.PlayerSizes.X, PongModel.PlayerSizes.Y)))
+                IntersectsWith(new Rect(0, pongModel.PlayerX, PongModel.PlayerSizes.X, PongModel.PlayerSizes.Y + pongModel.ResizeX)))
             {
                 ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
                 play("ball_hit");
             }
             if (new Rect(pongModel.BallPos.X, pongModel.BallPos.Y, PongModel.BallSize.X, PongModel.BallSize.Y).
-                IntersectsWith(new Rect(PongModel.WINDOW_WIDTH - PongModel.PlayerSizes.X, pongModel.PlayerY, PongModel.PlayerSizes.X, PongModel.PlayerSizes.Y)))
+                IntersectsWith(new Rect(PongModel.WINDOW_WIDTH - PongModel.PlayerSizes.X, pongModel.PlayerY, PongModel.PlayerSizes.X, PongModel.PlayerSizes.Y + pongModel.ResizeY)))
             {
                 ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
                 play("ball_hit");
@@ -133,7 +135,16 @@ namespace LabPong
             pongModel.BallPos = new Point((PongModel.WINDOW_WIDTH / 2) - (PongModel.BallSize.X / 2), (PongModel.WINDOW_HEIGHT / 2) - (PongModel.BallSize.Y / 2));
             communicator.UDPSend(Translator.encodeBallPosition(pongModel.BallPos));
             communicator.UDPSend(Translator.encodeScore(pongModel.PlayerXScore,pongModel.PlayerYScore));
+            if ((pongModel.PlayerXScore + pongModel.PlayerYScore) > 8)
+                timeout = 15;
+            if ((pongModel.PlayerXScore + pongModel.PlayerYScore) > 10)
+                timeout = 10;
+            if ((pongModel.PlayerXScore + pongModel.PlayerYScore) > 15)
+                timeout = 8;
+            if ((pongModel.PlayerXScore + pongModel.PlayerYScore) > 18)
+                timeout = 5;            
             InitializeDirectionIncrement();
         }
+        
     }
 }

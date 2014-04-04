@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
@@ -46,6 +48,19 @@ namespace LabPong
                 playerX_item.Dispatcher.BeginInvoke(new UpdateImage(AddItem), new object[] {e.PropertyName.Split(new char[]{':'})[1]});
             if (e.PropertyName.Equals("del"))
                 playerX_item.Dispatcher.BeginInvoke(new VoidMethod(DeleteItem), null);
+            if (e.PropertyName.Equals("white"))
+                Dispatcher.BeginInvoke(new VoidMethod(MakeWhite), null);
+            if (e.PropertyName.Equals("sizeX"))
+                Dispatcher.BeginInvoke(new Action(() => Player.Height = PongModel.PlayerSizes.Y + ((PongModel)sender).ResizeX));
+            if (e.PropertyName.Equals("sizeY"))
+                Dispatcher.BeginInvoke(new Action(() => Enemy.Height = PongModel.PlayerSizes.Y + ((PongModel)sender).ResizeY));
+        }
+
+        void MakeWhite()
+        {
+            Background = Brushes.White;
+            Thread.Sleep(1000);
+            Background = Brushes.Black;
         }
 
         void DeleteItem()
@@ -88,7 +103,9 @@ namespace LabPong
                 PongLogic.GameStarted = true;
                 PongModel.WINDOW_HEIGHT = ActualHeight;
                 PongModel.WINDOW_WIDTH = ActualWidth;
-                PongModel.PlayerSizes = new Point(15, ActualHeight / 5);
+                PongModel.PlayerSizes = new Point((ActualWidth / 1360) * 15, ActualHeight / 5);
+                Player.Width = PongModel.PlayerSizes.X;
+                Enemy.Width = PongModel.PlayerSizes.X;
                 Player.Height = PongModel.PlayerSizes.Y;
                 Enemy.Height = PongModel.PlayerSizes.Y;
             }

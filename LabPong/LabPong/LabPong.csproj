@@ -118,9 +118,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SelectGameMode.xaml.cs">
-      <DependentUpon>SelectGameMode.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Translator.cs" />
     <Page Include="AboutPage.xaml">
       <SubType>Designer</SubType>
@@ -165,10 +162,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PreviousGames.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SelectGameMode.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
