@@ -16,7 +16,7 @@
             </ListBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <Button Name="back" Content="Back" Width="100" FontSize="20" Style="{DynamicResource button_temp}" MouseEnter="back_MouseEnter" Click="back_Click" />
+            <Button Name="back" Content="Back" Width="170" FontSize="20" Style="{DynamicResource button_temp}" MouseEnter="back_MouseEnter" Click="back_Click" Margin="0,-30,0,0" />
         </StackPanel>
         <Canvas Name="canvas">
             <Ellipse Style="{DynamicResource pointer_template}" Name="pointer"/>

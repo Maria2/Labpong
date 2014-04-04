@@ -49,7 +49,6 @@ namespace LabPong
             mainDispatcher.BeginInvoke(new DelegateVoid(connectPage.Hide), null);
             PongModel pongModel = new PongModel(communicator);
             mainDispatcher.BeginInvoke(new Action(() => this.CreatePongWindow()), null);
-            pongModel.SendPos();
             while (communicator.Connected) ;
             mainDispatcher.BeginInvoke(new DelegateVoid(pong.Close), null);
             mainDispatcher.BeginInvoke(new DelegateVoid(connectPage.Show), null);
