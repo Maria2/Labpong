@@ -104,7 +104,7 @@ namespace LabPong
                 PongModel.WINDOW_HEIGHT = ActualHeight;
                 PongModel.WINDOW_WIDTH = ActualWidth;
                 PongModel.PlayerSizes = new Point((ActualWidth / 1360) * 15, ActualHeight / 5);
-                PongModel.BallSize = new Point((ActualWidth / 1360) * 50, (ActualHeight / 1360) * 50);
+                PongModel.BallSize = new Point((ActualWidth / 1360) * 50, (ActualHeight / 768) * 50);
                 Player.Width = PongModel.PlayerSizes.X;
                 Enemy.Width = PongModel.PlayerSizes.X;
                 Player.Height = PongModel.PlayerSizes.Y;
