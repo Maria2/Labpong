@@ -81,6 +81,10 @@ namespace LabPong
                         case "ball_hit": PongModel.PlayAudio("ball_hit"); break;
                         case "defeat": PongModel.PlayAudio("defeat"); break;
                         case "victory": PongModel.PlayAudio("victory"); break;
+                        case "sizes": 
+                            PongModel.WINDOW_HEIGHT_Y = double.Parse(commands[2]); 
+                            PongModel.WINDOW_WIDTH_Y = double.Parse(commands[3]); 
+                            break;
                     }   
                     break;
             }

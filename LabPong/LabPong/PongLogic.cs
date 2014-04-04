@@ -21,6 +21,7 @@ namespace LabPong
         private Point ballSpeed = new Point(10, 0);
         Communicator communicator;
         public int timeout = 20;
+        Boolean collision = false;
         #endregion
         #region static variables
         public static Boolean GameStarted;
@@ -35,7 +36,7 @@ namespace LabPong
 
         private void StartGame()
         {
-            while (!GameStarted) ;
+            while (!GameStarted) ;            
             pongModel.BallPos = new Point((PongModel.WINDOW_WIDTH / 2) - (PongModel.BallSize.X / 2), (PongModel.WINDOW_HEIGHT / 2) - (PongModel.BallSize.Y / 2));            
             communicator.UDPSend(Translator.encodeBallPosition(pongModel.BallPos));
             InitializeDirectionIncrement();
@@ -46,7 +47,7 @@ namespace LabPong
                 communicator.UDPSend(Translator.encodeBallPosition(new Point(PongModel.WINDOW_WIDTH - pongModel.BallPos.X, pongModel.BallPos.Y)));
                 CheckCollision();
             }
-            String highscore = new DateTime().ToShortDateString()+" "
+            String highscore = new DateTime().ToString()+" Datum "
                 +Properties.Settings.Default.Username+" "+pongModel.PlayerXScore+":"+pongModel.PlayerYScore+" "+Communicator.player2;
             communicator.UDPSend(Translator.encodeGameEnd(highscore));
             if (pongModel.PlayerXScore > pongModel.PlayerYScore)
@@ -92,18 +93,26 @@ namespace LabPong
 
         private void CheckCollision()
         {
-            if (new Rect(pongModel.BallPos.X, pongModel.BallPos.Y, PongModel.BallSize.X, PongModel.BallSize.Y).
-                IntersectsWith(new Rect(0, pongModel.PlayerX, PongModel.PlayerSizes.X, PongModel.PlayerSizes.Y + pongModel.ResizeX)))
+            if (!collision)
             {
-                ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
-                play("ball_hit");
+                if (new Rect(pongModel.BallPos.X, pongModel.BallPos.Y, PongModel.BallSize.X, PongModel.BallSize.Y).
+                    IntersectsWith(new Rect(0, pongModel.PlayerX, PongModel.PlayerSizes.X, PongModel.PlayerSizes.Y + pongModel.ResizeX)))
+                {
+                    ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
+                    play("ball_hit");
+                    collision = true;
+                }
+                if (new Rect(pongModel.BallPos.X, pongModel.BallPos.Y, PongModel.BallSize.X, PongModel.BallSize.Y).
+                    IntersectsWith(new Rect(PongModel.WINDOW_WIDTH - PongModel.PlayerSizes.X, pongModel.PlayerY, PongModel.PlayerSizes.X, PongModel.PlayerSizes.Y + pongModel.ResizeY)))
+                {
+                    ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
+                    play("ball_hit");
+                    collision = true;
+                }
             }
-            if (new Rect(pongModel.BallPos.X, pongModel.BallPos.Y, PongModel.BallSize.X, PongModel.BallSize.Y).
-                IntersectsWith(new Rect(PongModel.WINDOW_WIDTH - PongModel.PlayerSizes.X, pongModel.PlayerY, PongModel.PlayerSizes.X, PongModel.PlayerSizes.Y + pongModel.ResizeY)))
-            {
-                ballSpeed = new Point(-ballSpeed.X, ballSpeed.Y);
-                play("ball_hit");
-            }
+            else
+                collision = false;
+            
             if (pongModel.BallPos.X < 0)
             {
                 pongModel.PlayerYScore++;                

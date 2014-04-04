@@ -36,6 +36,8 @@ namespace LabPong
         public static PongModel pongModel;        
         public static double WINDOW_HEIGHT;
         public static double WINDOW_WIDTH;
+        public static double WINDOW_WIDTH_Y = 0;
+        public static double WINDOW_HEIGHT_Y = 0;
         public static Point BallSize = new Point(50,50);
         public static Point PlayerSizes;
         public static String[] posItems = { "resize" };
@@ -138,8 +140,8 @@ namespace LabPong
             App.CustomListener.PropertyChanged += CustomListener_PropertyChanged;
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, new Random().Next(10,30));
-            dispatcherTimer.Start();        
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 30);
+            dispatcherTimer.Start();            
         }
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
@@ -241,6 +243,11 @@ namespace LabPong
                 player.Play();
                 player.Dispose();
             }
+        }
+
+        public void SendPos()
+        {
+            communicator.UDPSend(Translator.encodeExtra("sizes|" + WINDOW_HEIGHT + "|" + WINDOW_WIDTH));
         }
 
         public void IncrementNegCounter()

@@ -229,7 +229,7 @@
     <Resource Include="items\resize.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="items\shot.png">
+    <Resource Include="items\freeze.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="items\white_screen.png">
