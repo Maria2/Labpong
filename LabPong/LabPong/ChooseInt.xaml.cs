@@ -20,6 +20,7 @@ namespace LabPong
     public partial class ChooseInt : Window
     {
         delegate void Update(Point point);
+        bool measure = true;
 
         public ChooseInt(String[] ip)
         {
@@ -33,7 +34,7 @@ namespace LabPong
 
         private void _customListener_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (Visibility == Visibility.Hidden) return;
+            if (!measure) return;
             if (e.PropertyName == "Position")
                 pointer.Dispatcher.Invoke(new Update(UpdateUI), ((CustomListener)sender).Position);
         }
@@ -48,9 +49,9 @@ namespace LabPong
 
         private void UpdateUI(Point point)
         {
-            Canvas.SetLeft(pointer, (this.ActualWidth / 2 + 120) + (point.X * 3));
-            Canvas.SetTop(pointer, (this.ActualHeight / 2) + (point.Y * 3));
-            App.SetCursorPos((int)((this.ActualWidth / 2 + 100) + (point.X * 3)), (int)((this.ActualHeight / 2) + (point.Y * 3)));
+            Canvas.SetLeft(pointer, Left + (point.X * 3));
+            Canvas.SetTop(pointer, Top + (Math.Abs(point.Y) * 3));
+            App.SetCursorPos((int)(Left + (point.X * 3)), (int)(Top + (Math.Abs(point.Y) * 3)));
         }
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
@@ -61,8 +62,8 @@ namespace LabPong
             {
                 Properties.Settings.Default.IP = (string)IP.SelectedItem;
                 Properties.Settings.Default.Save();
-                this.Hide();
-                this.Close();
+                this.Dispatcher.BeginInvoke(new Action(() => measure = false), null);
+                this.Dispatcher.BeginInvoke(new Action(this.Close), null); 
             }
         }
     }

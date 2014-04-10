@@ -20,6 +20,7 @@ namespace LabPong
     public partial class AboutPage : Window
     {
         delegate void Update(Point point);
+        Boolean measure = true;
 
         public AboutPage()
         {
@@ -30,7 +31,7 @@ namespace LabPong
 
         private void _customListener_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (Visibility == Visibility.Hidden) return;
+            if (!measure) return;
             if (e.PropertyName.Equals("Position"))
                 pointer.Dispatcher.Invoke(new Update(UpdateUI), ((CustomListener)sender).Position);
         }
@@ -44,9 +45,8 @@ namespace LabPong
 
         private void Animation_Completed(object sender, EventArgs e)
         {
-            this.Hide();
-            this.Close();            
-            Application.Current.MainWindow.Visibility = Visibility.Visible;
+            this.Dispatcher.BeginInvoke(new Action(() => measure = false), null);
+            this.Dispatcher.BeginInvoke(new Action(this.Close), null); 
         }
 
         private void Canvas_MouseMove(object sender, MouseEventArgs e)

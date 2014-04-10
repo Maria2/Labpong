@@ -21,6 +21,7 @@ namespace LabPong
     public partial class PreviousGames : Window
     {
         List<String> file;
+        Boolean measure = true;
         delegate void Update(Point point);
 
         public PreviousGames()
@@ -35,12 +36,13 @@ namespace LabPong
 
         private void Animation_Completed(object sender, EventArgs e)
         {
-            this.Close();  
+            this.Dispatcher.BeginInvoke(new Action(() => measure = false), null);
+            this.Dispatcher.BeginInvoke(new Action(this.Close), null); 
         }
 
         private void _customListener_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (this.Visibility == Visibility.Hidden) return;
+            if (!measure) return;
             if(e.PropertyName.Equals("Position"))
                 pointer.Dispatcher.Invoke(new Update(UpdateUI), ((CustomListener)sender).Position);
         }
@@ -65,8 +67,9 @@ namespace LabPong
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.BeginInvoke(new Action(this.Hide), null);
+        {            
+            this.Dispatcher.BeginInvoke(new Action( () => measure = false), null);
+            this.Dispatcher.BeginInvoke(new Action(this.Close), null);
         }
     }
 }

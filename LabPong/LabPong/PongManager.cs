@@ -32,7 +32,7 @@ namespace LabPong
                 connectPage.Toggle_HostButton();
                 return;
             }
-            connectPage.Dispatcher.BeginInvoke(new DelegateVoid(connectPage.Hide), null);
+            connectPage.Dispatcher.BeginInvoke(new DelegateVoid(connectPage.Close), null);
             PongLogic ponglogic = new PongLogic(communicator);
             mainDispatcher.BeginInvoke(new Action(() => this.CreatePongWindow()), null);
             while (communicator.Connected) ;
@@ -49,7 +49,7 @@ namespace LabPong
                 connectPage.Toggle_HostButton();
                 return;
             }
-            mainDispatcher.BeginInvoke(new DelegateVoid(connectPage.Hide), null);
+            mainDispatcher.BeginInvoke(new DelegateVoid(connectPage.Close), null);
             PongModel pongModel = new PongModel(communicator);
             mainDispatcher.BeginInvoke(new Action(() => this.CreatePongWindow()), null);
             while (communicator.Connected) ;

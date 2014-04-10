@@ -47,7 +47,7 @@ namespace LabPong
                     label.Dispatcher.Invoke(new ChangeLabel(UpdateLabel), ((CustomListener)sender).Position.ToString());                    
                     pointer.Dispatcher.Invoke(new Update(UpdateUI), ((CustomListener)sender).Position);
                     break;
-            }            
+            }
         }
 
         private void UpdateUI(Point point)
@@ -80,10 +80,10 @@ namespace LabPong
             switch (((Button)sender).Name)
             {
                 case "start_game": measure = false; this.Hide(); new ConnectPage().ShowDialog(); measure = true; this.Show(); break;
-                case "high_score": new PreviousGames().Show(); break;
-                case "options": measure = false; new OptionsPage().ShowDialog(); measure = true; break;
-                case "about": this.Hide(); new AboutPage().ShowDialog(); this.Show(); break;
-                case "exit": measure = false; new ExitConfirmation().ShowDialog(); measure = true; break;
+                case "high_score": this.Hide(); measure = false; new PreviousGames().ShowDialog(); this.Show(); measure = true; break;
+                case "options": measure = false; new OptionsPage().Show(); measure = true; break;
+                case "about": this.Hide(); new AboutPage().Show(); this.Show(); break;
+                case "exit": measure = false; new ExitConfirmation().Show(); measure = true; break;
             }
                             
         }

@@ -156,18 +156,18 @@ namespace LabPong
         {
             if (self)
             {
-                resizeX = (WINDOW_HEIGHT / 1360) * 20;
+                resizeX += (WINDOW_HEIGHT / 1360) * 20;
                 NotifyPropertyChanged("sizeX");
-                Thread.Sleep(5000);                
-                resizeX = 0;
+                Thread.Sleep(5000);
+                resizeX -= (WINDOW_HEIGHT / 1360) * 20;
                 NotifyPropertyChanged("sizeX");
             }
             else
             {
-                resizeY = (WINDOW_HEIGHT / 1360) * 20;
+                resizeY += (WINDOW_HEIGHT / 1360) * 20;
                 NotifyPropertyChanged("sizeY");
                 Thread.Sleep(5000);
-                resizeY = 0;
+                resizeY -= (WINDOW_HEIGHT / 1360) * 20;
                 NotifyPropertyChanged("sizeY");
             }
         }
