@@ -30,7 +30,13 @@ namespace LabPong
         delegate void join(String ip);
         Boolean enable = true;
         private string hostIP;
+        Boolean measure = true;
 
+        public Boolean Measure1
+        {
+            get { return measure; }
+            set { measure = value; }
+        }
         // checked ips used for connection
         private string joinIP;
 
@@ -61,8 +67,8 @@ namespace LabPong
             if (!enable) return;
             switch (((Button)sender).Name)
             {
-                case "hostClicked": OnNotification(NotificationTyp.wait); new join(new PongManager(this).hostGame).BeginInvoke(hostIP, null, null); break;
-                case "joinClicked": JoinClicked(); new join(new PongManager(this).joinGame).BeginInvoke(joinIP, null, null); break;
+                case "hostClicked": OnNotification(NotificationTyp.wait); new join(new PongManager(this).hostGame).BeginInvoke(hostIP, null, null); measure = false; break;
+                case "joinClicked": JoinClicked(); new join(new PongManager(this).joinGame).BeginInvoke(joinIP, null, null); measure = false; break;
                 case "one": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
                 case "two": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
                 case "three": numbers += ((Button)sender).Content; Override_ButtonText(ipServerField); break;
@@ -175,6 +181,7 @@ namespace LabPong
 
         void _customListener_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (!measure) return;
             switch (e.PropertyName)
             {
                 case "NothingTracked":

@@ -32,12 +32,12 @@ namespace LabPong
                 connectPage.Toggle_HostButton();
                 return;
             }
-            connectPage.Dispatcher.BeginInvoke(new DelegateVoid(connectPage.Close), null);
+            connectPage.Dispatcher.BeginInvoke(new Action(() => connectPage.Measure1 = false), null);
             PongLogic ponglogic = new PongLogic(communicator);
             mainDispatcher.BeginInvoke(new Action(() => this.CreatePongWindow()), null);
             while (communicator.Connected) ;
             mainDispatcher.BeginInvoke(new DelegateVoid(pong.Close), null);
-            mainDispatcher.BeginInvoke(new DelegateVoid(connectPage.Show), null);
+            connectPage.Dispatcher.BeginInvoke(new Action(() => connectPage.Measure1 = true), null);
         }
 
         public void joinGame(String ip)
@@ -49,12 +49,12 @@ namespace LabPong
                 connectPage.Toggle_HostButton();
                 return;
             }
-            mainDispatcher.BeginInvoke(new DelegateVoid(connectPage.Close), null);
+            connectPage.Dispatcher.BeginInvoke(new Action(() => connectPage.Measure1 = false), null);
             PongModel pongModel = new PongModel(communicator);
             mainDispatcher.BeginInvoke(new Action(() => this.CreatePongWindow()), null);
             while (communicator.Connected) ;
             mainDispatcher.BeginInvoke(new DelegateVoid(pong.Close), null);
-            mainDispatcher.BeginInvoke(new DelegateVoid(connectPage.Show), null);
+            connectPage.Dispatcher.BeginInvoke(new Action(() => connectPage.Measure1 = true), null);
         }
 
         private void CreatePongWindow()

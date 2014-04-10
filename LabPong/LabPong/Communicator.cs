@@ -59,7 +59,6 @@ namespace LabPong
         { 
             TcpClient tcpClient;
             Stream tcpStream;
-            const int maxBuffer = 100;
 
             tcpClient = new TcpClient(); 
             try
@@ -67,11 +66,9 @@ namespace LabPong
                 tcpClient.Connect(joinIP, port);
                 tcpStream = tcpClient.GetStream();
                 UTF8Encoding encoding = new UTF8Encoding();
-                byte[] ba = encoding.GetBytes(";"+username+";");
+                byte[] ba = encoding.GetBytes(username);
                 tcpStream.Write(ba, 0, ba.Length);
-                byte[] buffer = new byte[maxBuffer];
-                int gelesen = tcpStream.Read(buffer, 0, maxBuffer);
-                string empfangen = encoding.GetString(buffer, 0, gelesen);
+
                 tcpStream.Close();
                 tcpClient.Close();
             }
@@ -98,21 +95,15 @@ namespace LabPong
                 socket = tcpListener.AcceptSocket();
                 int received;
                 byte[] buffer;
-                string empfangen;
 
                 do
                 {
                     buffer = new byte[maxBuffer];
                     received = socket.Receive(buffer);
-                    if (received == 0)
-                    {
-                        // wenn der Client "" sendet, soll der Server beenden oder errormessage
-                    }
+                    
                     UTF8Encoding encoding = new UTF8Encoding();
-                    empfangen = encoding.GetString(buffer, 0, received);
-                    player2 = empfangen;
-                    string toSend = "ACK";
-                    socket.Send(encoding.GetBytes(toSend));
+                    player2 = encoding.GetString(buffer, 0, received);
+                                        
                     joinIP = (socket.RemoteEndPoint as IPEndPoint).Address;
                 }
                 while (received != 0);
@@ -181,6 +172,7 @@ namespace LabPong
                     connected = t.decode(new System.Text.ASCIIEncoding().GetString(content));
             }
             udpClientR.Close();
+            udpClientS.Close();
         }        
     }
 }
