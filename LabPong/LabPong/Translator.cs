@@ -83,7 +83,8 @@ namespace LabPong
                         case "victory": PongModel.PlayAudio("victory"); break;
                         case "sizes": 
                             PongModel.WINDOW_HEIGHT_Y = double.Parse(commands[2]); 
-                            PongModel.WINDOW_WIDTH_Y = double.Parse(commands[3]); 
+                            PongModel.WINDOW_WIDTH_Y = double.Parse(commands[3]);
+                            PongModel.pongModel.NotifyPropertyChanged("width");
                             break;
                     }   
                     break;

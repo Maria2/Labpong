@@ -54,6 +54,16 @@ namespace LabPong
                 Dispatcher.BeginInvoke(new Action(() => Player.Height = PongModel.PlayerSizes.Y + ((PongModel)sender).ResizeX));
             if (e.PropertyName.Equals("sizeY"))
                 Dispatcher.BeginInvoke(new Action(() => Enemy.Height = PongModel.PlayerSizes.Y + ((PongModel)sender).ResizeY));
+            if(e.PropertyName.Equals("width"))
+                Dispatcher.BeginInvoke(new VoidMethod(changeWidth), null);
+        }
+
+        void changeWidth()
+        {
+            if(PongModel.WINDOW_WIDTH > PongModel.WINDOW_WIDTH_Y) 
+                Width = PongModel.WINDOW_WIDTH_Y; 
+            else 
+                Width = PongModel.WINDOW_WIDTH;
         }
 
         void MakeWhite()
@@ -104,10 +114,14 @@ namespace LabPong
                 PongModel.WINDOW_HEIGHT = ActualHeight;
                 PongModel.WINDOW_WIDTH = ActualWidth;
                 PongModel.PlayerSizes = new Point((ActualWidth / 1360) * 15, ActualHeight / 5);
+                PongModel.BallSize = new Point((ActualWidth / 1360) * 50, (ActualHeight / 768) * 50);
                 Player.Width = PongModel.PlayerSizes.X;
                 Enemy.Width = PongModel.PlayerSizes.X;
                 Player.Height = PongModel.PlayerSizes.Y;
                 Enemy.Height = PongModel.PlayerSizes.Y;
+                Ball.Width = PongModel.BallSize.X;
+                Ball.Height = PongModel.BallSize.Y;
+                PongModel.pongModel.SendPos();
             }
             return base.ArrangeOverride(arrangeBounds);
         }

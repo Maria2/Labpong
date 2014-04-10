@@ -80,7 +80,7 @@ namespace LabPong
             switch (((Button)sender).Name)
             {
                 case "start_game": measure = false; this.Hide(); new ConnectPage().ShowDialog(); measure = true; this.Show(); break;
-                case "high_score": this.Hide(); new PreviousGames().Show(); break;
+                case "high_score": new PreviousGames().Show(); break;
                 case "options": measure = false; new OptionsPage().ShowDialog(); measure = true; break;
                 case "about": this.Hide(); new AboutPage().ShowDialog(); this.Show(); break;
                 case "exit": measure = false; new ExitConfirmation().ShowDialog(); measure = true; break;
