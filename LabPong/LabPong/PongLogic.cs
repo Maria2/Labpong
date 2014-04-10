@@ -36,7 +36,7 @@ namespace LabPong
 
         private void sendBallPos()
         {
-            communicator.UDPSend(Translator.encodeBallPosition(new Point(PongModel.WINDOW_WIDTH_Y - (pongModel.BallPos.X *(PongModel.WINDOW_WIDTH_Y / PongModel.WINDOW_WIDTH)), pongModel.BallPos.Y)));
+            communicator.UDPSend(Translator.encodeBallPosition(new Point(PongModel.WINDOW_WIDTH - (pongModel.BallPos.X *(PongModel.WINDOW_WIDTH_Y / PongModel.WINDOW_WIDTH)), pongModel.BallPos.Y)));
         }
 
         private void StartGame()
