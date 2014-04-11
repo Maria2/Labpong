@@ -61,9 +61,10 @@ namespace LabPong
         void changeWidth()
         {
             if(PongModel.WINDOW_WIDTH > PongModel.WINDOW_WIDTH_Y) 
-                Width = PongModel.WINDOW_WIDTH_Y; 
+                Width = PongModel.WINDOW_WIDTH_Y;                 
             else 
                 Width = PongModel.WINDOW_WIDTH;
+            InvalidateVisual();
         }
 
         void MakeWhite()
@@ -108,7 +109,7 @@ namespace LabPong
             Canvas.SetRight(Enemy, 0);
             Canvas.SetLeft(ScoreX, (ActualWidth / 2) - (ScoreX.ActualWidth / 2) - 60);
             Canvas.SetLeft(ScoreY, (ActualWidth / 2) - (ScoreY.ActualWidth / 2) + 60);
-            if (ActualHeight > 0 && ActualWidth > 0)
+            if (ActualHeight > 0 && ActualWidth > 0 && !PongLogic.GameStarted)
             {
                 PongLogic.GameStarted = true;
                 PongModel.WINDOW_HEIGHT = ActualHeight;

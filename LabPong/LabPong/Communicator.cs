@@ -102,8 +102,7 @@ namespace LabPong
                     received = socket.Receive(buffer);
                     
                     UTF8Encoding encoding = new UTF8Encoding();
-                    player2 = encoding.GetString(buffer, 0, received);
-                                        
+                    player2 = encoding.GetString(buffer, 0, received);                                        
                     joinIP = (socket.RemoteEndPoint as IPEndPoint).Address;
                 }
                 while (received != 0);

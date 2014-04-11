@@ -85,7 +85,6 @@ namespace LabPong
                 case "about": this.Hide(); new AboutPage().Show(); this.Show(); break;
                 case "exit": measure = false; new ExitConfirmation().Show(); measure = true; break;
             }
-                            
         }
 
 

@@ -52,7 +52,7 @@ namespace LabPong
                 sendBallPos();
                 CheckCollision();
             }
-            String highscore = new DateTime().ToString()+" Datum "
+            String highscore = DateTime.Now.ToString()+" "
                 +Properties.Settings.Default.Username+" "+pongModel.PlayerXScore+":"+pongModel.PlayerYScore+" "+Communicator.player2;
             communicator.UDPSend(Translator.encodeGameEnd(highscore));
             if (pongModel.PlayerXScore > pongModel.PlayerYScore)
