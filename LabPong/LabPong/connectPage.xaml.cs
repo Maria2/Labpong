@@ -211,6 +211,7 @@ namespace LabPong
             hostClicked.IsEnabled = !hostClicked.IsEnabled;
             joinClicked.IsEnabled = !joinClicked.IsEnabled;
             enable = !enable;
+            measure = !measure;
         }
 
         [DllImport("User32.dll")]

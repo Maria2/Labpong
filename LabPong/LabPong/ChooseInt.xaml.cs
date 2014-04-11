@@ -50,8 +50,8 @@ namespace LabPong
         private void UpdateUI(Point point)
         {
             Canvas.SetLeft(pointer, Left + (point.X * 3));
-            Canvas.SetTop(pointer, Top + (Math.Abs(point.Y) * 3));
-            App.SetCursorPos((int)(Left + (point.X * 3)), (int)(Top + (Math.Abs(point.Y) * 3)));
+            Canvas.SetTop(pointer, Top + (point.Y * 3));
+            App.SetCursorPos((int)(Left + (point.X * 3)), (int)(Top + (point.Y * 3)));
         }
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
